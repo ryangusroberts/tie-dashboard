@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Independent Executive · Vertical Motion</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="stylesheet" href="lesson.css">
+<style>
+  .subhead{background:var(--navy-mid,#0d2d40);color:#cfe0ea;font-size:13px;font-weight:600;text-align:center;padding:9px 16px}
+  .subhead b{color:#fff}
+  .dash{max-width:1000px;margin:0 auto;padding:0 24px}
+  .dialcard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin:26px 0;padding:26px 30px}
+  .dialcard h2{font-family:var(--font-display);font-weight:400;font-size:26px;color:var(--navy);margin:0 0 4px}
+  .dialcard p.sub{color:#4a5c6d;margin:0 0 6px;font-size:15px}
+  .trackpick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 4px}
+  .tp{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fbfdff;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s;display:block}
+  .tp:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(8,30,43,.13)}
+  .tp .h{padding:13px 16px;color:#fff}
+  .tp.C .h{background:linear-gradient(135deg,#2f8f57,#22683f)}
+  .tp.B .h{background:linear-gradient(135deg,#e08a2b,#b8641a)}
+  .tp.U .h{background:linear-gradient(135deg,#20a7e6,#0575ab)}
+  .tp .h b{display:block;font-size:17px;font-weight:800}
+  .tp .h span{font-size:12px;opacity:.92}
+  .tp .b{padding:11px 16px;font-size:13px;color:#42566a}
+  .lane{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin:22px 0;overflow:hidden}
+  .lane .lh{padding:16px 24px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .lane.F .lh{background:linear-gradient(135deg,#081e2b,#0d2d40)}
+  .lane.C .lh{background:linear-gradient(135deg,#2f8f57,#22683f)}
+  .lane.B .lh{background:linear-gradient(135deg,#e08a2b,#b8641a)}
+  .lane.U .lh{background:linear-gradient(135deg,#20a7e6,#0575ab)}
+  .lane .lh h3{margin:0;font-size:19px;font-weight:800}
+  .lane .lh .lt{font-size:12.5px;opacity:.92;font-weight:600}
+  .lane .lh .badge{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:4px 11px;border-radius:100px}
+  .rows{padding:8px 14px 14px}
+  .row{display:flex;align-items:center;gap:14px;padding:13px 12px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+  .row:last-child{border-bottom:0}
+  .row:hover{background:#f6fafd;border-radius:10px}
+  .row .idx{flex:none;width:34px;height:34px;border-radius:9px;background:var(--icy);color:var(--navy);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .row .m{flex:1;min-width:0}
+  .row .m b{display:block;font-size:15px;color:var(--navy);font-weight:700}
+  .row .m small{display:block;font-size:12.5px;color:#5a6b7a;line-height:1.45}
+  .chip2{flex:none;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+  .live{background:#e8f5ea;color:#2f6b43}
+  .prog{background:#fff2e2;color:#a35a17}
+  .row .go{flex:none;color:var(--blue-dk);font-weight:800;font-size:18px;opacity:.5}
+  .row:hover .go{opacity:1}
+  .infogrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+  .infocard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px}
+  .infocard h3{font-family:var(--font-display);font-weight:400;font-size:21px;color:var(--navy);margin:0 0 8px}
+  .infocard p,.infocard li{font-size:14px;color:#42566a}
+  .infocard ul{margin:6px 0 0;padding-left:18px}
+  .gauge{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .guaranteecard{background:linear-gradient(135deg,#f0f8fc,#eaf3f8);border:1px solid #d6e8f2;border-radius:var(--radius);padding:22px 26px;margin:22px 0}
+  .guaranteecard h3{font-family:var(--font-display);font-weight:400;font-size:22px;color:var(--navy);margin:0 0 6px}
+  .guaranteecard p{font-size:14.5px;color:#33475a;margin:0}
+  @media(max-width:760px){.trackpick{grid-template-columns:1fr}.infogrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><span>Vertical Motion</span></div></div>
+  <a class="back" href="https://community.vmleader.com" target="_blank" rel="noopener">Open the community &#8599;</a>
+</div>
+<div class="subhead">Career Free Agency &nbsp;·&nbsp; a <b>full year</b> in the program, at <b>your pace</b> &nbsp;·&nbsp; 4 group calls a week + the <b>AI Lab</b> &nbsp;·&nbsp; 1:1 coaching optional</div>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Your program</span>
+  <h1>One practice. Any direction.</h1>
+  <p class="sub">Build leverage from the expertise you already have, then point it wherever you need: stay and grow, bridge a gap, or build your own thing. Start with Foundations. Set your dial. Move at your own pace.</p>
+</div></header>
+
+<div class="dash">
+  <div class="dialcard">
+    <h2>Set your Income Dial</h2>
+    <p class="sub">Everyone runs the same practice. What changes is how far you turn the dial toward independence, and you can move it any time.</p>
+    <div class="figure" style="margin:14px 0 6px;text-align:center">
+      <svg viewBox="0 0 820 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Income Dial" style="max-width:100%;height:auto">
+        <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2f8f57"/><stop offset="0.5" stop-color="#e08a2b"/><stop offset="1" stop-color="#0575ab"/></linearGradient></defs>
+        <rect x="60" y="92" width="700" height="18" rx="9" fill="url(#dg)"/>
+        <g font-family="Inter,sans-serif">
+          <circle cx="160" cy="101" r="14" fill="#fff" stroke="#2f8f57" stroke-width="4"/>
+          <circle cx="410" cy="101" r="14" fill="#fff" stroke="#e08a2b" stroke-width="4"/>
+          <circle cx="660" cy="101" r="14" fill="#fff" stroke="#0575ab" stroke-width="4"/>
+          <text x="160" y="58" text-anchor="middle" font-size="17" font-weight="800" fill="#2f6b43">CAREER</text>
+          <text x="160" y="78" text-anchor="middle" font-size="11.5" fill="#64748b">Stay &amp; grow</text>
+          <text x="410" y="58" text-anchor="middle" font-size="17" font-weight="800" fill="#a35a17">BRIDGE</text>
+          <text x="410" y="78" text-anchor="middle" font-size="11.5" fill="#64748b">Between roles</text>
+          <text x="660" y="58" text-anchor="middle" font-size="17" font-weight="800" fill="#0575ab">BUILD</text>
+          <text x="660" y="78" text-anchor="middle" font-size="11.5" fill="#64748b">Go independent</text>
+          <text x="410" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#0575ab">One practice. Same mechanism. Only the dial moves.</text>
+          <text x="410" y="184" text-anchor="middle" font-size="12" fill="#64748b">Whatever your mode, you also build a starter asset in the other direction, so you always have more than one lane.</text>
+        </g>
+      </svg>
+    </div>
+    <div class="trackpick">
+      <a class="tp C" href="#career"><div class="h"><b>Career</b><span>Stay &amp; grow, move up or move on</span></div><div class="b">Presence, brand, network, interviewing, negotiation, and the first 90 days in a bigger role.</div></a>
+      <a class="tp B" href="#bridge"><div class="h"><b>Bridge</b><span>Between roles, income + dignity</span></div><div class="b">Cover the gap with a lean fractional practice while you run the search, on your terms.</div></a>
+      <a class="tp U" href="#build"><div class="h"><b>Build</b><span>Go independent, full income</span></div><div class="b">Offer, validation, sales, delivery, marketing, and the systems to run your own practice.</div></a>
+    </div>
+  </div>
+
+  <!-- FOUNDATIONS -->
+  <div class="lane F" id="foundations">
+    <div class="lh"><div><h3>Foundations</h3><div class="lt">Start here · everyone, whatever your dial</div></div><span class="badge">Shared</span></div>
+    <div class="rows">
+      <a class="row" href="lesson-foundations-1-income-dial.html"><div class="idx">F1</div><div class="m"><b>Set Your Income Dial</b><small>The leverage model, the four lanes, and the assessment that points you to your mode.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-foundations-2-zone-of-value.html"><div class="idx">F2</div><div class="m"><b>Your Zone of Value</b><small>The expertise you can charge for or rise on. The Whole Executive Framework meets your Expertise Inventory.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-foundations-3-purpose-identity.html"><div class="idx">F3</div><div class="m"><b>Purpose &amp; Identity</b><small>Ikigai and the mindsets of an independent operator, so the direction you pick actually fits your life.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-foundations-4-freedom-number.html"><div class="idx">F4</div><div class="m"><b>Your Freedom Number</b><small>Runway, walkaway, and what "enough" is, so every move is a decision, not a fear.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-ai-operating-system.html"><div class="idx">F5</div><div class="m"><b>Your AI Operating System</b><small>The leverage multiplier. Build your staff of agents and put the whole program to work for you.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+    </div>
+  </div>
+
+  <!-- CAREER -->
+  <div class="lane C" id="career">
+    <div class="lh"><div><h3>Career track</h3><div class="lt">Stay &amp; grow · move up where you are, or move on to a better org</div></div><span class="badge">From the ECA</span></div>
+    <div class="rows">
+      <a class="row" href="#"><div class="idx">C1</div><div class="m"><b>Executive Upskilling</b><small>Executive presence, communications, management, and time, the skills that get you seen.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C2</div><div class="m"><b>Advocating for Your Advancement</b><small>Ask for the scope, the raise, and the promotion without being afraid of the answer.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C3</div><div class="m"><b>The Marketing of You, Inc.</b><small>Define and deploy an executive brand that says exactly what you're worth.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C4</div><div class="m"><b>Network &amp; LinkedIn Mastery</b><small>Build a live network and a profile that works as a landing page, online and in real life.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C5</div><div class="m"><b>The Executive Resume &amp; Outreach</b><small>A resume that opens doors, and an outreach system that tracks every conversation.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C6</div><div class="m"><b>God-Mode Interviewing</b><small>Prepare, perform, and follow up so the interview feels different, because you have leverage.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C7</div><div class="m"><b>Negotiation &amp; Counter-Offers</b><small>Time it, compare offers, negotiate, and resign the right way.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">C8</div><div class="m"><b>The First 90 Days &amp; Beyond</b><small>Land the bigger role and win the first 90 days, plus ethics and hiring done right.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+    </div>
+  </div>
+
+  <!-- BRIDGE -->
+  <div class="lane B" id="bridge">
+    <div class="lh"><div><h3>Bridge track</h3><div class="lt">Between roles · income and dignity while the search runs</div></div><span class="badge">New</span></div>
+    <div class="rows">
+      <a class="row" href="#"><div class="idx">B1</div><div class="m"><b>Stabilize</b><small>Runway, health coverage, non-competes, and the plan, so you're deciding from calm, not panic.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">B2</div><div class="m"><b>Bridge Income</b><small>Stand up one lean fractional or consulting offer, fast, to cover the gap and prove your value.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">B3</div><div class="m"><b>Run the Search</b><small>Point your brand, network, and interviewing at the next role, with a reason it feels different.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">B4</div><div class="m"><b>Two Lanes Without Burning Out</b><small>Run the practice and the search in parallel with a rhythm you can actually keep.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="#"><div class="idx">B5</div><div class="m"><b>Decide</b><small>Take the role, or let the bridge become the destination. Either way you keep both lanes open.</small></div><span class="chip2 prog">In progress</span><span class="go">&rsaquo;</span></a>
+    </div>
+  </div>
+
+  <!-- BUILD -->
+  <div class="lane U" id="build">
+    <div class="lh"><div><h3>Build track</h3><div class="lt">Go independent · turn expertise into your own income</div></div><span class="badge">Ready now</span></div>
+    <div class="rows">
+      <a class="row" href="lesson-kickoff.html"><div class="idx">B0</div><div class="m"><b>Readiness &amp; Kickoff</b><small>Offer hypothesis, your Freedom Number, the experiment mindset, and your first validation conversations.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-1.html"><div class="idx">1</div><div class="m"><b>Offer Architecture</b><small>Finalize a compelling Offer v1 and the pricing logic behind it.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-2.html"><div class="idx">2</div><div class="m"><b>Validation</b><small>Turn conversations into evidence and score product-market fit.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-3.html"><div class="idx">3</div><div class="m"><b>First Sales</b><small>Money mindset and the exact 4-step sales conversation. Make real offers.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-4.html"><div class="idx">4</div><div class="m"><b>Delivery MVP</b><small>Build only what your first client needs, and onboard them well.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-5.html"><div class="idx">5</div><div class="m"><b>Momentum &amp; Messaging</b><small>Protect the pipeline, capture your first testimonial, upgrade your message.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-6.html"><div class="idx">6</div><div class="m"><b>Marketing Systems</b><small>LinkedIn as your acquisition engine and content as a 24/7 prospecting tool.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-7.html"><div class="idx">7</div><div class="m"><b>CEO Operating Systems</b><small>SOPs, the five KPIs, the CEO calendar, retention, and referrals.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+      <a class="row" href="lesson-week-8.html"><div class="idx">8</div><div class="m"><b>90-Day Plan &amp; Scale</b><small>Your growth plan, scale levers, risk, and long-term vision.</small></div><span class="chip2 live">Live</span><span class="go">&rsaquo;</span></a>
+    </div>
+  </div>
+
+  <!-- CROSS-LEVERAGE + OPERATE -->
+  <div class="infogrid">
+    <div class="infocard">
+      <h3>Always build the other lane</h3>
+      <p>Whatever your mode, you build a starter asset in the other direction, so you never depend on a single source of income.</p>
+      <ul>
+        <li>Staying in your <b>Career</b>? Stand up one small validated offer, a layoff becomes a pivot, not a cliff.</li>
+        <li>Choosing to <b>Build</b>? Keep your brand and network warm, a slow quarter is covered by a fractional role.</li>
+        <li>On the <b>Bridge</b>? You're already running both.</li>
+      </ul>
+    </div>
+    <div class="infocard">
+      <h3>Operate &amp; scale</h3>
+      <p>The shared engine room keeps your practice running whatever the mode:</p>
+      <ul>
+        <li>The <b>Income Dial dashboard</b>: your Freedom Number gauge and a monthly checklist for your current mode.</li>
+        <li>The five KPIs and a weekly rhythm you can keep.</li>
+        <li>One community, mode-tagged channels, and your accountability partners.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="guaranteecard">
+    <h3>The guarantee</h3>
+    <p>Go through the program and take part, and you will have <b>moved up</b>, <b>moved into a new job</b>, or <b>earned $10,000 on your own</b>, or we keep you in the program until you do. Your weekly AI Lab and ongoing agentic-AI support are built to make that happen faster than you'd expect.</p>
+  </div>
+</div>
+
+<footer style="text-align:center;color:var(--muted);font-size:12.5px;padding:10px 0 44px">The Independent Executive · Career Free Agency · Vertical Motion</footer>
+<script>
+  // highlight the lane you jump to
+  document.querySelectorAll('.tp[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var id=a.getAttribute('href').slice(1);
+      var el=document.getElementById(id);
+      if(el){el.querySelector('.lh').style.transition='box-shadow .3s';el.querySelector('.lh').style.boxShadow='inset 0 0 0 3px rgba(255,255,255,.5)';setTimeout(function(){el.querySelector('.lh').style.boxShadow='none';},900);}
+    });
+  });
+</script>
+</body>
+</html>
