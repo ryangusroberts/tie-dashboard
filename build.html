@@ -1,0 +1,1515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Independent Executive · Build Track</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  /* Brand system matched to vmleader.com (Vertical Motion) */
+  :root{--navy:#081e2b;--navy-mid:#0d2d40;--navy-soft:#153347;--slate:#5B7C99;--blue:#0693d8;--blue-dk:#0575ab;--blue-lt:#7ec5ea;
+    --orange:#fc6502;--orange-dk:#d95400;--icy:#CFE8EF;
+    --ink:#0f2436;--muted:#64748b;--line:#e6ebf2;--bg:#eef2f7;--card:#fff;
+    --crit:#C0392B;--high:#B8860B;--supp:#7A828E;--green:#2E7D46;
+    --critbg:#FBE9E7;--highbg:#FBF3DC;--suppbg:#EEF1F5;
+    --font-display:'DM Serif Display',Georgia,serif;--font-body:'Inter',system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+    --shadow:0 1px 3px rgba(8,30,43,.06),0 8px 24px rgba(8,30,43,.06);--shadow-hi:0 24px 60px rgba(8,30,43,.16);--glow:radial-gradient(900px 480px at 50% -12%,rgba(6,147,216,.28),rgba(6,147,216,0) 62%);}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-body);color:var(--ink);background:var(--bg)}
+  .app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+  .side{background:linear-gradient(180deg,#081e2b 0%,#0d2d40 100%);color:#c7d6e0;border-right:0;padding:22px 18px;position:sticky;top:0;height:100vh;overflow:auto;box-shadow:2px 0 30px rgba(8,30,43,.22)}
+  .brand{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+  .logo{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
+  .logo img{width:30px;height:30px;object-fit:contain;display:block}
+  .brand b{color:#fff;font-size:15px;line-height:1.12;font-family:var(--font-display);font-weight:400}.brand span{color:var(--blue-lt);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .pill{margin:16px 0 18px;background:rgba(6,147,216,.15);color:#bfe4f6;border:1px solid rgba(6,147,216,.28);font-weight:700;font-size:11px;letter-spacing:.04em;border-radius:100px;padding:8px 14px;text-align:center}
+  .ring-wrap{display:flex;flex-direction:column;align-items:center;margin:6px 0}
+  .ring-label{font-size:10px;color:#8fb0c4;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+  .side h4{color:#6f92a8;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin:18px 0 8px}
+  .navrow{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;border-radius:9px;font-size:13px;color:#c7d6e0;cursor:pointer;transition:background .15s}
+  .navrow:hover{background:rgba(255,255,255,.06)}
+  .navrow .sc{font-weight:800;font-size:12.5px;color:#fff}
+  .btn{margin-top:16px;width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#dbe7ef;font-weight:600;padding:10px;border-radius:100px;cursor:pointer;font-size:12.5px;transition:background .15s}
+  .btn:hover{background:rgba(255,255,255,.1)}
+  .commlink{position:relative;overflow:hidden;display:block;margin-top:18px;text-decoration:none;color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.01em;padding:15px 16px;border-radius:14px;background:linear-gradient(135deg,#20a7e6 0%,#0693d8 55%,#0575ab 100%);box-shadow:0 10px 24px rgba(6,147,216,.4);border:1px solid rgba(255,255,255,.22);transition:transform .15s,box-shadow .15s}
+  .commlink:hover{transform:translateY(-2px);box-shadow:0 15px 32px rgba(6,147,216,.55)}
+  .commlink::after{content:"";position:absolute;top:50%;right:-30px;width:118px;height:118px;transform:translateY(-50%);background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='118'%20height='118'%3E%3Cg%20fill='none'%20stroke='white'%20stroke-opacity='0.22'%20stroke-width='2'%3E%3Ccircle%20cx='59'%20cy='59'%20r='54'/%3E%3Ccircle%20cx='59'%20cy='59'%20r='39'/%3E%3Ccircle%20cx='59'%20cy='59'%20r='25'/%3E%3C/g%3E%3Ccircle%20cx='59'%20cy='59'%20r='11'%20fill='white'%20fill-opacity='0.25'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
+  .commlink .cc-txt{position:relative;z-index:1;display:block;text-align:left;padding-right:34px}
+  .aoslink{display:block;margin-top:14px;text-decoration:none;color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.01em;padding:15px 16px;border-radius:14px;background:linear-gradient(135deg,#12324a 0%,#0b2033 100%);box-shadow:0 10px 24px rgba(8,30,43,.4);border:1px solid rgba(255,255,255,.18);transition:transform .15s,box-shadow .15s;text-align:left}
+  .aoslink:hover{transform:translateY(-2px);box-shadow:0 15px 32px rgba(8,30,43,.55)}
+  .aoslink .aos-k{display:block;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.6;margin-bottom:2px}
+  .main{padding:30px 34px 64px;max-width:1140px}
+  .topbar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  h1{font-size:30px;color:var(--navy);margin:0 0 4px;font-family:var(--font-display);font-weight:400;letter-spacing:-.01em}.sub{color:var(--muted);font-size:13px;max-width:70ch}
+  .nameinput{border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;color:var(--navy);font-weight:600;min-width:200px;background:#fff}
+  .nameinput:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(6,147,216,.12)}
+  .next{margin:18px 0 4px;border-radius:12px;padding:13px 17px;font-weight:600;font-size:14px;background:var(--critbg);color:var(--crit);border:1px solid rgba(192,57,43,.16)}
+  .next.done{background:#E9F6EE;color:var(--green);border-color:rgba(46,125,70,.18)}
+  .bar{height:12px;border-radius:100px;background:#dde5ee;margin:16px 0 4px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(8,30,43,.08)}
+  .bar .fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-dk));border-radius:100px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .bar-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:20px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--slate);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;overflow:hidden}
+  .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(8,30,43,.12)}
+  .card .ki{position:absolute;top:12px;right:12px;color:var(--slate);opacity:.5}
+  .card .t{color:var(--muted);font-size:12px;font-weight:600}.card .v{font-weight:800;font-size:26px;color:var(--navy);margin-top:3px;letter-spacing:-.02em}
+  .card .v small{font-size:12px;font-weight:600;color:var(--muted)}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);margin-top:22px}
+  .panel h3{margin:0 0 2px;color:var(--navy);font-size:19px;font-family:var(--font-display);font-weight:400}.panel .hint{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+  .radar-wrap{display:flex;justify-content:center}
+  .legend{display:flex;gap:16px;justify-content:center;margin-top:8px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .stage{margin-top:10px}
+  .stage h4{color:var(--navy);font-size:14.5px;margin:16px 0 6px;padding-bottom:6px;border-bottom:2px solid #EEF1F6;display:flex;justify-content:space-between}
+  .stage h4 .p{font-size:12.5px;color:var(--muted);font-weight:600}
+  .subgroup{color:var(--blue-dk);font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:14px 4px 4px;display:flex;align-items:center;gap:7px}
+  .subgroup::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);flex:0 0 auto}
+  .wknotion{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.02em;text-transform:none;color:var(--blue-dk);background:var(--icy);border:1px solid var(--blue);border-radius:100px;padding:3px 10px;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+  .wknotion:hover{background:var(--blue);color:#fff}
+  .hnactions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .hngo{display:inline-flex;align-items:center;gap:6px;color:#fff;font-weight:700;font-size:12.5px;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:7px 14px;transition:background .15s}
+  .hngo:hover{background:rgba(255,255,255,.12)}
+  .item{display:flex;gap:11px;align-items:flex-start;padding:9px 6px;border-radius:8px;cursor:pointer;border-left:4px solid transparent}
+  .item:hover{background:#F7F9FC}
+  .item.crit{border-left-color:var(--crit)}.item.high{border-left-color:var(--high)}.item.supp{border-left-color:var(--supp)}
+  .item .box{width:20px;height:20px;border:2px solid #C4CBD6;border-radius:5px;flex:0 0 auto;margin-top:1px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+  .item.part .box{border-color:var(--blue);color:var(--blue);background:#EAF1FB}
+  .item.done .box{background:var(--green);border-color:var(--green)}
+  .item.done .txt{text-decoration:line-through;color:var(--muted)}
+  .num{font-weight:800;margin-right:6px}
+  .tag{font-size:10px;font-weight:800;padding:1.5px 7px;border-radius:20px;margin-left:8px;vertical-align:middle}
+  .tag.crit{background:var(--critbg);color:var(--crit)}.tag.high{background:var(--highbg);color:#8a6600}.tag.supp{background:var(--suppbg);color:var(--supp)}
+  .wsbadge{font-size:10px;font-weight:700;color:var(--muted);margin-left:8px;vertical-align:middle}
+  .txt{font-size:14px}.dom{color:var(--muted);font-size:11.5px}
+  .statusnote{font-size:11px;font-weight:700;margin-top:2px}
+  .statusnote.open{color:var(--blue)}.statusnote.ok{color:var(--green)}
+  .handoff{border-left:5px solid var(--navy);background:linear-gradient(180deg,#EEF3FB,#fff)}
+  .handoff h3{font-size:20px;font-family:var(--font-display);font-weight:400}
+  .handoff p{color:#334155;font-size:14px;line-height:1.55;margin:6px 0 14px;max-width:62ch}
+  .handoff .cta{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;font-weight:700;font-size:14px;text-decoration:none;padding:12px 20px;border-radius:100px;box-shadow:0 10px 24px rgba(252,101,2,.3);transition:transform .15s,box-shadow .15s}
+  .handoff .cta:hover{background:var(--orange-dk);transform:translateY(-2px);box-shadow:0 14px 30px rgba(252,101,2,.4)}
+  .handoff .eyebrow{color:var(--orange);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+  .foot{color:var(--muted);font-size:11.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px;line-height:1.5}
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(20,32,60,.45);display:none;align-items:flex-start;justify-content:center;padding:34px 16px;overflow:auto;z-index:50}
+  .overlay.show{display:flex}
+  .modal{background:#fff;border-radius:14px;max-width:720px;width:100%;box-shadow:0 20px 60px rgba(15,30,60,.35);overflow:hidden}
+  .mhead{padding:18px 22px;border-bottom:1px solid var(--line);position:relative;background:linear-gradient(180deg,#F7FAFF,#fff)}
+  .mhead .eb{color:var(--orange);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+  .mhead h2{margin:3px 0 2px;color:var(--navy);font-size:22px;font-family:var(--font-display);font-weight:400}
+  .mhead .pp{color:var(--muted);font-size:13px;line-height:1.5;max-width:60ch}
+  .mclose{position:absolute;top:14px;right:16px;border:none;background:#EEF1F6;color:var(--navy);width:30px;height:30px;border-radius:8px;font-size:17px;cursor:pointer;font-weight:700}
+  .mclose:hover{background:#E2E7F0}
+  .mbody{padding:16px 22px 8px;max-height:56vh;overflow:auto}
+  .fld{margin:12px 0}
+  .fld label{display:block;font-size:12.5px;font-weight:700;color:#374151;margin-bottom:4px}
+  .fld textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;resize:vertical;min-height:52px;color:var(--ink)}
+  .fld textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,117,182,.12)}
+  .cklist{margin:8px 0 4px;background:#F7F9FC;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .cktitle{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .ckrow{display:flex;gap:9px;align-items:flex-start;padding:5px 2px;cursor:pointer;font-size:13.5px}
+  .ckrow input{margin-top:2px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--green)}
+  .upl{margin:14px 0 6px;border:1.5px dashed #C4CBD6;border-radius:10px;padding:12px 14px;background:#FCFDFE}
+  .upl .lab{font-size:12.5px;font-weight:700;color:#374151;margin-bottom:6px}
+  .upl input[type=file]{font-size:12.5px}
+  .upl .filed{margin-top:8px;font-size:12.5px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:8px}
+  .upl .clr{border:none;background:#F1D9D6;color:var(--crit);border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer;font-weight:700}
+  .mfoot{padding:13px 22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:#FBFCFE}
+  .mstatus{font-size:13px;font-weight:700}
+  .mstatus.ok{color:var(--green)}.mstatus.open{color:var(--muted)}
+  .mfoot .done-btn{border:none;border-radius:9px;padding:10px 18px;font-weight:700;font-size:13.5px;cursor:pointer;background:var(--navy);color:#fff}
+  .mfoot .done-btn:hover{background:#16294d}
+  .srcnote{font-size:11px;color:var(--muted);margin-top:6px}
+  @media(max-width:900px){.app{grid-template-columns:1fr}.side{position:static;height:auto}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+<style>
+  /* ---- Auth / account / coach additions ---- */
+  .authwrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--glow),linear-gradient(160deg,#081e2b 0%,#0d2d40 100%);background-color:#081e2b}
+  .authcard{background:#fff;border:1px solid rgba(255,255,255,.5);border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,.45);max-width:415px;width:100%;padding:32px 32px 28px}
+  .authbrand{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+  .authbrand .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(160deg,#081e2b,#0d2d40);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
+  .authbrand .logo img{width:32px;height:32px;object-fit:contain;display:block}
+  .authbrand b{color:var(--navy);font-family:var(--font-display);font-weight:400;font-size:17px;line-height:1.05}
+  .authbrand span{color:var(--orange);font-size:11px;font-weight:700}
+  .authcard h2{font-family:var(--font-display);font-weight:400;color:var(--navy);font-size:23px;margin:6px 0 2px}
+  .authcard .lead{color:var(--muted);font-size:13px;margin-bottom:16px}
+  .field{margin:10px 0}
+  .field label{display:block;font-size:12px;font-weight:700;color:#374151;margin-bottom:4px}
+  .field input{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit}
+  .field input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(252,101,2,.12)}
+  .authbtn{width:100%;border:none;border-radius:100px;background:var(--orange);color:#fff;font-weight:700;font-size:14.5px;padding:13px;cursor:pointer;margin-top:14px;box-shadow:0 8px 20px rgba(252,101,2,.32);transition:transform .15s,box-shadow .15s}
+  .authbtn:hover{background:var(--orange);transform:translateY(-2px);box-shadow:0 12px 26px rgba(252,101,2,.42)}
+  .authbtn:hover{background:var(--orange-dk)}
+  .authbtn:disabled{opacity:.6;cursor:default}
+  .authtoggle{margin-top:14px;text-align:center;font-size:13px;color:var(--muted)}
+  .authtoggle a{color:var(--orange);font-weight:700;cursor:pointer;text-decoration:none}
+  .authmsg{margin-top:12px;font-size:12.5px;border-radius:8px;padding:9px 11px;display:none}
+  .authmsg.err{display:block;background:var(--critbg);color:var(--crit)}
+  .authmsg.ok{display:block;background:#E9F6EE;color:var(--green)}
+  .acctbar{display:flex;align-items:center;gap:10px}
+  .acctbar .who{font-size:12px;color:var(--muted);text-align:right;line-height:1.2}
+  .acctbar .who b{color:var(--navy);font-size:13px}
+  .rolechip{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:var(--icy);color:var(--navy)}
+  .rolechip.coach{background:#FBE7D5;color:var(--orange-dk)}
+  .logout{border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:600;font-size:12.5px;border-radius:8px;padding:7px 12px;cursor:pointer}
+  .logout:hover{background:#f3f6fb}
+  .syncdot{font-size:11px;color:var(--muted);margin-left:8px}
+  .syncdot.saving{color:var(--orange-dk)}
+  .syncdot.saved{color:var(--green)}
+  /* Coach */
+  .cohort{width:100%;border-collapse:collapse;font-size:13.5px}
+  .cohort th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;border-bottom:2px solid #EEF1F6}
+  .cohort td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .cohort tr:hover td{background:#F7F9FC;cursor:pointer}
+  .cohort .cname{font-weight:700;color:var(--navy)}
+  .cohort .cmail{color:var(--muted);font-size:11.5px}
+  .minibar{height:8px;width:150px;background:#dde5ee;border-radius:100px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+  .minibar > i{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-dk))}
+  .stagepips{display:flex;gap:3px}
+  .pip{width:26px;height:7px;border-radius:3px;background:#E7EBF2}
+  .pip.on{background:var(--navy)}
+  .backbtn{border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:600;font-size:12.5px;border-radius:8px;padding:7px 12px;cursor:pointer;margin-bottom:14px}
+  .backbtn:hover{background:#f3f6fb}
+  .ro-note{font-size:12px;color:var(--muted);background:#F7F9FC;border:1px solid var(--line);border-radius:8px;padding:8px 11px;margin:10px 0}
+  .empty{color:var(--muted);font-size:13.5px;padding:20px;text-align:center}
+  .hide{display:none!important}
+</style>
+<style>
+  /* ---- Rich form engine ---- */
+  .msection{margin:16px 0 4px;border-top:1px solid var(--line);padding-top:12px}
+  .msection:first-of-type{border-top:0;padding-top:2px}
+  .msection > .st{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:2px}
+  .msection > .sh{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.45}
+  .ff{margin:11px 0}
+  .ff > label{display:block;font-size:12.5px;font-weight:700;color:#374151;margin-bottom:5px}
+  .ff input[type=text],.ff input[type=number],.ff textarea,.ff select{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;color:var(--ink);background:#fff}
+  .ff textarea{resize:vertical;min-height:52px}
+  .ff input:focus,.ff textarea:focus,.ff select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(252,101,2,.12)}
+  .ff .numwrap{position:relative}
+  .ff .numwrap .pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13.5px}
+  .ff .numwrap input{padding-left:22px}
+  .scale{display:flex;gap:5px;flex-wrap:wrap}
+  .scale button{width:30px;height:30px;border:1px solid var(--line);background:#fff;border-radius:7px;font-size:12.5px;font-weight:700;color:#64748b;cursor:pointer}
+  .scale button:hover{border-color:var(--orange)}
+  .scale button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .ff.req-miss > label::after{content:" •";color:var(--orange)}
+  .msel{display:flex;flex-direction:column;gap:6px}
+  .msel label{display:flex;gap:8px;align-items:flex-start;font-size:13px;font-weight:500;color:#374151;cursor:pointer}
+  .msel input{margin-top:2px;width:15px;height:15px;accent-color:var(--green);flex:0 0 auto}
+  .chk1{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#374151;cursor:pointer}
+  .chk1 input{margin-top:2px;width:16px;height:16px;accent-color:var(--green)}
+  .tbl{overflow-x:auto}
+  table.ftbl{border-collapse:collapse;width:100%;font-size:12.5px}
+  table.ftbl th{text-align:left;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;padding:4px 6px;font-weight:800}
+  table.ftbl td{padding:3px 4px;vertical-align:top}
+  table.ftbl input,table.ftbl select{width:100%;min-width:90px;border:1px solid var(--line);border-radius:6px;padding:6px 7px;font-size:12.5px;font-family:inherit}
+  table.ftbl .rm{border:none;background:#F1D9D6;color:var(--crit);border-radius:5px;width:22px;height:26px;cursor:pointer;font-weight:700}
+  .addrow{margin-top:6px;border:1px dashed #C4CBD6;background:#FCFDFE;color:var(--navy);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
+  .addrow:hover{background:#F3F6FB}
+  /* in-modal progress */
+  .mprog{flex:1;min-width:180px}
+  .mprog .track{height:7px;background:#E7EBF2;border-radius:5px;overflow:hidden;margin-bottom:4px}
+  .mprog .track > i{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-dk));transition:width .3s}
+  .mprog .lbl{font-size:11.5px;font-weight:700;color:var(--muted)}
+  .mprog .lbl.ok{color:var(--green)}
+  /* auto-fill (scan) button */
+  .scanbox{margin:14px 0 4px;border:1.5px dashed var(--blue);border-radius:10px;padding:12px 14px;background:#F5F9FC}
+  .scanbox .lab{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:3px}
+  .scanbox .sub{font-size:11.5px;color:var(--muted);margin-bottom:8px}
+  .scanbtn{border:none;background:var(--navy);color:#fff;font-weight:700;font-size:12.5px;border-radius:8px;padding:8px 13px;cursor:pointer}
+  .scanbtn:hover{background:#16294d}
+  .scanbtn:disabled{opacity:.6;cursor:default}
+  .scanmsg{font-size:12px;margin-top:8px;font-weight:600}
+  .scanmsg.err{color:var(--crit)}.scanmsg.ok{color:var(--green)}.scanmsg.busy{color:var(--blue)}
+  /* you-are-here banner */
+  .herenow{position:relative;overflow:hidden;margin:18px 0 4px;border-radius:16px;padding:18px 22px;background:var(--glow),linear-gradient(150deg,#081e2b,#0d2d40);background-color:#081e2b;box-shadow:0 16px 40px rgba(8,30,43,.28)}
+  .herenow .eyebrow{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-lt);display:flex;align-items:center;gap:7px}
+  .herenow .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+  .herenow .big{font-family:var(--font-display);font-weight:400;color:#fff;font-size:22px;margin:6px 0 8px;line-height:1.15}
+  .herenow .go{display:inline-flex;align-items:center;gap:6px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;border-radius:100px;padding:8px 16px;cursor:pointer;box-shadow:0 8px 18px rgba(252,101,2,.35);transition:transform .15s}
+  .herenow .go:hover{transform:translateY(-2px)}
+  .coachback{border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:600;font-size:12.5px;border-radius:100px;padding:8px 14px;cursor:pointer}
+  .coachback:hover{background:#f3f6fb}
+  .viewbadge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;background:#FBE7D5;color:var(--orange-dk);border-radius:20px;padding:2px 9px;margin-left:8px}
+</style>
+</head>
+<body>
+
+<!-- ===================== AUTH VIEW ===================== -->
+<div id="authView" class="authwrap hide">
+  <div class="authcard">
+    <div class="authbrand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><br><span>Build track · Vertical Motion</span></div></div>
+    <h2 id="authTitle">Sign in</h2>
+    <div class="lead" id="authLead">Enter your email and we'll send you a secure login link — no password needed.</div>
+    <div id="authForm">
+      <div class="field"><label>Your name <span style="color:var(--muted);font-weight:400">(first time only)</span></label><input id="suName" type="text" placeholder="Jane Founder" autocomplete="name"></div>
+      <div class="field"><label>Email</label><input id="auEmail" type="email" placeholder="you@email.com" autocomplete="email"></div>
+      <button class="authbtn" id="authBtn" onclick="sendMagicLink()">Email me a login link</button>
+      <div class="authmsg" id="authMsg"></div>
+      <div class="authtoggle">Use the email you enrolled with. Coaches: sign in with your @vmleader.com email.</div>
+    </div>
+    <div id="authSent" class="hide">
+      <div class="field" style="font-size:14px;line-height:1.6">Check <b id="sentEmail"></b> for your login link. Open it on this device to continue — you can close this tab afterward.</div>
+      <div class="authtoggle"><a onclick="location.reload()">Use a different email</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NO-ACCESS / GATE VIEW ===================== -->
+<div id="gateView" class="authwrap hide">
+  <div class="authcard">
+    <div class="authbrand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><br><span>Build track · Vertical Motion</span></div></div>
+    <h2>Members only</h2>
+    <div class="lead">This Build-track dashboard is for enrolled Independent Executive members. We don't see <b id="gateEmail"></b> on the current member list yet.</div>
+    <a class="authbtn" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box" href="https://community.vmleader.com" target="_blank" rel="noopener">Join the community →</a>
+    <div class="authmsg">Already enrolled? Sign in with the exact email you used to join — access can take a few minutes to sync after you purchase.</div>
+    <div class="authtoggle"><a onclick="doLogout()">Use a different email</a></div>
+  </div>
+</div>
+
+<!-- ===================== CLIENT / APP VIEW ===================== -->
+<div id="appView" class="app hide">
+  <aside class="side">
+    <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><br><span>Build track · Vertical Motion</span></div></div>
+    <div class="pill">The 8-Week Sprint · 43 Steps</div>
+    <div class="ring-wrap"><svg id="ring" width="132" height="132" viewBox="0 0 132 132"></svg><div class="ring-label">Complete</div></div>
+    <h4>Stages</h4>
+    <div id="navstages"></div>
+    <a class="aoslink" href="https://ryangusroberts.github.io/tie-dashboard/lesson-ai-operating-system.html?v=2" target="_blank" rel="noopener"><span class="aos-k">Pre-work · Start here</span>Your AI Operating System ↗</a>
+    <a class="commlink" href="https://community.vmleader.com" target="_blank" rel="noopener"><span class="cc-txt">Open VM Community in Circle ↗</span></a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div><h1><span id="hname">Your Venture</span> · Build Track</h1>
+      <div class="sub">Your progress through the Build track: 39 worksheets plus 5 companion steps. Click any step to fill it in or load a completed copy.<span class="syncdot" id="syncdot"></span></div></div>
+      <div class="acctbar">
+        <div class="who"><b id="acctName">—</b><span class="viewbadge" id="viewBadge" style="display:none">Viewing as client</span><br><span id="acctEmail"></span></div>
+        <button class="coachback" id="backCoachBtn" style="display:none" onclick="backToCoach()">← Coach dashboard</button>
+        <button class="logout" onclick="doLogout()">Log out</button>
+      </div>
+    </div>
+    <div class="topbar" style="margin-top:10px">
+      <input class="nameinput" id="bizname" placeholder="Your business name" oninput="setName(this.value)"/>
+    </div>
+    <div class="herenow" id="herenow"></div>
+    <div class="next" id="nextbanner"></div>
+    <div class="bar"><div class="fill" id="fill" style="width:0%"></div></div>
+    <div class="bar-scale"><span>Foundations</span><span>Validation · Sales · Delivery · Marketing</span><span>Scale-ready</span></div>
+    <div class="kpis">
+      <div class="card" id="kOverall" style="border-top-color:var(--orange)"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg></span><div class="t">Overall complete</div><div class="v" id="vOverall">0<small>%</small></div></div>
+      <div class="card"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg></span><div class="t">Steps done</div><div class="v" id="vTasks">0<small>/43</small></div></div>
+      <div class="card" id="kCrit" style="border-top-color:var(--crit)"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span><div class="t">Critical done</div><div class="v" id="vCrit">0<small>/9</small></div></div>
+      <div class="card"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><div class="t">Current stage</div><div class="v" id="vStage" style="font-size:15px">Stage 1</div></div>
+    </div>
+    <div class="panel">
+      <h3>Progress by stage</h3>
+      <div class="hint">How far you are through each stage. The dashed ring is complete (100%).</div>
+      <div class="radar-wrap"><svg id="radar" width="440" height="400" viewBox="0 0 440 400"></svg></div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--crit)"></span>Critical - never skip</span>
+        <span><span class="dot" style="background:var(--high)"></span>High</span>
+        <span><span class="dot" style="background:var(--supp)"></span>Supporting</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>The full checklist</h3>
+      <div class="hint">39 worksheets plus 5 companion steps (marked <i>Companion step</i>). Click any step to open it, fill it in inline (saved to your account) <b>or</b> load your completed copy. A step only checks off once it's finished or a completed file is loaded.</div>
+      <div id="tasklist"></div>
+    </div>
+    <div class="foot">
+      <b>The Independent Executive · Build</b> · Vertical Motion. Your progress is saved to your account and synced across devices.
+      <br>© 2026.
+    </div>
+  </main>
+</div>
+
+<!-- ===================== COACH VIEW ===================== -->
+<div id="coachView" class="app hide">
+  <aside class="side">
+    <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><br><span>Build · Coach dashboard</span></div></div>
+    <div class="pill">Cohort progress</div>
+    <div class="ring-wrap"><svg id="cring" width="132" height="132" viewBox="0 0 132 132"></svg><div class="ring-label">Cohort avg</div></div>
+    <h4>Stages</h4>
+    <div id="cnavstages"></div>
+    <button class="btn" onclick="loadCoach()">Refresh</button>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div><h1>Coach Dashboard</h1><div class="sub" id="coachSub">Your cohort's progress across the Build track.</div></div>
+      <div class="acctbar">
+        <div class="who"><b id="cAcctName">—</b> <span class="rolechip coach">Coach</span><br><span id="cAcctEmail"></span></div>
+        <button class="coachback" onclick="viewAsClient()">View as client</button>
+        <button class="logout" onclick="doLogout()">Log out</button>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="card"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div class="t">Clients</div><div class="v" id="cCount">0</div></div>
+      <div class="card" style="border-top-color:var(--blue)"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/></svg></span><div class="t">Cohort avg complete</div><div class="v" id="cAvg">0<small>%</small></div></div>
+      <div class="card" style="border-top-color:var(--green)"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span><div class="t">Active this week</div><div class="v" id="cActive">0</div></div>
+      <div class="card" style="border-top-color:var(--orange)"><span class="ki"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6-6 6 6"/><path d="M6 20l6-6 6 6"/></svg></span><div class="t">Reached Scale</div><div class="v" id="cScale">0</div></div>
+    </div>
+    <div class="panel" id="cohortPanel">
+      <h3>Clients</h3>
+      <div class="hint">Click any client to see their full checklist and answers (read-only).</div>
+      <div id="cohortWrap"></div>
+    </div>
+    <div class="panel hide" id="clientDetail">
+      <button class="backbtn" onclick="closeClient()">← Back to cohort</button>
+      <h3 id="cdTitle">Client</h3>
+      <div class="ro-note">Read-only view of this client's worksheets. Click a step to see what they entered.</div>
+      <div class="bar"><div class="fill" id="cdFill" style="width:0%"></div></div>
+      <div id="cdTasklist" style="margin-top:14px"></div>
+    </div>
+  </main>
+</div>
+
+<!-- ===================== WORKSHEET MODAL ===================== -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeWS()">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="mhead">
+      <button class="mclose" onclick="closeWS()" aria-label="Close">&times;</button>
+      <div class="eb" id="mEyebrow"></div>
+      <h2 id="mTitle"></h2>
+      <div class="pp" id="mPurpose"></div>
+    </div>
+    <div class="mbody" id="mBody"></div>
+    <div class="mfoot">
+      <div class="mstatus" id="mStatus"></div>
+      <button class="done-btn" onclick="closeWS()">Save &amp; close</button>
+    </div>
+  </div>
+</div>
+<script>
+const WS={
+/* ===== Worksheets 01–04 (Pre-Work) ===== */
+"01":{title:"Expertise Inventory Worksheet",phase:"Pre-Work",file:"01_Expertise_Inventory_Worksheet.docx",
+ purpose:"Identify the skills, problems solved, and repeated advice you already have that people will pay for — then distill your top Value Zones and a draft transformation statement.",
+ sections:[
+  {t:"Professional skills inventory",help:"List every skill — technical, soft, and domain. Think about what colleagues ask you to help with.",fields:[
+    {id:"skills",label:"Skills",type:"table",req:true,min:5,cols:[{k:"skill",label:"Skill"},{k:"years",label:"Years",type:"number"},{k:"prof",label:"Proficiency",type:"scale"}]}]},
+  {t:"Problems you've solved",help:"Be concrete — turn “increased sales” into “increased B2B sales 40% via outbound email”.",fields:[
+    {id:"problems",label:"Problems solved",type:"table",req:true,min:3,cols:[{k:"prob",label:"Problem solved"},{k:"outcome",label:"Measurable outcome / result"}]}]},
+  {t:"Advice you give repeatedly",help:"What do people consistently come to you for? This reveals your natural authority zones.",fields:[
+    {id:"advice",label:"Advice topics",type:"table",req:true,min:3,cols:[{k:"topic",label:"Topic / question people ask"},{k:"who",label:"Who asks (role / context)"}]}]},
+  {t:"Value Zone #1",fields:[
+    {id:"vz1_skill",label:"Core skill(s)",type:"text",req:true},
+    {id:"vz1_prob",label:"Problem it solves",type:"text",req:true},
+    {id:"vz1_out",label:"Outcome delivered",type:"text",req:true},
+    {id:"vz1_enj",label:"Enjoyment",type:"scale",req:true}]},
+  {t:"Value Zone #2",fields:[
+    {id:"vz2_skill",label:"Core skill(s)",type:"text"},
+    {id:"vz2_prob",label:"Problem it solves",type:"text"},
+    {id:"vz2_out",label:"Outcome delivered",type:"text"},
+    {id:"vz2_enj",label:"Enjoyment",type:"scale"}]},
+  {t:"Value Zone #3",fields:[
+    {id:"vz3_skill",label:"Core skill(s)",type:"text"},
+    {id:"vz3_prob",label:"Problem it solves",type:"text"},
+    {id:"vz3_out",label:"Outcome delivered",type:"text"},
+    {id:"vz3_enj",label:"Enjoyment",type:"scale"}]},
+  {t:"Draft transformation statement",help:"“I help [WHO] go from [BEFORE] to [AFTER] through [MECHANISM].” A starting hypothesis, not final.",fields:[
+    {id:"transform",label:"Your draft transformation statement",type:"textarea",req:true}]}
+ ]},
+"02":{title:"Market Scan Scorecard",phase:"Pre-Work",file:"02_Market_Scan_Scorecard.docx",
+ purpose:"Score 3 potential markets on pain, ability to pay, urgency, competition, and access (1–10 each), then pick the hungriest to validate.",
+ sections:[
+  {t:"Market #1",fields:[
+    {id:"m1_name",label:"Market / niche name",type:"text",req:true},
+    {id:"m1_buyer",label:"Who is the buyer?",type:"text",req:true},
+    {id:"m1_prob",label:"Their core problem",type:"text",req:true},
+    {id:"m1_pain",label:"Pain level",type:"scale",req:true},
+    {id:"m1_pay",label:"Ability to pay",type:"scale",req:true},
+    {id:"m1_urg",label:"Urgency",type:"scale",req:true},
+    {id:"m1_comp",label:"Competition (healthy)",type:"scale",req:true},
+    {id:"m1_acc",label:"Access",type:"scale",req:true},
+    {id:"m1_ev",label:"Evidence / reasoning",type:"textarea"}]},
+  {t:"Market #2",fields:[
+    {id:"m2_name",label:"Market / niche name",type:"text",req:true},
+    {id:"m2_buyer",label:"Who is the buyer?",type:"text",req:true},
+    {id:"m2_prob",label:"Their core problem",type:"text",req:true},
+    {id:"m2_pain",label:"Pain level",type:"scale",req:true},
+    {id:"m2_pay",label:"Ability to pay",type:"scale",req:true},
+    {id:"m2_urg",label:"Urgency",type:"scale",req:true},
+    {id:"m2_comp",label:"Competition (healthy)",type:"scale",req:true},
+    {id:"m2_acc",label:"Access",type:"scale",req:true},
+    {id:"m2_ev",label:"Evidence / reasoning",type:"textarea"}]},
+  {t:"Market #3",fields:[
+    {id:"m3_name",label:"Market / niche name",type:"text",req:true},
+    {id:"m3_buyer",label:"Who is the buyer?",type:"text",req:true},
+    {id:"m3_prob",label:"Their core problem",type:"text",req:true},
+    {id:"m3_pain",label:"Pain level",type:"scale",req:true},
+    {id:"m3_pay",label:"Ability to pay",type:"scale",req:true},
+    {id:"m3_urg",label:"Urgency",type:"scale",req:true},
+    {id:"m3_comp",label:"Competition (healthy)",type:"scale",req:true},
+    {id:"m3_acc",label:"Access",type:"scale",req:true},
+    {id:"m3_ev",label:"Evidence / reasoning",type:"textarea"}]},
+  {t:"Decision",help:"40–50 strong · 30–39 viable · 20–29 weak · <20 don't pursue. A hypothesis, not a final call.",fields:[
+    {id:"pick",label:"I'll focus validation on this market",type:"text",req:true},
+    {id:"pick_why",label:"Because",type:"textarea",req:true}]}
+ ]},
+"03":{title:"Participant Intake Form",phase:"Pre-Work",file:"03_Intake_Form.docx",
+ purpose:"Establish your baseline: situation, income goals, business model, time, constraints, fears, and definition of success.",
+ sections:[
+  {t:"Current professional situation",fields:[
+    {id:"title",label:"Current job title",type:"text",req:true},
+    {id:"industry",label:"Company / industry",type:"text"},
+    {id:"yrs_role",label:"Years in current role",type:"number"},
+    {id:"yrs_total",label:"Total years of experience",type:"number"},
+    {id:"comp",label:"Current annual compensation",type:"select",req:true,options:["$80k–$100k","$100k–$150k","$150k–$200k","$200k–$250k","$250k+"]},
+    {id:"status",label:"Employment status",type:"select",req:true,options:["Employed — staying during program","Employed — open to leaving once validated","Recently left / in transition","Self-employed / freelance"]}]},
+  {t:"Income goals",help:"These numbers guide your offer pricing and client targets.",fields:[
+    {id:"goal_end",label:"Monthly income goal by end of program",type:"number",prefix:"$",req:true},
+    {id:"goal_12",label:"Monthly income goal in 12 months",type:"number",prefix:"$",req:true},
+    {id:"goal_replace",label:"Income needed to replace current salary",type:"number",prefix:"$",req:true},
+    {id:"goal_safe",label:"Minimum monthly income to feel safe leaving",type:"number",prefix:"$",req:true},
+    {id:"freedom",label:"What does financial freedom look like for you?",type:"textarea",req:true}]},
+  {t:"Desired business model",fields:[
+    {id:"models",label:"Which models appeal to you? (select all)",type:"multiselect",req:true,options:["1:1 Coaching","Consulting","Done-With-You","Advisory / Fractional","Group program / cohort","Hybrid","Not sure yet"]},
+    {id:"energize",label:"What work energizes you?",type:"textarea"},
+    {id:"drain",label:"What work drains you?",type:"textarea"}]},
+  {t:"Time availability",fields:[
+    {id:"hours",label:"Hours per week available",type:"number",req:true},
+    {id:"besttimes",label:"Best days / times for program work",type:"text"},
+    {id:"travel",label:"Upcoming travel or major commitments (next 8 weeks)",type:"textarea"},
+    {id:"protect",label:"How will you protect your program time?",type:"textarea"}]},
+  {t:"Constraints & risks",fields:[
+    {id:"fin_oblig",label:"Financial obligations that depend on your income",type:"textarea"},
+    {id:"runway_mo",label:"Months of runway if income stopped today",type:"number",req:true},
+    {id:"personal",label:"Family / personal commitments to factor in",type:"textarea"},
+    {id:"partner",label:"Does your spouse/partner support this?",type:"select",options:["Yes","Somewhat","No","N/A"]},
+    {id:"noncompete",label:"Any non-compete / contractual restrictions?",type:"textarea"},
+    {id:"fears",label:"What are you most afraid of? (select all)",type:"multiselect",options:["Failing publicly","Wasting time on the wrong idea","Can't get clients","Losing financial stability","Being seen as a salesperson","Not knowing what to build","Imposter syndrome"]}]},
+  {t:"Previous entrepreneurial attempts",fields:[
+    {id:"prev",label:"Have you tried to start a business before? Describe.",type:"textarea"},
+    {id:"prev_invest",label:"Programs / courses / coaches you've invested in",type:"textarea"},
+    {id:"prev_learn",label:"What worked and what didn't?",type:"textarea"}]},
+  {t:"Defining success",fields:[
+    {id:"succ_wk8",label:"This program is a success if, by Week 8, I have…",type:"textarea",req:true},
+    {id:"succ_12",label:"In 12 months, I want my life to look like…",type:"textarea",req:true},
+    {id:"succ_made",label:"The #1 thing that would make me feel I “made it” is…",type:"text",req:true}]},
+  {t:"Commitment",fields:[
+    {id:"commit",label:"I commit to the program (attend calls, complete homework, stay honest, take imperfect action, support cohort)",type:"checkbox",req:true}]}
+ ]},
+"04":{title:"Runway & Walkaway Calculator",phase:"Pre-Work",file:"04_Runway_Walkaway_Calculator.docx",
+ purpose:"Know how many months you can survive without income (runway) and the minimum monthly revenue that makes leaving rational (walkaway number).",
+ sections:[
+  {t:"Liquid assets (accessible within 30 days)",fields:[
+    {id:"a_check",label:"Checking accounts",type:"number",prefix:"$"},
+    {id:"a_save",label:"Savings accounts",type:"number",prefix:"$"},
+    {id:"a_mm",label:"Money market",type:"number",prefix:"$"},
+    {id:"a_brok",label:"Brokerage (non-retirement, liquid)",type:"number",prefix:"$"},
+    {id:"a_other",label:"Other accessible cash",type:"number",prefix:"$"},
+    {id:"a_total",label:"TOTAL liquid assets (A)",type:"number",prefix:"$",req:true}]},
+  {t:"Monthly expenses (from last 3 months of statements)",fields:[
+    {id:"b_house",label:"Housing",type:"number",prefix:"$"},
+    {id:"b_util",label:"Utilities",type:"number",prefix:"$"},
+    {id:"b_trans",label:"Transportation",type:"number",prefix:"$"},
+    {id:"b_food",label:"Food",type:"number",prefix:"$"},
+    {id:"b_health",label:"Healthcare",type:"number",prefix:"$"},
+    {id:"b_debt",label:"Debt payments",type:"number",prefix:"$"},
+    {id:"b_child",label:"Childcare / education",type:"number",prefix:"$"},
+    {id:"b_subs",label:"Subscriptions & memberships",type:"number",prefix:"$"},
+    {id:"b_pers",label:"Personal",type:"number",prefix:"$"},
+    {id:"b_ent",label:"Entertainment & discretionary",type:"number",prefix:"$"},
+    {id:"b_other",label:"Other recurring",type:"number",prefix:"$"},
+    {id:"b_total",label:"TOTAL monthly expenses (B)",type:"number",prefix:"$",req:true}]},
+  {t:"Monthly income (current state)",fields:[
+    {id:"c_salary",label:"Primary salary (take-home)",type:"number",prefix:"$"},
+    {id:"c_spouse",label:"Spouse / partner income",type:"number",prefix:"$"},
+    {id:"c_side",label:"Side / freelance income",type:"number",prefix:"$"},
+    {id:"c_invest",label:"Investment income",type:"number",prefix:"$"},
+    {id:"c_total",label:"TOTAL monthly income (C)",type:"number",prefix:"$"}]},
+  {t:"Runway",help:"Basic runway = A ÷ B. Risk-adjusted = basic × 0.80. 0–6mo red · 6–12 yellow · 12–18 green · 18+ optimal.",fields:[
+    {id:"runway_basic",label:"Basic runway (months)",type:"number",req:true},
+    {id:"runway_adj",label:"Risk-adjusted runway (months)",type:"number",req:true}]},
+  {t:"Walkaway number",help:"Minimum monthly business revenue that makes leaving rational. Use the higher of the math vs. the emotional number.",fields:[
+    {id:"walk_fin",label:"Financial walkaway number",type:"number",prefix:"$",req:true},
+    {id:"walk_psy",label:"Psychological walkaway number",type:"number",prefix:"$"},
+    {id:"walk_work",label:"Your working walkaway number (target)",type:"number",prefix:"$",req:true}]},
+  {t:"Transition timeline",fields:[
+    {id:"exit_target",label:"Target exit date (realistic)",type:"text"},
+    {id:"exit_latest",label:"Latest acceptable exit date",type:"text"}]}
+ ]},
+/* ===== Worksheets 05–08 (Kickoff) ===== */
+"05":{title:"Offer Hypothesis Canvas",phase:"Kickoff",file:"05_Offer_Hypothesis_Canvas.docx",
+ purpose:"Draft a complete offer hypothesis — WHO, problem, outcome, mechanism, delivery, and pricing — to test in validation conversations. A hypothesis to test, not a product to perfect.",
+ sections:[
+  {t:"Who — your ideal client",help:"Be specific. Not “business owners” but “B2B SaaS founders, 10–50 staff, stuck under $2M ARR”.",fields:[
+    {id:"who",label:"Who is your ideal client? (title, company size, industry, situation)",type:"textarea",req:true},
+    {id:"who_now",label:"Their current situation (where are they now?)",type:"textarea",req:true},
+    {id:"who_trigger",label:"Why would they change right now? (the trigger)",type:"text",req:true}]},
+  {t:"The problem",help:"Great offers solve ONE painful problem extremely well.",fields:[
+    {id:"prob_core",label:"The ONE core problem you solve",type:"textarea",req:true},
+    {id:"prob_surface",label:"Surface pain (what they say)",type:"text"},
+    {id:"prob_root",label:"Root pain (what they feel)",type:"text"},
+    {id:"prob_cost",label:"What is this problem costing them? (money, time, stress)",type:"textarea",req:true}]},
+  {t:"The outcome (dream state)",fields:[
+    {id:"out_result",label:"The tangible outcome / result you deliver",type:"textarea",req:true},
+    {id:"out_measure",label:"How can it be measured or proven? (numbers, metrics)",type:"text",req:true},
+    {id:"out_life",label:"What will their life / business look like after?",type:"textarea"}]},
+  {t:"The mechanism (how you deliver)",help:"Your unique 3–5 step process — your “secret sauce”.",fields:[
+    {id:"mech_steps",label:"Framework steps",type:"table",req:true,min:3,cols:[{k:"step",label:"Step"}]},
+    {id:"mech_why",label:"Why does YOUR approach work when others fail?",type:"textarea",req:true},
+    {id:"mech_qual",label:"Your unique qualification to deliver this",type:"textarea"}]},
+  {t:"Delivery model",fields:[
+    {id:"del_model",label:"Primary delivery model",type:"select",req:true,options:["1:1 Coaching / Consulting","Done-With-You","Group coaching","Hybrid"]},
+    {id:"del_length",label:"Engagement length",type:"text"},
+    {id:"del_client_time",label:"Client time commitment (hrs/week)",type:"number"},
+    {id:"del_your_time",label:"Your time (hrs/client/week)",type:"number"}]},
+  {t:"Pricing hypothesis",help:"Start with what feels slightly uncomfortable — usually closer to right.",fields:[
+    {id:"price",label:"Initial price hypothesis",type:"number",prefix:"$",req:true},
+    {id:"price_value",label:"Value of the outcome to client (ROI)",type:"number",prefix:"$"},
+    {id:"price_cost",label:"Cost of NOT solving this problem",type:"number",prefix:"$"}]},
+  {t:"Anticipated objections",fields:[
+    {id:"obj",label:"Objections → your initial response",type:"table",req:true,min:3,cols:[{k:"obj",label:"Likely objection"},{k:"resp",label:"Your initial response"}]}]},
+  {t:"Transformation statement",help:"“I help [WHO] go from [BEFORE] to [AFTER] through [MECHANISM].”",fields:[
+    {id:"transform",label:"Your complete transformation statement",type:"textarea",req:true}]}
+ ]},
+"06":{title:"Validation Conversation Guide",phase:"Kickoff → used Week 2",file:"06_Validation_Conversation_Guide.docx",
+ purpose:"Run 5+ learning (not selling) conversations. Map who to talk to, capture each conversation, then find the patterns. Received at Kickoff, used after Week 1.",
+ sections:[
+  {t:"Your ICP hypothesis",help:"From your Offer Hypothesis Canvas.",fields:[
+    {id:"icp_role",label:"Role / title",type:"text",req:true},
+    {id:"icp_industry",label:"Industry / market",type:"text",req:true},
+    {id:"icp_size",label:"Company size",type:"text"},
+    {id:"icp_problem",label:"Problem they likely face",type:"text",req:true},
+    {id:"icp_why",label:"Why they'd talk to you",type:"text"}]},
+  {t:"Warm network map",help:"Everyone you know who fits OR knows someone who fits. Don't filter — list.",fields:[
+    {id:"network",label:"People to reach out to",type:"table",req:true,min:5,cols:[{k:"name",label:"Name"},{k:"rel",label:"Relationship"},{k:"fits",label:"Fits ICP?",type:"select",options:["Yes","No"]},{k:"knows",label:"Knows someone?",type:"select",options:["Yes","No"]}]}]},
+  {t:"Conversation log",help:"One row per conversation. Aim for 5+. Capture their EXACT words — that becomes your messaging.",fields:[
+    {id:"convos",label:"Conversations",type:"table",req:true,min:5,cols:[{k:"date",label:"Date"},{k:"name",label:"Name"},{k:"role",label:"Role / company"},{k:"fit",label:"ICP fit",type:"scale5"},{k:"insight",label:"Key insight"},{k:"quote",label:"Verbatim quote"}]}]},
+  {t:"Pattern recognition (after 5+ conversations)",fields:[
+    {id:"pains",label:"Common pains that came up repeatedly",type:"textarea",req:true},
+    {id:"language",label:"Common words / phrases used most (your messaging)",type:"textarea",req:true},
+    {id:"icp_narrow",label:"My ICP should be narrowed to…",type:"textarea"},
+    {id:"actually_solve",label:"What problem should my offer ACTUALLY solve?",type:"textarea",req:true},
+    {id:"actually_pay",label:"What would they ACTUALLY pay?",type:"text"},
+    {id:"most_wrong",label:"The ONE thing I was most wrong about",type:"textarea"}]}
+ ]},
+"07":{title:"Experiment Mindset Framework",phase:"Kickoff",file:"07_Experiment_Mindset_Framework.docx",
+ purpose:"Reframe fear into experiments. No conversation = maximum risk. Commit to imperfect action, the 24-hour rule, and the 5-conversation minimum.",
+ sections:[
+  {t:"Name the resistance",fields:[
+    {id:"fears",label:"What fears are blocking you from reaching out? (rejection, judgment, failure, success)",type:"textarea",req:true},
+    {id:"reframe",label:"Reframe each fear as an experiment / what you'd learn either way",type:"textarea",req:true}]},
+  {t:"The 24-hour rule",help:"Within 24 hours of the Week 1 call, reach out to at least one person. Momentum beats perfection.",fields:[
+    {id:"first_person",label:"The one person I'll reach out to within 24 hours",type:"text",req:true}]},
+  {t:"Your commitment",fields:[
+    {id:"commit",label:"I commit to:",type:"multiselect",req:true,options:["Reach out to 1+ person within 24 hours","Complete 5+ validation conversations this week","Document learnings after each conversation","Treat rejection as data, not failure","Report progress in the cohort community"]}]}
+ ]},
+"08":{title:"Risk Assessment Matrix",phase:"Kickoff",file:"08_Risk_Assessment_Matrix.docx",
+ purpose:"See risk clearly as data, not fear. Assess your real financial, career, reputation, and time risks, plot them, and assign mitigations — before committing to Offer v1.",
+ sections:[
+  {t:"Financial risk",fields:[
+    {id:"fin_desc",label:"What's the actual financial risk you're taking?",type:"textarea",req:true},
+    {id:"fin_max",label:"Maximum dollar amount at risk",type:"number",prefix:"$",req:true},
+    {id:"fin_like",label:"Likelihood of total loss",type:"scale"},
+    {id:"fin_afford",label:"Can you afford to lose this amount?",type:"select",req:true,options:["Yes","No"]},
+    {id:"fin_mit",label:"Mitigation strategy",type:"textarea",req:true}]},
+  {t:"Career / professional risk",fields:[
+    {id:"car_desc",label:"Worst that could happen professionally?",type:"textarea",req:true},
+    {id:"car_like",label:"Likelihood of this happening",type:"scale"},
+    {id:"car_recover",label:"Could you recover? How long?",type:"text"},
+    {id:"car_mit",label:"Mitigation strategy",type:"textarea",req:true}]},
+  {t:"Reputation / social risk",fields:[
+    {id:"rep_desc",label:"What social / reputation damage are you afraid of?",type:"textarea",req:true},
+    {id:"rep_who",label:"Who specifically would judge you?",type:"text"},
+    {id:"rep_matter",label:"Does their opinion actually matter to your success?",type:"select",options:["Yes","No"]}]},
+  {t:"Time / opportunity cost risk",fields:[
+    {id:"time_hours",label:"Hours per week you're committing",type:"number"},
+    {id:"time_cost",label:"What's the cost of NOT trying for another year?",type:"textarea",req:true}]},
+  {t:"Regret minimization",help:"Project to age 80.",fields:[
+    {id:"regret_not",label:"When I'm 80, will I regret NOT trying this?",type:"textarea",req:true},
+    {id:"regret_fail",label:"When I'm 80, will I regret trying and failing?",type:"textarea",req:true}]},
+  {t:"Your decision",fields:[
+    {id:"level",label:"After this assessment, my ACTUAL risk level is",type:"select",req:true,options:["Lower than I thought","About what I expected","Higher than I thought"]},
+    {id:"biggest",label:"The biggest REAL risk I need to mitigate",type:"text",req:true},
+    {id:"plan",label:"My specific plan to mitigate it",type:"textarea",req:true},
+    {id:"decision",label:"Based on this analysis, I choose to",type:"select",req:true,options:["Proceed with full commitment","Proceed with specific safeguards","Pause and address risks first"]}]}
+ ]},
+/* ===== Worksheets 09–16 (Week 1–3) ===== */
+"09":{title:"Decision Velocity Framework",phase:"Week 1",file:"09_Decision_Velocity_Framework.docx",
+ purpose:"Apply the 70% rule and reversible-decision thinking to stop analysis paralysis and commit to Offer v1 — with a review date and change triggers.",
+ sections:[
+  {t:"Define & classify the decision",fields:[
+    {id:"decision",label:"What specific decision am I making? (Offer v1)",type:"textarea",req:true},
+    {id:"type",label:"Decision type",type:"select",req:true,options:["Type 2 — reversible (decide fast)","Type 1 — irreversible (deliberate)"]},
+    {id:"reverse_cost",label:"If I'm wrong, what does it cost to reverse?",type:"text"}]},
+  {t:"Know vs. assume",fields:[
+    {id:"know",label:"What I KNOW (data from real conversations/tests)",type:"textarea",req:true},
+    {id:"assume",label:"What I'm ASSUMING (guessing)",type:"textarea"}]},
+  {t:"The 70% test",help:"≥70% → decide now. <70% → what ONE input would get you there?",fields:[
+    {id:"pct",label:"How much information do I have? (%)",type:"number",req:true},
+    {id:"one_input",label:"If under 70%, the ONE input I need",type:"text"}]},
+  {t:"Decide & set a review date",fields:[
+    {id:"my_decision",label:"MY DECISION",type:"textarea",req:true},
+    {id:"review_date",label:"I will review this decision on",type:"text",req:true},
+    {id:"change_course",label:"What would make me change course",type:"textarea",req:true}]}
+ ]},
+"10":{title:"Offer Architecture Template (Offer v1)",phase:"Week 1",file:"10_Offer_Architecture_Template (1).docx",
+ purpose:"Turn your hypothesis into a finalized Offer v1: full problem, outcome, mechanism, the Value Equation, and pricing. This is the exact offer you validate.",
+ sections:[
+  {t:"Problem architecture",fields:[
+    {id:"p_core",label:"The core problem your ICP faces",type:"textarea",req:true},
+    {id:"p_before",label:"Current state (before) — life/business with this unsolved",type:"textarea",req:true},
+    {id:"p_cost",label:"Cost of inaction — what if they do nothing?",type:"textarea",req:true},
+    {id:"p_tried",label:"Failed attempts — what they've tried that didn't work",type:"text"},
+    {id:"p_whyfail",label:"Why those failed (your differentiation)",type:"textarea",req:true}]},
+  {t:"Outcome architecture",fields:[
+    {id:"o_dream",label:"The dream outcome — specific result they achieve",type:"textarea",req:true},
+    {id:"o_after",label:"Future state (after) — life/business after working with you",type:"textarea"},
+    {id:"o_time",label:"Timeframe to achieve it",type:"text",req:true},
+    {id:"o_proof",label:"Measurable proof they achieved it",type:"text",req:true}]},
+  {t:"Transformation statement",help:"I help [WHO] go from [BEFORE] to [AFTER] in [TIMEFRAME] through [MECHANISM].",fields:[
+    {id:"transform",label:"Your complete transformation statement",type:"textarea",req:true}]},
+  {t:"Mechanism architecture",fields:[
+    {id:"m_name",label:"Framework name (e.g. “The Revenue First Framework”)",type:"text"},
+    {id:"m_steps",label:"Your framework phases",type:"table",req:true,min:3,cols:[{k:"phase",label:"Phase"},{k:"what",label:"What happens"},{k:"outcome",label:"Outcome / milestone"}]},
+    {id:"m_why",label:"Why it works where others fail",type:"textarea",req:true},
+    {id:"m_format",label:"Delivery format",type:"select",options:["1:1","Group","Hybrid","DIY with support"]}]},
+  {t:"Value Equation",help:"Value = (Dream Outcome × Likelihood) ÷ (Time Delay × Effort). Maximize top, minimize bottom.",fields:[
+    {id:"ve_like",label:"How you raise perceived likelihood of success",type:"text"},
+    {id:"ve_time",label:"How you reduce time to results",type:"text"},
+    {id:"ve_effort",label:"How you reduce client effort/sacrifice",type:"text"}]},
+  {t:"Pricing",fields:[
+    {id:"price",label:"Offer v1 price",type:"number",prefix:"$",req:true},
+    {id:"price_logic",label:"Pricing logic (value delivered vs. price)",type:"textarea",req:true}]}
+ ]},
+"11":{title:"Conversation Debrief Template",phase:"Week 2",file:"11_Conversation_Debrief_Template.docx",
+ purpose:"Synthesize your 5+ validation conversations into patterns before the Week 2 call — capturing THEIR words, urgency, willingness to pay, and what to change in your offer.",
+ sections:[
+  {t:"Conversation summaries",help:"One row per conversation. Capture exact language, not interpretation.",fields:[
+    {id:"convos",label:"Conversations",type:"table",req:true,min:3,cols:[{k:"who",label:"Name / role / company"},{k:"fit",label:"ICP fit",type:"scale5"},{k:"pain",label:"Primary pain (their words)"},{k:"outcome",label:"Desired outcome"},{k:"urg",label:"Urgency",type:"scale5"},{k:"wtp",label:"Willingness to pay"},{k:"quote",label:"Key quote"}]}]},
+  {t:"Patterns & iteration",fields:[
+    {id:"patterns",label:"What themes emerged across conversations?",type:"textarea",req:true},
+    {id:"icp_refine",label:"ICP refinement",type:"textarea"},
+    {id:"offer_iterate",label:"Offer iteration notes — what to change",type:"textarea",req:true},
+    {id:"top3",label:"Top 3 insights to share at the Week 2 call",type:"textarea",req:true}]}
+ ]},
+"12":{title:"PMF Validation Checklist",phase:"Week 2",file:"12_PMF_Validation_Checklist.docx",
+ purpose:"Score product-market-fit evidence from your conversations (0–5 per signal), interpret the total, and make a go / iterate / pivot decision.",
+ sections:[
+  {t:"PMF evidence scoring",help:"32–40 strong · 24–31 moderate · 16–23 weak · 0–15 no PMF.",fields:[
+    {id:"s1",label:"Problem recognition",type:"scale5",req:true},
+    {id:"s2",label:"Pain intensity",type:"scale5",req:true},
+    {id:"s3",label:"Active problem-solving (already tried/spent)",type:"scale5",req:true},
+    {id:"s4",label:"Urgency",type:"scale5",req:true},
+    {id:"s5",label:"Outcome clarity",type:"scale5",req:true},
+    {id:"s6",label:"Willingness to pay",type:"scale5",req:true},
+    {id:"s7",label:"Decision authority",type:"scale5",req:true},
+    {id:"s8",label:"Follow-up interest",type:"scale5",req:true}]},
+  {t:"Red flags",fields:[
+    {id:"redflags",label:"Any red flags present? (check all)",type:"multiselect",options:["Didn't recognize the problem until explained","Polite but not excited","Common price objections","No one asked how to work with you","Vague answers / no specifics"]}]},
+  {t:"Decision",fields:[
+    {id:"decision",label:"Go / No-Go decision",type:"select",req:true,options:["Proceed to sales","Proceed with caution","Iterate before selling","Major pivot required"]},
+    {id:"confidence",label:"Confidence note — why",type:"textarea",req:true}]}
+ ]},
+"13":{title:"Money Mindset Reframe",phase:"Week 3",file:"13_Money_Mindset_Reframe.docx",
+ purpose:"Surface and dismantle limiting money beliefs, adopt value-based pricing (the 10x rule), and write new money mantras before sales conversations.",
+ sections:[
+  {t:"Money beliefs audit",help:"Rate how much you agree (1–10). Any 5+ is limiting your income.",fields:[
+    {id:"b1",label:"“Charging high prices is greedy.”",type:"scale",req:true},
+    {id:"b2",label:"“I should help people for free if I can.”",type:"scale",req:true},
+    {id:"b3",label:"“People will think I'm a fraud if I charge premium.”",type:"scale",req:true},
+    {id:"b4",label:"“I'm not experienced enough to charge what others charge.”",type:"scale",req:true},
+    {id:"b5",label:"“If I ask for money, they'll reject me.”",type:"scale",req:true},
+    {id:"b6",label:"“Good work should sell itself.”",type:"scale",req:true}]},
+  {t:"Value-based pricing (10x rule)",help:"A fair price delivers at least 10x its value.",fields:[
+    {id:"worth",label:"What is the outcome worth to your client?",type:"number",prefix:"$",req:true},
+    {id:"min_price",label:"Divide by 10 = your minimum fair price",type:"number",prefix:"$",req:true}]},
+  {t:"Your new money mantras",fields:[
+    {id:"mantras",label:"Write your new money mantras",type:"textarea",req:true}]}
+ ]},
+"14":{title:"Pre-Call Ritual Guide",phase:"Week 3",file:"14_Pre_Call_Ritual_Guide.docx",
+ purpose:"A 10-minute pre-call ritual — physical reset, mindset priming, prospect review, intention — so you show up in the optimal state for every sales conversation.",
+ sections:[
+  {t:"Build your ritual",fields:[
+    {id:"steps",label:"My pre-call ritual includes (check all)",type:"multiselect",req:true,options:["Physical reset — breaths + power pose","Read the mindset mantras aloud","Prospect review — who they are, their problem, my goal","Set an intention"]}]},
+  {t:"Intention setting",fields:[
+    {id:"intent",label:"My intention for the call is to…",type:"text",req:true},
+    {id:"success",label:"I'll consider the call successful if…",type:"text",req:true},
+    {id:"energy",label:"The energy I want to bring is…",type:"text"}]},
+  {t:"Put it to use",fields:[
+    {id:"used",label:"I used this ritual before a real sales call",type:"checkbox",req:true}]}
+ ]},
+"15":{title:"Sales Conversation Framework",phase:"Week 3",file:"15_Sales_Conversation_Framework.docx",
+ purpose:"Prepare and run the Rapport → Discovery → Diagnosis → Prescription → Close structure (talk 20%, they talk 80%), and use it in 2+ real conversations.",
+ sections:[
+  {t:"Prepare your conversation",fields:[
+    {id:"discovery",label:"Your discovery questions (situation / problem / impact / desired outcome)",type:"textarea",req:true},
+    {id:"diagnosis",label:"Your diagnosis reflect-back (“Let me make sure I understand…”)",type:"textarea"},
+    {id:"prescription",label:"Your prescription — how your offer maps to their problem + how you state price",type:"textarea",req:true},
+    {id:"close",label:"Your close language",type:"text"}]},
+  {t:"Put it to use",fields:[
+    {id:"count",label:"How many sales conversations have you used this in?",type:"number",req:true},
+    {id:"notes",label:"Notes / what you learned",type:"textarea"}]}
+ ]},
+"16":{title:"Objection Handling Guide",phase:"Week 3",file:"16_Objection_Handling_Guide.docx",
+ purpose:"Prepare A.C.E. (Acknowledge, Clarify, Explore) responses to the top objections, and track what you hear and overcome in real conversations.",
+ sections:[
+  {t:"Your prepared responses",fields:[
+    {id:"responses",label:"Objection → your A.C.E. response",type:"table",req:true,min:5,cols:[{k:"obj",label:"Objection"},{k:"resp",label:"Your response"}]}]},
+  {t:"Objection practice tracker",fields:[
+    {id:"tracker",label:"Objections heard in real calls",type:"table",cols:[{k:"obj",label:"Objection"},{k:"heard",label:"Times heard",type:"number"},{k:"overcome",label:"Times overcome",type:"number"},{k:"notes",label:"Notes"}]}]}
+ ]},
+/* ===== Worksheets 17–24 (Week 4–5) ===== */
+"17":{title:"Identity Shift Framework",phase:"Week 4",file:"17_Identity_Shift_Framework.docx",
+ purpose:"Close the gap between your actions and your self-concept — move from employee to entrepreneur identity and write a new identity statement you read daily.",
+ sections:[
+  {t:"Current self-perception",fields:[
+    {id:"cur_answer",label:"When asked “what do you do?”, how do you currently answer?",type:"text",req:true},
+    {id:"cur_labels",label:"Job titles / labels you still identify with",type:"text"},
+    {id:"cur_beliefs",label:"Beliefs about yourself that might be holding you back",type:"textarea",req:true}]},
+  {t:"Future self-perception",fields:[
+    {id:"fut_answer",label:"How will the successful you answer “what do you do?”",type:"text",req:true},
+    {id:"fut_beliefs",label:"What does the business-owner you believe about themselves?",type:"textarea"},
+    {id:"fut_habits",label:"What daily habits does the successful you have?",type:"textarea"}]},
+  {t:"Your new identity statement",help:"“I am a business owner who helps [WHO] achieve [OUTCOME]…”",fields:[
+    {id:"statement",label:"Your personalized identity statement",type:"textarea",req:true}]}
+ ]},
+"18":{title:"Imposter Syndrome Toolkit",phase:"Week 4",file:"18_Imposter_Syndrome_Toolkit.docx",
+ purpose:"Reality-check imposter thoughts, start an evidence journal you can reach for when doubt hits, and keep a 5-minute emergency protocol.",
+ sections:[
+  {t:"Reframe imposter thoughts",fields:[
+    {id:"thoughts",label:"Imposter thought → reality check",type:"table",req:true,min:2,cols:[{k:"thought",label:"Imposter thought"},{k:"reality",label:"Reality check"}]}]},
+  {t:"Evidence journal",help:"Track wins, compliments, and results — rational evidence that you belong.",fields:[
+    {id:"evidence",label:"Evidence that I belong",type:"table",req:true,min:2,cols:[{k:"date",label:"Date"},{k:"ev",label:"Evidence that I belong"}]}]},
+  {t:"Your emergency protocol",fields:[
+    {id:"protocol",label:"My 5-minute protocol when imposter syndrome strikes (name it, breathe, recall a success, reframe, act)",type:"textarea"}]}
+ ]},
+"19":{title:"Delivery MVP Template",phase:"Week 4",file:"19_Delivery_MVP_Template.docx",
+ purpose:"Design the simplest delivery system that gets results — a clear transformation, 4–6 milestones, a call cadence, and a standard agenda.",
+ sections:[
+  {t:"Define the transformation",fields:[
+    {id:"before",label:"Starting point (before)",type:"text",req:true},
+    {id:"after",label:"End point (after)",type:"text",req:true},
+    {id:"weeks",label:"Timeline (weeks)",type:"number",req:true}]},
+  {t:"Map the milestones (4–6)",fields:[
+    {id:"milestones",label:"Milestones",type:"table",req:true,min:4,cols:[{k:"week",label:"Week",type:"number"},{k:"milestone",label:"Milestone"},{k:"deliverable",label:"Client deliverable"}]}]},
+  {t:"Delivery format",fields:[
+    {id:"freq",label:"Call frequency",type:"select",req:true,options:["Weekly","Bi-weekly","Other"]},
+    {id:"dur",label:"Call duration",type:"select",req:true,options:["30 min","45 min","60 min"]},
+    {id:"platform",label:"Platform",type:"select",options:["Zoom","Google Meet","Phone"]},
+    {id:"support",label:"Between-call support",type:"select",options:["Email","Slack / Voxer","None"]}]},
+  {t:"Standard call agenda + readiness",fields:[
+    {id:"agenda",label:"Your standard call agenda",type:"textarea"},
+    {id:"ready",label:"MVP checklist",type:"multiselect",req:true,options:["Defined start & end points","Mapped 4-6 milestones","Decided call frequency & duration","Created standard agenda","Set client expectations","Scheduled first call"]}]}
+ ]},
+"20":{title:"Client Onboarding Checklist",phase:"Week 4",file:"20_Client_Onboarding_Checklist.docx",
+ purpose:"Nail the first 48 hours — welcome, intake, expectations, communication norms, and a first win — so the client feels it was the best decision they made.",
+ sections:[
+  {t:"Onboarding steps",fields:[
+    {id:"steps",label:"Onboarding actions (check as you complete)",type:"multiselect",req:true,options:["Sent welcome email","Collected payment","Sent intake questionnaire","Scheduled first call","Sent prep materials","Set expectations on first call","Established communication norms","Created first milestone together","Sent recap email"]}]},
+  {t:"Your materials",fields:[
+    {id:"welcome",label:"Your welcome email (draft)",type:"textarea",req:true},
+    {id:"firstwin",label:"The first win you'll create for them",type:"text",req:true}]}
+ ]},
+"21":{title:"Momentum Framework",phase:"Week 5",file:"21_Momentum_Framework.docx",
+ purpose:"Avoid the one-client trap — protect time for growth alongside delivery with minimum viable growth activities and a non-negotiable growth block.",
+ sections:[
+  {t:"Minimum viable growth activities",help:"Protect these even while delivering. If any hits zero, you have a problem.",fields:[
+    {id:"activities",label:"I commit to these weekly minimums",type:"multiselect",req:true,options:["Outreach 30 min/day","2-3 sales conversations/week","1-2 content posts/week","5-10 network touches/week"]}]},
+  {t:"Weekly momentum scorecard",fields:[
+    {id:"scorecard",label:"Track your numbers weekly",type:"table",cols:[{k:"week",label:"Week"},{k:"outreach",label:"Outreach sent",type:"number"},{k:"convos",label:"Conversations",type:"number"},{k:"calls",label:"Sales calls",type:"number"},{k:"signed",label:"New clients",type:"number"}]}]},
+  {t:"Your non-negotiable growth block",fields:[
+    {id:"gb_day",label:"Growth block day(s)",type:"text",req:true},
+    {id:"gb_time",label:"Growth block time",type:"text",req:true},
+    {id:"gb_dur",label:"Duration",type:"text"}]}
+ ]},
+"22":{title:"Life Architecture Audit",phase:"Week 5",file:"22_Life_Architecture_Audit.docx",
+ purpose:"Mid-program check-in: is this business serving your life or consuming it? Audit energy and life integration, then set course corrections.",
+ sections:[
+  {t:"Energy audit",fields:[
+    {id:"e_work",label:"How energized do I feel by the work?",type:"scale",req:true},
+    {id:"e_clients",label:"How energized by my current clients?",type:"scale",req:true},
+    {id:"e_pace",label:"How sustainable does this pace feel?",type:"scale",req:true},
+    {id:"e_align",label:"How aligned is this work with my strengths?",type:"scale",req:true}]},
+  {t:"Life integration",help:"Has the business improved, hurt, or not changed each area?",fields:[
+    {id:"l_rel",label:"Relationships",type:"select",req:true,options:["+ improved","= no change","− hurt"]},
+    {id:"l_health",label:"Health",type:"select",req:true,options:["+ improved","= no change","− hurt"]},
+    {id:"l_fin",label:"Finances (stress)",type:"select",req:true,options:["+ improved","= no change","− hurt"]},
+    {id:"l_time",label:"Personal time",type:"select",req:true,options:["+ improved","= no change","− hurt"]},
+    {id:"l_mental",label:"Mental health",type:"select",req:true,options:["+ improved","= no change","− hurt"]}]},
+  {t:"Honest questions",fields:[
+    {id:"q_happy",label:"If this business succeeds exactly as planned, will I be happy?",type:"textarea",req:true},
+    {id:"q_avoid",label:"One thing that's not working that I've been avoiding",type:"text",req:true}]},
+  {t:"Course corrections",fields:[
+    {id:"start",label:"I will START doing",type:"text",req:true},
+    {id:"stop",label:"I will STOP doing",type:"text",req:true},
+    {id:"continue",label:"I will CONTINUE doing",type:"text"}]}
+ ]},
+"23":{title:"Testimonial Request Script",phase:"Week 5",file:"23_Testimonial_Request_Script.docx",
+ purpose:"Get powerful social proof — ask right after a win, guide clients with the framework questions, and log who you've asked and received.",
+ sections:[
+  {t:"Your plan",fields:[
+    {id:"whowhen",label:"Who will you ask, and when (after which win)?",type:"textarea",req:true},
+    {id:"email",label:"Your testimonial request (draft — verbal or email)",type:"textarea"}]},
+  {t:"Testimonial capture log",fields:[
+    {id:"log",label:"Testimonials",type:"table",req:true,min:1,cols:[{k:"client",label:"Client"},{k:"asked",label:"Asked?",type:"select",options:["Yes","No"]},{k:"format",label:"Format",type:"select",options:["Video","Written"]},{k:"received",label:"Received?",type:"select",options:["Yes","No"]}]}]}
+ ]},
+"24":{title:"Messaging Refinement Worksheet",phase:"Week 5",file:"24_Messaging_Refinement_Worksheet.docx",
+ purpose:"Upgrade your hooks using your clients' actual words — mine their language, write 10+ new hooks, and sharpen your one-liner.",
+ sections:[
+  {t:"Language mining",help:"Use THEIR language, not yours.",fields:[
+    {id:"problem_words",label:"Exact words clients used describing their PROBLEM",type:"textarea",req:true},
+    {id:"outcome_words",label:"Exact words describing their DESIRED OUTCOME",type:"textarea",req:true},
+    {id:"convinced",label:"What convinced them to buy?",type:"text"},
+    {id:"objections",label:"What objections came up, and how you overcame them",type:"textarea"}]},
+  {t:"Upgraded hooks (write 10+)",fields:[
+    {id:"hooks",label:"Hooks",type:"table",req:true,min:10,cols:[{k:"hook",label:"Hook"}]}]},
+  {t:"Upgraded one-liner",fields:[
+    {id:"original",label:"Original one-liner",type:"text"},
+    {id:"upgraded",label:"Upgraded one-liner (using client language)",type:"textarea",req:true}]}
+ ]},
+/* ===== Worksheets 25–34 (Week 6–7) ===== */
+"25":{title:"LinkedIn Authority Audit",phase:"Week 6",file:"CFA_Doc31_LinkedIn_Authority_Audit.docx",
+ purpose:"Score your LinkedIn profile, find the gaps, and fix them this week. For each element, rate yourself 1–5 and fix anything below a 4 before next week.",
+ sections:[
+  {t:"Profile audit — score each element (1–5)",help:"Does each element do its job? Fix anything under 4.",fields:[
+    {id:"s_headline",label:"Headline — leads with ICP transformation, not your title",type:"scale5",req:true},
+    {id:"s_about",label:"About section — opens with a hook and ends with a CTA",type:"scale5",req:true},
+    {id:"s_featured",label:"Featured section — case studies, testimonials or frameworks present",type:"scale5",req:true},
+    {id:"s_banner",label:"Banner image — clear CTA for your ICP",type:"scale5",req:true},
+    {id:"s_url",label:"Custom URL + calendar link — prospect can book without asking",type:"scale5",req:true}]},
+  {t:"SSI score",help:"From linkedin.com/sales/ssi — total is out of 100.",fields:[
+    {id:"ssi_total",label:"Current SSI score (out of 100)",type:"number",req:true},
+    {id:"ssi_brand",label:"Professional Brand (out of 25)",type:"number"},
+    {id:"ssi_people",label:"Finding the Right People (out of 25)",type:"number"},
+    {id:"ssi_engage",label:"Engagement (out of 25)",type:"number"},
+    {id:"ssi_rel",label:"Relationships (out of 25)",type:"number"}]},
+  {t:"Diagnosis",fields:[
+    {id:"weakest",label:"My weakest pillar",type:"text",req:true},
+    {id:"lowest",label:"Element with the lowest score (what needs fixing)",type:"text",req:true},
+    {id:"fix_action",label:"Specific action I'm taking to fix it",type:"textarea",req:true}]},
+  {t:"Drafts",fields:[
+    {id:"new_headline",label:"My new headline (draft)",type:"textarea",req:true},
+    {id:"about_hook",label:"My About-section opening hook (draft)",type:"textarea",req:true}]},
+  {t:"Priority fixes this week",fields:[
+    {id:"priority_fixes",label:"Top fixes I'll make before next week",type:"textarea",req:true}]}
+ ]},
+"26":{title:"ICP Connection Tracker",phase:"Week 6",file:"CFA_Doc32_ICP_Connection_Tracker.docx",
+ purpose:"Track weekly connection volume, acceptance rate, and conversations started. Target: 200 requests/week (40/day), 40%+ acceptance. Never pitch on the first message.",
+ sections:[
+  {t:"My ICP targeting criteria",fields:[
+    {id:"icp_titles",label:"Job titles I target",type:"text",req:true},
+    {id:"icp_company",label:"Company size / industry",type:"text",req:true},
+    {id:"icp_geo",label:"Geography",type:"text"},
+    {id:"icp_filter",label:"Active filter (e.g. posted in last 30 days)",type:"text"}]},
+  {t:"Weekly tracking",help:"Log each week. Acceptance target 40%+; if below, optimize your profile.",fields:[
+    {id:"weekly",label:"Weekly connection activity",type:"table",req:true,min:1,cols:[{k:"week",label:"Week of"},{k:"sent",label:"Requests sent"},{k:"accepted",label:"Accepted"},{k:"rate",label:"Acceptance %"},{k:"dms",label:"DMs initiated"},{k:"convos",label:"Conversations started"},{k:"ssi",label:"SSI Relationships score"}]}]},
+  {t:"DM log — value-first messages",help:"Never pitch first. Lead with a framework, insight or genuine question.",fields:[
+    {id:"dmlog",label:"Value-first DMs sent",type:"table",req:true,min:1,cols:[{k:"date",label:"Date"},{k:"who",label:"Name + title"},{k:"sent",label:"What I sent (value/insight/question)"},{k:"resp",label:"Response?"},{k:"next",label:"Next step"}]}]}
+ ]},
+"27":{title:"Content Pillar Map",phase:"Week 6",file:"CFA_Doc33_Content_Pillar_Map.docx",
+ purpose:"Define 3–4 content pillars and 5 post ideas under each — that's 15–20 posts ready to draft, a month of content, so you never stare at a blank page.",
+ sections:[
+  {t:"My ICP + posting commitment",fields:[
+    {id:"icp",label:"My ICP (who I write for)",type:"text",req:true},
+    {id:"cadence",label:"My posting commitment (posts per week)",type:"number",req:true},
+    {id:"platform",label:"My primary platform",type:"select",req:true,options:["LinkedIn","Other"]}]},
+  {t:"Pillar 1 — Expertise (what I know)",fields:[
+    {id:"p1_name",label:"Pillar 1 name / topic area",type:"text",req:true},
+    {id:"p1_ideas",label:"5 post ideas (hook or concept for each)",type:"textarea",req:true}]},
+  {t:"Pillar 2 — Proof (what I've done)",fields:[
+    {id:"p2_name",label:"Pillar 2 name / topic area",type:"text",req:true},
+    {id:"p2_ideas",label:"5 post ideas (hook or concept for each)",type:"textarea",req:true}]},
+  {t:"Pillar 3 — Perspective (what I think)",fields:[
+    {id:"p3_name",label:"Pillar 3 name / topic area",type:"text",req:true},
+    {id:"p3_ideas",label:"5 post ideas (hook or concept for each)",type:"textarea",req:true}]},
+  {t:"Pillar 4 — Story (why I do it) — optional",fields:[
+    {id:"p4_name",label:"Pillar 4 name / topic area",type:"text"},
+    {id:"p4_ideas",label:"5 post ideas (hook or concept for each)",type:"textarea"}]}
+ ]},
+"28":{title:"Marketing Scorecard",phase:"Week 6",file:"CFA_Doc34_Marketing_Scorecard.docx",
+ purpose:"Run this every Monday in 5 minutes alongside your KPI Dashboard. Fill the Actual column, compare to last week — your weakest metric tells you where to focus.",
+ sections:[
+  {t:"Weekly tracking",help:"Targets: SSI 70+, 200 requests, 40%+ acceptance, 2–5 posts, 10+ value-first DMs. Log each week.",fields:[
+    {id:"scorecard",label:"Weekly marketing metrics",type:"table",req:true,min:1,cols:[{k:"week",label:"Week of"},{k:"ssi",label:"SSI (70+)"},{k:"requests",label:"Requests (200)"},{k:"accept",label:"Acceptance % (40+)"},{k:"posts",label:"Posts (2–5)"},{k:"views",label:"Profile views"},{k:"engage",label:"Engagement % (2–4)"},{k:"inbound",label:"Inbound DMs"},{k:"valuedms",label:"Value DMs (10+)"},{k:"calls",label:"Calls booked"}]}]},
+  {t:"Focus",fields:[
+    {id:"weakest_metric",label:"My weakest metric this week — and what I'll do about it",type:"textarea",req:true},
+    {id:"trend",label:"8-week trend: where did I improve most, where am I still inconsistent?",type:"textarea"}]}
+ ]},
+"29":{title:"Client Acquisition SOP",phase:"Week 7",file:"29_Client_Acquisition_SOP.docx",
+ purpose:"Document your proven path from stranger → client as a repeatable SOP, with daily activities and weekly targets so acquisition runs on consistency, not intensity.",
+ sections:[
+  {t:"Your client path map (stranger → client)",fields:[
+    {id:"path",label:"Path stages",type:"table",req:true,min:5,cols:[{k:"stage",label:"Stage"},{k:"process",label:"Your process"},{k:"tools",label:"Tools / scripts used"}]}]},
+  {t:"Daily acquisition activities",fields:[
+    {id:"daily",label:"Activities",type:"table",req:true,min:2,cols:[{k:"act",label:"Activity"},{k:"target",label:"Target"},{k:"time",label:"Time"}]}]},
+  {t:"Weekly acquisition targets",fields:[
+    {id:"weekly",label:"Targets",type:"table",cols:[{k:"metric",label:"Metric"},{k:"target",label:"Target",type:"number"}]}]}
+ ]},
+"30":{title:"KPI Dashboard Template",phase:"Week 7",file:"30_KPI_Dashboard_Template.docx",
+ purpose:"Track the 5–7 numbers that run your business — leading and lagging indicators plus conversion rates — reviewed weekly, same day, same time.",
+ sections:[
+  {t:"Your core KPIs & targets",fields:[
+    {id:"kpis",label:"KPIs",type:"table",req:true,min:5,cols:[{k:"kpi",label:"KPI"},{k:"type",label:"Type",type:"select",options:["Leading","Lagging"]},{k:"target",label:"Target"},{k:"current",label:"Current"}]}]},
+  {t:"Conversion rates",fields:[
+    {id:"cr_convo",label:"Outreach → conversation (%)",type:"number"},
+    {id:"cr_book",label:"Conversation → call booked (%)",type:"number"},
+    {id:"cr_close",label:"Call → client close (%)",type:"number"}]},
+  {t:"Weekly review",fields:[
+    {id:"working",label:"What's working? (double down)",type:"text",req:true},
+    {id:"notworking",label:"What's not working? (fix or stop)",type:"text",req:true},
+    {id:"onething",label:"The ONE thing to focus on next week",type:"text",req:true}]}
+ ]},
+"31":{title:"Weekly Rhythm Template",phase:"Week 7",file:"31_Weekly_Rhythm_Template.docx",
+ purpose:"Design a predictable operating cadence — non-negotiable weekly activities, a planning ritual, and this week's top 3 — so success becomes inevitable. Your calendar is your strategy made visible.",
+ sections:[
+  {t:"Non-negotiable weekly activities",fields:[
+    {id:"activities",label:"Activities",type:"table",req:true,min:3,cols:[{k:"act",label:"Activity"},{k:"day",label:"Day / time"},{k:"dur",label:"Duration"}]}]},
+  {t:"Weekly planning ritual",fields:[
+    {id:"ritual",label:"My planning ritual includes (check all)",type:"multiselect",req:true,options:["Review last week's KPIs","Set this week's top 3 priorities","Block time for non-negotiables","Schedule all client & growth calls","Identify the ONE thing for the week"]}]},
+  {t:"This week's top 3 priorities",fields:[
+    {id:"p1",label:"Priority 1",type:"text",req:true},
+    {id:"p2",label:"Priority 2",type:"text",req:true},
+    {id:"p3",label:"Priority 3",type:"text",req:true}]}
+ ]},
+"32":{title:"CEO Operating Identity",phase:"Week 7",file:"32_CEO_Operating_Identity.docx",
+ purpose:"Shift from practitioner to CEO — audit time spent ON vs IN the business, claim a protected CEO time block, and filter tasks through the highest-value question.",
+ sections:[
+  {t:"Your time audit",help:"Review last week. Target: at least 20% CEO time, growing to 50%+.",fields:[
+    {id:"pct_prac",label:"Time as PRACTITIONER (doing the work) %",type:"number",req:true},
+    {id:"pct_ceo",label:"Time as CEO (building the business) %",type:"number",req:true}]},
+  {t:"Your CEO time block",fields:[
+    {id:"block_day",label:"CEO block day",type:"text",req:true},
+    {id:"block_time",label:"CEO block time",type:"text",req:true},
+    {id:"protected",label:"Protected on the calendar?",type:"select",options:["Yes","Not yet"]}]},
+  {t:"The CEO question",fields:[
+    {id:"answer",label:"What $500/hour work should you shift toward (and what $20/hour work to drop)?",type:"textarea",req:true}]}
+ ]},
+"33":{title:"Client Retention Playbook",phase:"Week 7",file:"33_Client_Retention_Playbook.docx",
+ purpose:"Keep clients longer and raise lifetime value — design retention touchpoints and a continuation offer, and run the retention conversation at the 75% point.",
+ sections:[
+  {t:"Retention strategies",fields:[
+    {id:"strategies",label:"How you'll implement retention (quick wins, check-ins, celebrate milestones, proactive comms, exceed expectations)",type:"textarea",req:true}]},
+  {t:"Your continuation offer",help:"What can clients buy AFTER the initial engagement?",fields:[
+    {id:"cont_what",label:"Continuation offer — what's included",type:"textarea",req:true},
+    {id:"cont_price",label:"Continuation offer — price",type:"number",prefix:"$",req:true}]},
+  {t:"The retention conversation",fields:[
+    {id:"convo",label:"Your 75%-point conversation notes / script",type:"textarea"}]}
+ ]},
+"34":{title:"Referral System Template",phase:"Week 7",file:"34_Referral_System_Template.docx",
+ purpose:"Turn happy clients into an acquisition engine — ask at the right moments, give them the words (an intro blurb), and track and thank every referrer.",
+ sections:[
+  {t:"Your referral ask",fields:[
+    {id:"script",label:"Your referral ask script",type:"textarea",req:true},
+    {id:"blurb",label:"Your “intro blurb” (send this to clients to forward)",type:"textarea",req:true}]},
+  {t:"Referral tracking",fields:[
+    {id:"tracking",label:"Referrals",type:"table",req:true,min:1,cols:[{k:"referrer",label:"Referrer"},{k:"referred",label:"Referred"},{k:"status",label:"Status"},{k:"thanked",label:"Thanked?",type:"select",options:["Yes","No"]}]}]}
+ ]},
+/* ===== Worksheets 35–39 (Week 8) + companion steps ===== */
+"35":{title:"90-Day Growth Plan",phase:"Week 8",file:"35_90_Day_Growth_Plan.docx",
+ purpose:"Bridge where you are now to where you want to be next quarter — current state, 90-day targets, and a month-by-month plan you review weekly.",
+ sections:[
+  {t:"Current state",fields:[
+    {id:"cur_rev",label:"Current monthly revenue",type:"number",prefix:"$",req:true},
+    {id:"cur_clients",label:"Current active clients",type:"number",req:true},
+    {id:"cur_price",label:"Current offer price",type:"number",prefix:"$"},
+    {id:"cur_channel",label:"Main acquisition channel",type:"text"}]},
+  {t:"90-day targets",fields:[
+    {id:"t_rev",label:"Target monthly revenue",type:"number",prefix:"$",req:true},
+    {id:"t_clients",label:"Target active clients",type:"number",req:true},
+    {id:"t_new",label:"New clients needed",type:"number"}]},
+  {t:"Month 1",fields:[
+    {id:"m1_focus",label:"Focus area & primary goal",type:"text",req:true},
+    {id:"m1_actions",label:"Key actions",type:"textarea",req:true},
+    {id:"m1_metric",label:"Success metric",type:"text"}]},
+  {t:"Month 2",fields:[
+    {id:"m2_focus",label:"Focus area & primary goal",type:"text",req:true},
+    {id:"m2_actions",label:"Key actions",type:"textarea",req:true},
+    {id:"m2_metric",label:"Success metric",type:"text"}]},
+  {t:"Month 3",fields:[
+    {id:"m3_focus",label:"Focus area & primary goal",type:"text",req:true},
+    {id:"m3_actions",label:"Key actions",type:"textarea",req:true},
+    {id:"m3_metric",label:"Success metric",type:"text"}]}
+ ]},
+"36":{title:"Scale Lever Analysis",phase:"Week 8",file:"36_Scale_Lever_Analysis.docx",
+ purpose:"Identify which of the five growth levers moves the needle most right now — then focus on ONE until you've maximized it.",
+ sections:[
+  {t:"Your opportunity on each lever",fields:[
+    {id:"l_leads",label:"1. More leads — your opportunity",type:"text"},
+    {id:"l_conv",label:"2. Better conversion — your opportunity",type:"text"},
+    {id:"l_price",label:"3. Higher price — your opportunity",type:"text"},
+    {id:"l_more",label:"4. More purchases (upsell/continuity) — your opportunity",type:"text"},
+    {id:"l_lev",label:"5. Leverage (1:many) — your opportunity",type:"text"}]},
+  {t:"Your #1 lever",help:"Biggest impact with least effort.",fields:[
+    {id:"pick",label:"My #1 scale lever for the next 90 days",type:"text",req:true},
+    {id:"action",label:"Specific action I'll take",type:"textarea",req:true},
+    {id:"impact",label:"Expected impact",type:"text"}]}
+ ]},
+"37":{title:"Risk Assessment for Growth",phase:"Week 8",file:"37_Risk_Assessment_Growth.docx",
+ purpose:"Spot the new risks that emerge as you scale, rate their likelihood, and build prevention plans for your top 3 — the best risk management is prevention.",
+ sections:[
+  {t:"Growth risks — likelihood",fields:[
+    {id:"r_cash",label:"Cash flow problems",type:"select",req:true,options:["High","Medium","Low"]},
+    {id:"r_burn",label:"Burnout / overwork",type:"select",req:true,options:["High","Medium","Low"]},
+    {id:"r_client",label:"Losing key client(s)",type:"select",req:true,options:["High","Medium","Low"]},
+    {id:"r_quality",label:"Can't deliver quality at scale",type:"select",req:true,options:["High","Medium","Low"]},
+    {id:"r_market",label:"Market changes",type:"select",req:true,options:["High","Medium","Low"]},
+    {id:"r_family",label:"Personal / family conflict",type:"select",req:true,options:["High","Medium","Low"]}]},
+  {t:"Your top 3 risks",fields:[
+    {id:"top",label:"Top risks",type:"table",req:true,min:3,cols:[{k:"risk",label:"Risk"},{k:"warning",label:"Early warning sign"},{k:"prevention",label:"Prevention plan"}]}]}
+ ]},
+"38":{title:"Long-Term Vision Worksheet",phase:"Week 8",file:"38_Long_Term_Vision_Worksheet.docx",
+ purpose:"Capture who you've become and where this is going — 12-month, 3-year, and 10-year horizons, and the beliefs you must adopt to get there.",
+ sections:[
+  {t:"Identity consolidation",fields:[
+    {id:"was",label:"Who was I when I started this program?",type:"textarea",req:true},
+    {id:"became",label:"Who have I become?",type:"textarea",req:true},
+    {id:"beliefs_shift",label:"What beliefs have shifted?",type:"textarea"}]},
+  {t:"12 months from now",fields:[
+    {id:"y1_rev",label:"Revenue / month",type:"number",prefix:"$",req:true},
+    {id:"y1_clients",label:"Clients",type:"number"},
+    {id:"y1_hours",label:"Work hours / week",type:"number"},
+    {id:"y1_life",label:"Lifestyle",type:"textarea"}]},
+  {t:"3 years from now",fields:[
+    {id:"y3_biz",label:"What does your business look like?",type:"textarea",req:true},
+    {id:"y3_life",label:"What does your life look like?",type:"textarea"},
+    {id:"y3_impact",label:"What impact are you making?",type:"text"}]},
+  {t:"10 years from now",fields:[
+    {id:"y10_legacy",label:"What's your legacy? What are you known for?",type:"textarea",req:true}]},
+  {t:"Beliefs for the next level",fields:[
+    {id:"beliefs",label:"Beliefs you must adopt to achieve your 3-year vision",type:"textarea",req:true}]}
+ ]},
+"39":{title:"Program Completion Checklist",phase:"Week 8",file:"39_Program_Completion_Checklist.docx",
+ purpose:"Final audit — verify your 8-week milestones, capture your results and the assets you now own, and choose your next 90-day focus. You did it.",
+ sections:[
+  {t:"Your 8-week achievements",fields:[
+    {id:"milestones",label:"Completed milestones (check all)",type:"multiselect",req:true,options:["Validated offer with real conversations","Built Offer v1 (and refined to v2)","Created client acquisition system","Had 10+ sales conversations","Signed first paying client(s)","Built delivery system","Captured client testimonial(s)","Established weekly operating rhythm","Built KPI dashboard","Created 90-day growth plan"]}]},
+  {t:"Your results",fields:[
+    {id:"clients",label:"Total paying clients signed",type:"number",req:true},
+    {id:"revenue",label:"Total revenue generated",type:"number",prefix:"$",req:true},
+    {id:"testimonials",label:"Testimonials collected",type:"number"},
+    {id:"convos",label:"Sales conversations completed",type:"number"}]},
+  {t:"Assets you now own",fields:[
+    {id:"strategic",label:"Strategic assets",type:"multiselect",options:["Clear offer with pricing","Defined ICP","Validated messaging / hooks","Sales conversation script","Objection handling guide"]},
+    {id:"operational",label:"Operational assets",type:"multiselect",options:["Client acquisition SOP","Delivery system","Onboarding checklist","KPI dashboard","Weekly operating rhythm"]}]},
+  {t:"What's next",fields:[
+    {id:"retention",label:"My decision on the Retention Tier",type:"select",options:["Yes, continuing with monthly support","Not right now — revisit later"]},
+    {id:"focus90",label:"My #1 focus for the next 90 days",type:"text",req:true},
+    {id:"proud",label:"What I'm most proud of",type:"textarea"},
+    {id:"shift",label:"The biggest mindset shift I've had",type:"text"}]}
+ ]},
+/* ===== Companion steps (no formal worksheet) ===== */
+"C0":{title:"Your AI Operating System",phase:"Foundations",companion:true,
+ purpose:"Before anything else, set up your AI operating system: load the program into Claude, build your dashboard and KPI/dealflow/cash trackers, and stand up your first agent. Open the pre-work lesson, follow it, then confirm each piece below.",
+ sections:[
+  {t:"Confirm your setup",fields:[
+    {id:"cowork",label:"Cowork enabled and program folder connected",type:"select",req:true,options:["Done","In progress","Not yet"]},
+    {id:"dash",label:"Business dashboard + KPI, dealflow, and cash trackers built",type:"select",req:true,options:["Done","In progress","Not yet"]},
+    {id:"agent",label:"First agent (Monday metrics digest) set up",type:"select",req:true,options:["Done","In progress","Not yet"]},
+    {id:"context",label:"LDNA assessment and LinkedIn loaded into Claude",type:"select",req:true,options:["Done","In progress","Not yet"]}]}
+ ]},
+"C1":{title:"Mentors & Honest Advisors",phase:"Foundations",companion:true,
+ purpose:"Line up 2-3 mentors or advisors who will tell you the truth as you build — not just cheer you on — and set a cadence to stay in touch.",
+ sections:[
+  {t:"Your advisors",fields:[
+    {id:"advisors",label:"Mentors / advisors",type:"table",req:true,min:2,cols:[{k:"name",label:"Name"},{k:"help",label:"What they help with"}]},
+    {id:"cadence",label:"How you'll stay in contact (cadence)",type:"text",req:true}]}
+ ]},
+"C2":{title:"Money Hygiene",phase:"Delivery",companion:true,
+ purpose:"Set up clean money systems before revenue scales: a separate business account, simple bookkeeping, and a plan to set aside for taxes.",
+ sections:[
+  {t:"Your money systems",fields:[
+    {id:"bank",label:"Business banking (bank / account) set up?",type:"select",req:true,options:["Done","In progress","Not yet"]},
+    {id:"books",label:"Bookkeeping method (tool / who)",type:"text",req:true},
+    {id:"tax",label:"Tax set-aside plan (% and where)",type:"text",req:true}]}
+ ]},
+"C3":{title:"First Delegation or Hire",phase:"Scale",companion:true,
+ purpose:"Plan the first thing to get off your plate — the task or role to hand off first, to whom, and what “good” looks like.",
+ sections:[
+  {t:"Your first delegation",fields:[
+    {id:"task",label:"First task / role to delegate",type:"text",req:true},
+    {id:"who",label:"Who will take it on (or how you'll find them)",type:"text",req:true},
+    {id:"success",label:"What “good” looks like (success criteria)",type:"textarea",req:true}]}
+ ]},
+"C4":{title:"Legal, Compliance & Baseline Risk",phase:"Scale",companion:true,
+ purpose:"Cover the baseline that protects you: entity / structure, a client agreement, and any insurance or licenses you need.",
+ sections:[
+  {t:"Your baseline protection",fields:[
+    {id:"entity",label:"Business entity / structure",type:"text",req:true},
+    {id:"contract",label:"Client contract / agreement in place?",type:"select",req:true,options:["Yes","In progress","No"]},
+    {id:"insurance",label:"Insurance & licenses needed",type:"textarea"}]}
+ ]}
+};
+const STAGES=[
+ {key:"Foundations",short:"Found.",name:"Stage 1 · Foundations",tasks:[
+   {id:"0.1",t:"Your AI Operating System",tier:"CRITICAL",dom:"Systems",doc:"C0",group:"AI operating system (pre-work)"},
+   {id:1,t:"Expertise Inventory",tier:"HIGH",dom:"Strategy",doc:"01",group:"Readiness (pre-work)"},
+   {id:2,t:"Market Scan Scorecard",tier:"HIGH",dom:"GTM",doc:"02",group:"Readiness (pre-work)"},
+   {id:3,t:"Participant Intake & Goals",tier:"CRITICAL",dom:"Leadership",doc:"03",group:"Readiness (pre-work)"},
+   {id:4,t:"Runway & Walkaway Number",tier:"CRITICAL",dom:"Financial",doc:"04",group:"Readiness (pre-work)"},
+   {id:5,t:"Mentors & Honest Advisors",tier:"SUPPORTING",dom:"Leadership",doc:"C1",group:"Readiness (pre-work)"},
+   {id:6,t:"Offer Hypothesis Canvas",tier:"CRITICAL",dom:"GTM",doc:"05",group:"Offer architecture (kickoff → week 1)"},
+   {id:7,t:"Experiment Mindset",tier:"SUPPORTING",dom:"Leadership",doc:"07",group:"Offer architecture (kickoff → week 1)"},
+   {id:8,t:"Risk Assessment Matrix",tier:"HIGH",dom:"Leadership",doc:"08",group:"Offer architecture (kickoff → week 1)"},
+   {id:9,t:"Decision Velocity",tier:"HIGH",dom:"Leadership",doc:"09",group:"Offer architecture (kickoff → week 1)"},
+   {id:10,t:"Offer v1 — Offer Architecture",tier:"CRITICAL",dom:"GTM",doc:"10",group:"Offer architecture (kickoff → week 1)"}]},
+ {key:"Validation",short:"Valid.",name:"Stage 2 · Validation",tasks:[
+   {id:11,t:"Validation Conversation Guide",tier:"CRITICAL",dom:"GTM",doc:"06",group:"Validation conversations (week 2)"},
+   {id:12,t:"Conversation Debrief",tier:"HIGH",dom:"GTM",doc:"11",group:"Validation conversations (week 2)"},
+   {id:13,t:"PMF Validation Checklist",tier:"CRITICAL",dom:"Strategy",doc:"12",group:"Validation conversations (week 2)"}]},
+ {key:"Sales",short:"Sales",name:"Stage 3 · Sales",tasks:[
+   {id:14,t:"Money Mindset Reframe",tier:"SUPPORTING",dom:"Leadership",doc:"13",group:"First sales (week 3)"},
+   {id:15,t:"Pre-Call Ritual",tier:"SUPPORTING",dom:"Leadership",doc:"14",group:"First sales (week 3)"},
+   {id:16,t:"Sales Conversation Framework",tier:"CRITICAL",dom:"GTM",doc:"15",group:"First sales (week 3)"},
+   {id:17,t:"Objection Handling",tier:"HIGH",dom:"GTM",doc:"16",group:"First sales (week 3)"}]},
+ {key:"Delivery",short:"Deliv.",name:"Stage 4 · Delivery",tasks:[
+   {id:18,t:"Identity Shift",tier:"SUPPORTING",dom:"Leadership",doc:"17",group:"Delivery MVP (week 4)"},
+   {id:19,t:"Imposter Syndrome Toolkit",tier:"SUPPORTING",dom:"Leadership",doc:"18",group:"Delivery MVP (week 4)"},
+   {id:20,t:"Delivery MVP",tier:"HIGH",dom:"Systems",doc:"19",group:"Delivery MVP (week 4)"},
+   {id:21,t:"Client Onboarding",tier:"HIGH",dom:"Systems",doc:"20",group:"Delivery MVP (week 4)"},
+   {id:22,t:"Money Hygiene",tier:"HIGH",dom:"Financial",doc:"C2",group:"Delivery MVP (week 4)"}]},
+ {key:"Marketing",short:"Mktg.",name:"Stage 5 · Marketing",tasks:[
+   {id:23,t:"Momentum Framework",tier:"HIGH",dom:"Leadership",doc:"21",group:"Momentum & messaging (week 5)"},
+   {id:24,t:"Life Architecture Audit",tier:"SUPPORTING",dom:"Leadership",doc:"22",group:"Momentum & messaging (week 5)"},
+   {id:25,t:"Testimonial Request",tier:"HIGH",dom:"GTM",doc:"23",group:"Momentum & messaging (week 5)"},
+   {id:26,t:"Messaging Refinement",tier:"HIGH",dom:"GTM",doc:"24",group:"Momentum & messaging (week 5)"},
+   {id:27,t:"LinkedIn Authority Audit",tier:"HIGH",dom:"GTM",doc:"25",group:"Marketing systems (week 6)"},
+   {id:28,t:"ICP Connection Tracker",tier:"HIGH",dom:"GTM",doc:"26",group:"Marketing systems (week 6)"},
+   {id:29,t:"Content Pillar Map",tier:"HIGH",dom:"GTM",doc:"27",group:"Marketing systems (week 6)"},
+   {id:30,t:"Marketing Scorecard",tier:"HIGH",dom:"Data",doc:"28",group:"Marketing systems (week 6)"}]},
+ {key:"Scale",short:"Scale",name:"Stage 6 · Scale",tasks:[
+   {id:31,t:"Client Acquisition SOP",tier:"CRITICAL",dom:"Systems",doc:"29",group:"CEO operating system (week 7)"},
+   {id:32,t:"KPI Dashboard",tier:"HIGH",dom:"Data",doc:"30",group:"CEO operating system (week 7)"},
+   {id:33,t:"Weekly Rhythm",tier:"HIGH",dom:"Leadership",doc:"31",group:"CEO operating system (week 7)"},
+   {id:34,t:"CEO Operating Identity",tier:"SUPPORTING",dom:"Leadership",doc:"32",group:"CEO operating system (week 7)"},
+   {id:35,t:"Client Retention Playbook",tier:"HIGH",dom:"GTM",doc:"33",group:"CEO operating system (week 7)"},
+   {id:36,t:"Referral System",tier:"SUPPORTING",dom:"GTM",doc:"34",group:"CEO operating system (week 7)"},
+   {id:37,t:"First Delegation or Hire",tier:"SUPPORTING",dom:"People",doc:"C3",group:"CEO operating system (week 7)"},
+   {id:38,t:"90-Day Growth Plan",tier:"HIGH",dom:"Strategy",doc:"35",group:"90-day plan & transition (week 8)"},
+   {id:39,t:"Scale Lever Analysis",tier:"HIGH",dom:"Strategy",doc:"36",group:"90-day plan & transition (week 8)"},
+   {id:40,t:"Risk Assessment for Growth",tier:"SUPPORTING",dom:"Risk",doc:"37",group:"90-day plan & transition (week 8)"},
+   {id:41,t:"Legal, Compliance & Baseline Risk",tier:"SUPPORTING",dom:"Risk",doc:"C4",group:"90-day plan & transition (week 8)"},
+   {id:42,t:"Long-Term Vision",tier:"SUPPORTING",dom:"Strategy",doc:"38",group:"90-day plan & transition (week 8)"},
+   {id:43,t:"Program Completion Checklist",tier:"CRITICAL",dom:"Cross",doc:"39",group:"90-day plan & transition (week 8)"}]}
+];
+
+/* ========== NOTION LESSON LINKS (CFA 26-2) ========== */
+const NOTION={
+ aios:"https://ryangusroberts.github.io/tie-dashboard/lesson-ai-operating-system.html?v=2",
+ kickoff:"https://ryangusroberts.github.io/tie-dashboard/lesson-kickoff.html?v=2",
+ 1:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-1.html?v=2",
+ 2:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-2.html?v=2",
+ 3:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-3.html?v=2",
+ 4:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-4.html?v=2",
+ 5:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-5.html?v=2",
+ 6:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-6.html?v=2",
+ 7:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-7.html?v=2",
+ 8:"https://ryangusroberts.github.io/tie-dashboard/lesson-week-8.html?v=2"
+};
+// Lesson themes per week (CFA 26-2)
+const NOTION_THEME={1:"Offer Architecture",2:"Validation Conversations",3:"First Sales",4:"Delivery MVP",5:"Momentum & Messaging",6:"Marketing Systems",7:"CEO Operating Systems",8:"90-Day Plan"};
+// Resolve a group label (e.g. "Marketing systems (week 6)") to {url,label}
+function groupNotion(group){
+  if(!group) return null;
+  const m=group.match(/week\s*(\d)/i);
+  if(m){const w=+m[1];return NOTION[w]?{url:NOTION[w],label:"Week "+w+" Lesson: "+NOTION_THEME[w]}:null;}
+  if(/ai operating system/i.test(group)) return {url:NOTION.aios,label:"Pre-Work Lesson: Your AI Operating System"};
+  if(/pre-work/i.test(group)) return {url:NOTION.kickoff,label:"Kickoff Lesson"};
+  return null;
+}
+
+/* ================= CONFIG ================= */
+const SUPABASE_URL="https://rmjlslgfrflbqkwxtidm.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_3ooOi3enMiJZpEV6em-Hmw_GmjNmO0f";
+const AUTOFILL_ENABLED=true;
+
+/* ================= DERIVED ================= */
+const ALL=STAGES.flatMap(s=>s.tasks.map(t=>({...t,stage:s.key})));
+const TOTAL=ALL.length, CRIT_TOTAL=ALL.filter(t=>t.tier==="CRITICAL").length;
+const cls=t=>t==="CRITICAL"?"crit":t==="HIGH"?"high":"supp";
+function esc(s){return (s==null?"":(""+s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+/* ================= STATE ================= */
+let sb=null, ME=null, PROFILE=null;
+let PROG={};
+let AUTHMODE="login";
+let COACH_CLIENTS=[];
+let COACHVIEWING=false;
+
+/* ================= COMPLETION ================= */
+function docState(doc,prog){prog=prog||PROG;return prog[doc]||{fields:{},file_name:null};}
+function allFields(doc){const out=[];(WS[doc].sections||[]).forEach(s=>(s.fields||[]).forEach(f=>out.push(f)));return out;}
+function reqFields(doc){return allFields(doc).filter(f=>f.req);}
+function fieldFilled(f,val){
+  if(val==null)return false;
+  if(f.type==="table")return Array.isArray(val)&&val.filter(r=>r&&Object.values(r).some(v=>(""+(v==null?"":v)).trim()!=="")).length>=(f.min||1);
+  if(f.type==="multiselect")return Array.isArray(val)&&val.length>0;
+  if(f.type==="checkbox")return val===true;
+  return (""+val).trim()!=="";
+}
+function wsComplete(doc,prog){const s=docState(doc,prog);if(s.file_name)return true;const rf=reqFields(doc);if(!rf.length)return false;return rf.every(f=>fieldFilled(f,(s.fields||{})[f.id]));}
+function wsProgress(doc,prog){const s=docState(doc,prog);const rf=reqFields(doc);const done=rf.filter(f=>fieldFilled(f,(s.fields||{})[f.id])).length;return {done,total:rf.length};}
+function wsStarted(doc,prog){const s=docState(doc,prog);if(s.file_name)return true;return Object.values(s.fields||{}).some(v=>{if(Array.isArray(v))return v.length>0&&v.some(r=>typeof r==="object"?Object.values(r).some(x=>(""+(x==null?"":x)).trim()):(""+r).trim());if(v===true)return true;return (""+(v==null?"":v)).trim()!=="";});}
+function countsFor(prog){
+  const doneN=ALL.filter(t=>wsComplete(t.doc,prog)).length;
+  const pct=Math.round(doneN/TOTAL*100);
+  const critDone=ALL.filter(t=>t.tier==="CRITICAL"&&wsComplete(t.doc,prog)).length;
+  const stagePct=STAGES.map(s=>{const d=s.tasks.filter(t=>wsComplete(t.doc,prog)).length;return Math.round(d/s.tasks.length*100);});
+  let cur=STAGES.length;for(let i=0;i<STAGES.length;i++){if(stagePct[i]<100){cur=i;break;}}
+  return {doneN,pct,critDone,stagePct,cur};
+}
+
+/* ================= SVG ring + radar ================= */
+function ring(pct,elId){const R=54,C=2*Math.PI*R,off=C*(1-pct/100);const el=document.getElementById(elId);if(!el)return;
+  el.innerHTML=`<circle cx="66" cy="66" r="${R}" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="12"/><circle cx="66" cy="66" r="${R}" fill="none" stroke="#fc6502" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}" transform="rotate(-90 66 66)" style="transition:stroke-dashoffset .5s;filter:drop-shadow(0 0 6px rgba(252,101,2,.5))"/><text x="66" y="62" text-anchor="middle" font-size="28" font-weight="800" fill="#fff">${pct}%</text><text x="66" y="82" text-anchor="middle" font-size="10" fill="#8fb0c4">of ${TOTAL}</text>`;}
+function pt(cx,cy,r,i,n){const a=-Math.PI/2+i*2*Math.PI/n;return{x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};}
+function polypts(cx,cy,r,n){let s=[];for(let i=0;i<n;i++){const p=pt(cx,cy,r,i,n);s.push(p.x+","+p.y);}return s.join(" ");}
+function radar(stagePct,pct){const cx=220,cy=195,R=140,n=STAGES.length;let g="";
+  [25,50,75,100].forEach(v=>{g+=`<polygon points="${polypts(cx,cy,R*v/100,n)}" fill="none" stroke="#E4E8EF" stroke-width="1"/>`;});
+  STAGES.forEach((s,i)=>{const p=pt(cx,cy,R,i,n);g+=`<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="#E4E8EF" stroke-width="1"/>`;
+    const lp=pt(cx,cy,R+24,i,n);g+=`<text x="${lp.x}" y="${lp.y}" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="700" fill="#374151">${s.short}</text>`;
+    g+=`<text x="${lp.x}" y="${lp.y+14}" text-anchor="middle" font-size="10" fill="#9AA1AD">${stagePct[i]}%</text>`;});
+  g+=`<polygon points="${polypts(cx,cy,R,n)}" fill="none" stroke="#fc6502" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>`;
+  const pts=STAGES.map((s,i)=>pt(cx,cy,R*stagePct[i]/100,i,n));
+  g+=`<polygon points="${pts.map(p=>p.x+","+p.y).join(" ")}" fill="#081e2b" fill-opacity=".14" stroke="#081e2b" stroke-width="2.5"/>`;
+  pts.forEach(p=>{g+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#fc6502"/>`;});
+  g+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="30" font-weight="800" fill="#081e2b">${pct}%</text><text x="${cx}" y="${cy+16}" text-anchor="middle" font-size="10" fill="#64748b">COMPLETE</text>`;
+  const el=document.getElementById('radar');if(el)el.innerHTML=g;}
+
+/* ================= CHECKLIST ================= */
+function checklistHTML(prog,onclickName){
+  let html="";
+  STAGES.forEach((s,i)=>{
+    const d=s.tasks.filter(t=>wsComplete(t.doc,prog)).length;
+    html+=`<div class="stage" id="stage${i}"><h4>${s.name}<span class="p">${d}/${s.tasks.length}</span></h4>`;
+    let lastGroup=null;
+    for(const t of s.tasks){
+      if(t.group&&t.group!==lastGroup){const gn=groupNotion(t.group);const gl=gn?`<a class="wknotion" href="${gn.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Open ${esc(gn.label)} ↗</a>`:"";html+=`<div class="subgroup">${esc(t.group)}${gl}</div>`;lastGroup=t.group;}
+      const c=cls(t.tier);const complete=wsComplete(t.doc,prog);const started=!complete&&wsStarted(t.doc,prog);
+      const stateCls=complete?'done':(started?'part':'');const w=WS[t.doc];const s2=docState(t.doc,prog);
+      let note="";
+      if(complete){note=`<div class="statusnote ok">${s2.file_name?'Completed worksheet loaded ✓':'Worksheet complete ✓'}</div>`;}
+      else{const pr=wsProgress(t.doc,prog);if(started&&pr.total)note=`<div class="statusnote open">In progress — ${pr.done}/${pr.total} required fields</div>`;}
+      const badge=w.companion?`Companion step · ${w.phase}`:`Doc ${t.doc} · ${w.phase}`;
+      html+=`<div class="item ${c} ${stateCls}" onclick="${onclickName}('${t.doc}')"><div class="box">${complete?'✓':(started?'·':'')}</div><div><span class="txt"><span class="num" style="color:var(--${c})">${t.id}.</span>${esc(t.t)}<span class="tag ${c}">${t.tier}</span><span class="wsbadge">${badge}</span></span><div class="dom">${t.dom}</div>${note}</div></div>`;
+    }
+    html+=`</div>`;});
+  return html;
+}
+function render(){
+  const {doneN,pct,critDone,stagePct,cur}=countsFor(PROG);
+  ring(pct,'ring'); radar(stagePct,pct);
+  document.getElementById('fill').style.width=pct+"%";
+  document.getElementById('vOverall').innerHTML=pct+"<small>%</small>";
+  document.getElementById('vTasks').innerHTML=doneN+"<small>/"+TOTAL+"</small>";
+  document.getElementById('vCrit').innerHTML=critDone+"<small>/"+CRIT_TOTAL+"</small>";
+  document.getElementById('kCrit').style.borderTopColor=(critDone===CRIT_TOTAL)?"var(--green)":"var(--crit)";
+  document.getElementById('vStage').textContent=cur===STAGES.length?"Complete":("Stage "+(cur+1));
+  const hn=document.getElementById('herenow');
+  if(hn){
+    const next=ALL.find(t=>!wsComplete(t.doc,PROG));
+    if(next){const st=STAGES[cur]?STAGES[cur].name:("Stage "+(cur+1));
+      const gn=groupNotion(next.group);
+      const nlink=gn?`<a class="hngo" href="${gn.url}" target="_blank" rel="noopener">Open ${esc(gn.label)} ↗</a>`:"";
+      hn.innerHTML=`<div class="eyebrow">You are here — ${esc(st)} · ${doneN}/${TOTAL} complete</div><div class="big">Next up: ${esc(next.t)}</div><div class="hnactions"><span class="go" onclick="openWS('${next.doc}')">Open worksheet →</span>${nlink}</div>`;
+    }else{hn.innerHTML=`<div class="eyebrow">Program complete</div><div class="big">All ${TOTAL} steps done. 🎉</div>`;}
+  }
+  const nextCrit=ALL.find(t=>t.tier==="CRITICAL"&&!wsComplete(t.doc,PROG));
+  const nb=document.getElementById('nextbanner');
+  if(nextCrit){nb.className="next";nb.innerHTML=`Your next critical step &rarr; <b>#${nextCrit.id} ${esc(nextCrit.t)}</b>`;}
+  else{nb.className="next done";nb.innerHTML=`All ${CRIT_TOTAL} critical steps are complete. Strong foundation - keep going.`;}
+  document.getElementById('navstages').innerHTML=STAGES.map((s,i)=>`<div class="navrow" onclick="jumpStage(${i})"><span>${s.short}</span><span class="sc">${stagePct[i]}%</span></div>`).join("");
+  document.getElementById('tasklist').innerHTML=checklistHTML(PROG,'openWS');
+  const bc=document.getElementById('backCoachBtn'), vb=document.getElementById('viewBadge');
+  if(bc)bc.style.display=(PROFILE&&PROFILE.role==='coach')?'':'none';
+  if(vb)vb.style.display=COACHVIEWING?'':'none';
+}
+function jumpStage(i){const el=document.getElementById('stage'+i);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* ================= FORM ENGINE ================= */
+let CURDOC=null, RO=false, ROPROG=null;
+function curProg(){return RO?ROPROG:PROG;}
+function ensureDoc(doc,prog){if(!prog[doc])prog[doc]={fields:{},file_name:null};if(!prog[doc].fields)prog[doc].fields={};return prog[doc];}
+function getVal(doc,id){return (docState(doc,curProg()).fields||{})[id];}
+function scaleHTML(doc,id,val,max){let b="";for(let n=1;n<=max;n++){b+=`<button type="button" class="${(+val===n)?'on':''}" ${RO?'disabled':''} onclick="onPick('${doc}','${id}',${n})">${n}</button>`;}return `<div class="scale">${b}</div>`;}
+function tableHTML(doc,f,val,miss){
+  const rows=Array.isArray(val)?val:[];const cols=f.cols||[];
+  let head=cols.map(c=>`<th>${esc(c.label)}</th>`).join("")+(RO?"":"<th></th>");
+  let body="";
+  rows.forEach((row,ri)=>{
+    let tds=cols.map(c=>{const cv=row?row[c.k]:"";let cell;
+      if(c.type==="number")cell=`<input type="number" ${RO?'disabled':''} value="${esc(cv)}" oninput="onCell('${doc}','${f.id}',${ri},'${c.k}',this.value)">`;
+      else if(c.type==="select")cell=`<select ${RO?'disabled':''} onchange="onCell('${doc}','${f.id}',${ri},'${c.k}',this.value)"><option value="">—</option>${(c.options||[]).map(o=>`<option ${cv===o?'selected':''}>${esc(o)}</option>`).join("")}</select>`;
+      else if(c.type==="scale5")cell=`<select ${RO?'disabled':''} onchange="onCell('${doc}','${f.id}',${ri},'${c.k}',this.value)"><option value="">—</option>${[1,2,3,4,5].map(o=>`<option ${(+cv===o)?'selected':''}>${o}</option>`).join("")}</select>`;
+      else cell=`<input type="text" ${RO?'disabled':''} value="${esc(cv)}" oninput="onCell('${doc}','${f.id}',${ri},'${c.k}',this.value)">`;
+      return `<td>${cell}</td>`;}).join("");
+    if(!RO)tds+=`<td><button class="rm" onclick="rmRow('${doc}','${f.id}',${ri})">✕</button></td>`;
+    body+=`<tr>${tds}</tr>`;
+  });
+  const add=RO?"":`<button class="addrow" onclick="addRow('${doc}','${f.id}')">+ Add row</button>`;
+  const minNote=(f.min&&!RO)?`<span class="wsbadge">needs ${f.min}+ rows</span>`:"";
+  return `<div class="ff ${miss?'req-miss':''}"><label>${esc(f.label)} ${minNote}</label><div class="tbl"><table class="ftbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>${add}</div>`;
+}
+function fldHTML(doc,f){
+  const val=getVal(doc,f.id);const dis=RO?'disabled':'';const miss=f.req&&!fieldFilled(f,val);
+  if(f.type==="checkbox")return `<div class="ff ${miss?'req-miss':''}"><label class="chk1"><input type="checkbox" ${dis} ${val===true?'checked':''} onchange="onBool('${doc}','${f.id}',this.checked)"><span>${esc(f.label)}</span></label></div>`;
+  if(f.type==="table")return tableHTML(doc,f,val,miss);
+  let inner="";
+  if(f.type==="textarea")inner=`<textarea ${dis} oninput="onText('${doc}','${f.id}',this.value)">${esc(val||"")}</textarea>`;
+  else if(f.type==="number")inner=`<div class="numwrap">${f.prefix?`<span class="pfx">${esc(f.prefix)}</span>`:""}<input type="number" ${dis} value="${esc(val==null?"":val)}" oninput="onText('${doc}','${f.id}',this.value)"></div>`;
+  else if(f.type==="select")inner=`<select ${dis} onchange="onSel('${doc}','${f.id}',this.value)"><option value="">— select —</option>${(f.options||[]).map(o=>`<option ${val===o?'selected':''}>${esc(o)}</option>`).join("")}</select>`;
+  else if(f.type==="scale")inner=scaleHTML(doc,f.id,val,10);
+  else if(f.type==="scale5")inner=scaleHTML(doc,f.id,val,5);
+  else if(f.type==="multiselect")inner=`<div class="msel">${(f.options||[]).map((o,oi)=>`<label><input type="checkbox" ${dis} ${Array.isArray(val)&&val.includes(o)?'checked':''} onchange="onMulti('${doc}','${f.id}',${oi},this.checked)"><span>${esc(o)}</span></label>`).join("")}</div>`;
+  else inner=`<input type="text" ${dis} value="${esc(val||"")}" oninput="onText('${doc}','${f.id}',this.value)">`;
+  return `<div class="ff ${miss?'req-miss':''}"><label>${esc(f.label)}</label>${inner}</div>`;
+}
+function openWS(doc,opts){opts=opts||{};RO=!!opts.ro;ROPROG=opts.prog||null;CURDOC=doc;
+  const w=WS[doc];const prog=curProg();const s=ensureDoc(doc,prog);
+  allFields(doc).forEach(f=>{if(f.type==="table"&&!Array.isArray(s.fields[f.id]))s.fields[f.id]=[{}];if(f.type==="multiselect"&&!Array.isArray(s.fields[f.id]))s.fields[f.id]=[];});
+  document.getElementById('mEyebrow').textContent=w.companion?`Companion step · ${w.phase}`:`Doc ${doc} · ${w.phase}`;
+  document.getElementById('mTitle').textContent=w.title;
+  document.getElementById('mPurpose').textContent=w.purpose;
+  let b="";
+  if(!RO&&AUTOFILL_ENABLED){
+    b+=`<div class="scanbox"><div class="lab">Already filled this out on paper or in a doc?</div><div class="sub">Upload your completed worksheet (PDF, photo, or Word). We'll read it and fill the fields below for you to review.</div><input type="file" id="scanFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.docx,.txt" onchange="scanReady()"><button class="scanbtn" id="scanBtn" disabled onclick="scanFill()">Scan &amp; auto-fill</button><div class="scanmsg" id="scanMsg"></div></div>`;
+  }
+  (w.sections||[]).forEach(sec=>{
+    b+=`<div class="msection"><div class="st">${esc(sec.t)}</div>${sec.help?`<div class="sh">${esc(sec.help)}</div>`:""}`;
+    (sec.fields||[]).forEach(f=>{b+=fldHTML(doc,f);});
+    b+=`</div>`;
+  });
+  const fd=s.file_name;
+  if(RO){
+    b+=`<div class="scanbox" style="border-style:solid;background:#F7F9FC"><div class="lab">Completed file</div><div class="sub">${fd?('✓ Loaded: '+esc(fd)):'No completed file loaded.'}</div></div>`;
+  }else{
+    b+=`<div class="srcnote" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line)">${w.companion?"Companion step: no formal worksheet.":("Source worksheet: "+esc(w.file)+" — in your program materials.")}</div>`;
+  }
+  document.getElementById('mBody').innerHTML=b;
+  document.querySelector('.mfoot').style.display=RO?'none':'';
+  updateModalStatus();
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('mBody').scrollTop=0;
+}
+function reopen(){const doc=CURDOC,ro=RO,prog=ROPROG;openWS(doc,{ro:ro,prog:prog});}
+function onText(doc,id,v){ensureDoc(doc,PROG).fields[id]=v;updateModalStatus();queueSave(doc);}
+function onSel(doc,id,v){ensureDoc(doc,PROG).fields[id]=v;updateModalStatus();queueSave(doc);}
+function onPick(doc,id,n){const s=ensureDoc(doc,PROG);s.fields[id]=(+s.fields[id]===n)?"":n;queueSave(doc);reopen();}
+function onBool(doc,id,v){ensureDoc(doc,PROG).fields[id]=v;updateModalStatus();queueSave(doc);}
+function onMulti(doc,id,oi,checked){const s=ensureDoc(doc,PROG);const opts=allFields(doc).find(f=>f.id===id).options;const o=opts[oi];let arr=Array.isArray(s.fields[id])?s.fields[id].slice():[];if(checked){if(!arr.includes(o))arr.push(o);}else arr=arr.filter(x=>x!==o);s.fields[id]=arr;updateModalStatus();queueSave(doc);}
+function onCell(doc,fid,ri,ck,v){const s=ensureDoc(doc,PROG);if(!Array.isArray(s.fields[fid]))s.fields[fid]=[{}];if(!s.fields[fid][ri])s.fields[fid][ri]={};s.fields[fid][ri][ck]=v;updateModalStatus();queueSave(doc);}
+function addRow(doc,fid){const s=ensureDoc(doc,PROG);if(!Array.isArray(s.fields[fid]))s.fields[fid]=[];s.fields[fid].push({});queueSave(doc);reopen();}
+function rmRow(doc,fid,ri){const s=ensureDoc(doc,PROG);if(Array.isArray(s.fields[fid])){s.fields[fid].splice(ri,1);if(!s.fields[fid].length)s.fields[fid]=[{}];}queueSave(doc);reopen();}
+function onFile(inp){if(RO||!inp.files||!inp.files[0])return;ensureDoc(CURDOC,PROG).file_name=inp.files[0].name;queueSave(CURDOC);reopen();}
+function clearFile(){if(RO)return;ensureDoc(CURDOC,PROG).file_name=null;queueSave(CURDOC);reopen();}
+function updateModalStatus(){const doc=CURDOC;const el=document.getElementById('mStatus');if(!el)return;const pr=wsProgress(doc,curProg());const done=wsComplete(doc,curProg());const s=docState(doc,curProg());
+  const pctv=pr.total?Math.round(pr.done/pr.total*100):(done?100:0);
+  el.innerHTML=`<div class="mprog"><div class="track"><i style="width:${pctv}%"></i></div><div class="lbl ${done?'ok':''}">${done?(s.file_name?'Complete ✓ — file attached':'Complete ✓ — all required fields done'):(pr.total?`${pr.done} of ${pr.total} required fields done`:'Fill the fields or attach a file')}</div></div>`;}
+function closeWS(){document.getElementById('overlay').classList.remove('show');const wasRO=RO;CURDOC=null;RO=false;ROPROG=null;if(!wasRO)render();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&CURDOC)closeWS();});
+
+/* ================= SCAN / AUTO-FILL ================= */
+function scanReady(){const f=document.getElementById('scanFile');const b=document.getElementById('scanBtn');if(b)b.disabled=!(f&&f.files&&f.files[0]);}
+function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res((""+r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(file);});}
+async function scanFill(){
+  const doc=CURDOC;const f=document.getElementById('scanFile');const msg=document.getElementById('scanMsg');const btn=document.getElementById('scanBtn');
+  if(!f||!f.files||!f.files[0]){return;}
+  const file=f.files[0];
+  if(file.size>12*1024*1024){msg.className='scanmsg err';msg.textContent='File is too large (max 12MB).';return;}
+  btn.disabled=true;msg.className='scanmsg busy';msg.textContent='Reading your worksheet with AI… this can take 20–40 seconds.';
+  try{
+    const b64=await fileToBase64(file);
+    const schema=allFields(doc).map(f2=>({id:f2.id,label:f2.label,type:f2.type,options:f2.options||undefined,cols:f2.cols?f2.cols.map(c=>({k:c.k,label:c.label,type:c.type||'text'})):undefined}));
+    const {data:{session}}=await sb.auth.getSession();
+    const resp=await fetch(SUPABASE_URL+"/functions/v1/extract-worksheet",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+(session?session.access_token:SUPABASE_ANON_KEY),"apikey":SUPABASE_ANON_KEY},body:JSON.stringify({title:WS[doc].title,filename:file.name,mime:file.type,data:b64,schema:schema})});
+    if(!resp.ok){const t=await resp.text();throw new Error("Server "+resp.status+": "+t.slice(0,180));}
+    const out=await resp.json();
+    const vals=out.values||{};
+    const s=ensureDoc(doc,PROG);let n=0;
+    schema.forEach(fm=>{if(vals[fm.id]!=null&&vals[fm.id]!==""){s.fields[fm.id]=vals[fm.id];n++;}});
+    queueSave(doc);
+    const keep="Filled "+n+" field(s). Review them below, edit anything that's off, then Save.";
+    reopen();
+    const m2=document.getElementById('scanMsg');if(m2){m2.className='scanmsg ok';m2.textContent=keep;}
+  }catch(e){msg.className='scanmsg err';msg.textContent="Couldn't auto-fill: "+(e.message||e)+". You can still fill it in manually or attach the file.";}
+  finally{const b2=document.getElementById('scanBtn');if(b2)b2.disabled=false;}
+}
+
+/* ================= SAVE ================= */
+let saveTimers={};
+function setSync(state){const el=document.getElementById('syncdot');if(!el)return;if(state==='saving'){el.className='syncdot saving';el.textContent='• saving…';}else if(state==='saved'){el.className='syncdot saved';el.textContent='• all changes saved';}else{el.className='syncdot';el.textContent='';}}
+function queueSave(doc){if(RO)return;setSync('saving');clearTimeout(saveTimers[doc]);saveTimers[doc]=setTimeout(()=>saveDoc(doc),700);}
+async function saveDoc(doc){const s=PROG[doc]||{fields:{},file_name:null};
+  const row={user_id:ME.id,doc_key:doc,fields:s.fields||{},file_name:s.file_name||null,complete:wsComplete(doc,PROG),updated_at:new Date().toISOString()};
+  const {error}=await sb.from('progress').upsert(row,{onConflict:'user_id,doc_key'});
+  if(error){setSync('');console.error('save',error);}else setSync('saved');}
+let nameTimer=null;
+function setName(v){document.getElementById('hname').textContent=v.trim()||"Your Venture";setSync('saving');clearTimeout(nameTimer);nameTimer=setTimeout(async()=>{const {error}=await sb.from('profiles').update({business_name:v}).eq('id',ME.id);setSync(error?'':'saved');},700);}
+async function resetAll(){if(!confirm("Clear ALL your worksheet progress? This cannot be undone."))return;const {error}=await sb.from('progress').delete().eq('user_id',ME.id);if(error){alert('Could not reset — '+error.message);return;}PROG={};render();setSync('saved');}
+
+/* ================= AUTH ================= */
+function authMsg(t,ok){const el=document.getElementById('authMsg');el.className='authmsg'+(t?(ok?' ok':' err'):'');el.textContent=t;}
+const COACH_DOMAIN='@vmleader.com';
+function isCoachEmail(e){return !!e&&e.trim().toLowerCase().endsWith(COACH_DOMAIN);}
+async function hasAccess(email){if(isCoachEmail(email))return true;try{const {data}=await sb.from('allowed_members').select('active').eq('email',email.trim().toLowerCase()).maybeSingle();return !!(data&&data.active);}catch(e){return false;}}
+async function sendMagicLink(){const email=document.getElementById('auEmail').value.trim();const full_name=document.getElementById('suName').value.trim();if(!email){authMsg('Enter your email.');return;}
+  const btn=document.getElementById('authBtn');btn.disabled=true;
+  try{const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname,data:full_name?{full_name}:undefined}});if(error)throw error;document.getElementById('authForm').classList.add('hide');document.getElementById('authSent').classList.remove('hide');document.getElementById('sentEmail').textContent=email;}catch(e){authMsg(e.message||'Something went wrong.');}finally{btn.disabled=false;}}
+async function doLogout(){await sb.auth.signOut();location.reload();}
+
+/* ================= ROUTING ================= */
+function show(view){['authView','gateView','appView','coachView'].forEach(v=>document.getElementById(v).classList.toggle('hide',v!==view));}
+async function routeSession(session){
+  if(!session){ME=null;PROFILE=null;COACHVIEWING=false;show('authView');return;}
+  ME=session.user;
+  const coach=isCoachEmail(ME.email);
+  if(!coach){const ok=await hasAccess(ME.email);if(!ok){show('gateView');document.getElementById('gateEmail').textContent=ME.email;return;}}
+  let {data:prof}=await sb.from('profiles').select('*').eq('id',ME.id).maybeSingle();
+  if(!prof){const fn=(ME.user_metadata&&ME.user_metadata.full_name)||null;await sb.from('profiles').insert({id:ME.id,email:ME.email,full_name:fn});({data:prof}=await sb.from('profiles').select('*').eq('id',ME.id).maybeSingle());}
+  PROFILE=prof||{};
+  PROFILE.role=coach?'coach':'client';
+  if(coach&&!COACHVIEWING){show('coachView');document.getElementById('cAcctName').textContent=PROFILE.full_name||ME.email;document.getElementById('cAcctEmail').textContent=ME.email;loadCoach();}
+  else{show('appView');document.getElementById('acctName').textContent=PROFILE.full_name||'—';document.getElementById('acctEmail').textContent=ME.email;document.getElementById('bizname').value=PROFILE.business_name||'';document.getElementById('hname').textContent=(PROFILE.business_name||'').trim()||'Your Venture';await loadProgress();}
+}
+async function loadProgress(){const {data,error}=await sb.from('progress').select('doc_key,fields,file_name').eq('user_id',ME.id);PROG={};if(!error&&data)data.forEach(r=>{PROG[r.doc_key]={fields:r.fields||{},file_name:r.file_name||null};});render();setSync('saved');}
+
+/* ================= COACH ================= */
+async function loadCoach(){
+  document.getElementById('cohortWrap').innerHTML='<div class="empty">Loading cohort…</div>';
+  const {data:allProfiles,error:e1}=await sb.from('profiles').select('*').order('created_at',{ascending:true});
+  const {data:rows,error:e2}=await sb.from('progress').select('user_id,doc_key,fields,file_name,updated_at');
+  if(e1||e2){document.getElementById('cohortWrap').innerHTML='<div class="empty">Could not load cohort: '+esc((e1||e2).message)+'</div>';return;}
+  const clients=(allProfiles||[]).filter(p=>!isCoachEmail(p.email||''));
+  const byUser={};(rows||[]).forEach(r=>{(byUser[r.user_id]=byUser[r.user_id]||{})[r.doc_key]={fields:r.fields||{},file_name:r.file_name||null,updated_at:r.updated_at};});
+  COACH_CLIENTS=(clients||[]).map(p=>{const prog=byUser[p.id]||{};const {doneN,pct,stagePct,cur}=countsFor(prog);let last=null;Object.values(prog).forEach(d=>{if(d.updated_at&&(!last||d.updated_at>last))last=d.updated_at;});return {profile:p,prog,doneN,pct,stagePct,cur,last};});
+  renderCohort();
+}
+function weekAgo(){return Date.now()-7*24*3600*1000;}
+function renderCohort(){
+  const n=COACH_CLIENTS.length;const avg=n?Math.round(COACH_CLIENTS.reduce((a,c)=>a+c.pct,0)/n):0;
+  const active=COACH_CLIENTS.filter(c=>c.last&&new Date(c.last).getTime()>weekAgo()).length;
+  const scale=COACH_CLIENTS.filter(c=>c.cur>=5).length;
+  document.getElementById('cCount').textContent=n;document.getElementById('cAvg').innerHTML=avg+"<small>%</small>";document.getElementById('cActive').textContent=active;document.getElementById('cScale').textContent=scale;
+  ring(avg,'cring');
+  const stageAvg=STAGES.map((s,i)=>n?Math.round(COACH_CLIENTS.reduce((a,c)=>a+c.stagePct[i],0)/n):0);
+  document.getElementById('cnavstages').innerHTML=STAGES.map((s,i)=>`<div class="navrow"><span>${s.short}</span><span class="sc">${stageAvg[i]}%</span></div>`).join("");
+  if(!n){document.getElementById('cohortWrap').innerHTML='<div class="empty">No clients have signed up yet. Share the dashboard link — new signups appear here automatically.</div>';return;}
+  let h='<table class="cohort"><thead><tr><th>Client</th><th>Progress</th><th>Stage</th><th>Stages</th><th>Last active</th></tr></thead><tbody>';
+  COACH_CLIENTS.forEach((c,idx)=>{const nm=esc(c.profile.full_name||c.profile.business_name||c.profile.email||'Client');const pips=c.stagePct.map(p=>`<span class="pip ${p===100?'on':''}"></span>`).join('');const last=c.last?new Date(c.last).toLocaleDateString():'—';const lbl=c.cur===STAGES.length?'Complete':('Stage '+(c.cur+1));
+    h+=`<tr onclick="openClient(${idx})"><td><div class="cname">${nm}</div><div class="cmail">${esc(c.profile.email||'')}</div></td><td><span class="minibar"><i style="width:${c.pct}%"></i></span>${c.pct}% · ${c.doneN}/${TOTAL}</td><td>${lbl}</td><td><div class="stagepips">${pips}</div></td><td>${last}</td></tr>`;});
+  h+='</tbody></table>';document.getElementById('cohortWrap').innerHTML=h;
+}
+function openClient(idx){const c=COACH_CLIENTS[idx];document.getElementById('cohortPanel').classList.add('hide');const dt=document.getElementById('clientDetail');dt.classList.remove('hide');document.getElementById('cdTitle').textContent=(c.profile.full_name||c.profile.email||'Client')+(c.profile.business_name?(' · '+c.profile.business_name):'');document.getElementById('cdFill').style.width=c.pct+"%";const wrap=document.getElementById('cdTasklist');wrap.dataset.idx=idx;wrap.innerHTML=checklistHTML(c.prog,'openClientDoc');window.scrollTo({top:0,behavior:'smooth'});}
+function openClientDoc(doc){const idx=+document.getElementById('cdTasklist').dataset.idx;const c=COACH_CLIENTS[idx];openWS(doc,{ro:true,prog:c.prog});}
+function closeClient(){document.getElementById('clientDetail').classList.add('hide');document.getElementById('cohortPanel').classList.remove('hide');}
+
+/* ================= COACH <-> CLIENT TOGGLE ================= */
+async function viewAsClient(){COACHVIEWING=true;show('appView');document.getElementById('acctName').textContent=PROFILE.full_name||'—';document.getElementById('acctEmail').textContent=ME.email;document.getElementById('bizname').value=PROFILE.business_name||'';document.getElementById('hname').textContent=(PROFILE.business_name||'').trim()||'Your Venture';await loadProgress();}
+function backToCoach(){COACHVIEWING=false;show('coachView');loadCoach();}
+
+/* ================= BOOT ================= */
+(function boot(){
+  if(SUPABASE_URL.indexOf('__')===0){document.body.innerHTML='<div style="font-family:sans-serif;max-width:640px;margin:60px auto;padding:24px"><h2>Config needed</h2><p>Add your Supabase URL and anon key.</p></div>';return;}
+  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  sb.auth.getSession().then(({data})=>routeSession(data.session));
+  sb.auth.onAuthStateChange((_e,session)=>{if(_e==='SIGNED_IN'||_e==='SIGNED_OUT'||_e==='INITIAL_SESSION')routeSession(session);});
+})();
+</script>
+</body>
+</html>
