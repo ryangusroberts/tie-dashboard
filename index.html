@@ -78,9 +78,35 @@
   .fnnote{font-size:12px;color:#5a6b7a;margin-top:8px}
   .dialtag{text-align:center;font-size:13px;font-weight:700;color:#0575ab;margin:6px 0 0}
   @media(max-width:760px){.trackpick{grid-template-columns:1fr}.infogrid{grid-template-columns:1fr}.dialgrid{grid-template-columns:1fr}}
+  .hide{display:none!important}
+  body.gated .subhead,body.gated header.hero,body.gated .dash,body.gated .topbar .back{display:none}
+  .tieauth{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#081e2b,#0d2d40);display:flex;align-items:center;justify-content:center;padding:24px}
+  .tieauth-card{background:#fff;border-radius:18px;max-width:440px;width:100%;padding:34px 32px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+  .tieauth-card img{width:44px;height:44px;margin-bottom:12px}
+  .tieauth-card h2{font-family:var(--font-display);font-weight:400;font-size:26px;color:var(--navy);margin:0 0 8px}
+  .tieauth-card .lead{color:#42566a;font-size:14.5px;line-height:1.6;margin:0 0 18px}
+  .tieauth-card input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;margin-bottom:10px;box-sizing:border-box}
+  .tieauth-card button{width:100%;background:linear-gradient(135deg,#20a7e6,#0575ab);color:#fff;border:0;font-weight:700;font-size:15px;padding:13px;border-radius:100px;cursor:pointer}
+  .tieauth-card .msg{font-size:13px;color:#b3261e;margin-top:10px;min-height:16px}
+  .row.donerow{background:#f2fbf4}
 </style>
 </head>
-<body>
+<body class="gated">
+<div class="tieauth" id="tieAuth">
+  <div class="tieauth-card">
+    <img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion">
+    <h2 id="taTitle">The Independent Executive</h2>
+    <div class="lead" id="taLead">Loading your dashboard&hellip;</div>
+    <div id="taForm" class="hide">
+      <input id="taName" type="text" placeholder="Your name (first time only)" autocomplete="name">
+      <input id="taEmail" type="email" placeholder="you@email.com" autocomplete="email">
+      <button onclick="tieSendLink()">Email me a login link</button>
+      <div class="msg" id="taMsg"></div>
+    </div>
+    <div id="taSent" class="hide lead">Check <b id="taSentEmail"></b> for your secure login link. Open it on this device to continue.</div>
+    <div id="taGate" class="hide lead">This dashboard is for enrolled members. We don't see <b id="taGateEmail"></b> on the member list yet. If that's a mistake, contact support@vmleader.com.</div>
+  </div>
+</div>
 <div class="topbar">
   <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><span>Vertical Motion</span></div></div>
   <a class="back" href="https://community.vmleader.com" target="_blank" rel="noopener">Open the community &#8599;</a>
@@ -319,6 +345,68 @@
       if(el){el.querySelector('.lh').style.transition='box-shadow .3s';el.querySelector('.lh').style.boxShadow='inset 0 0 0 3px rgba(255,255,255,.5)';setTimeout(function(){el.querySelector('.lh').style.boxShadow='none';},900);}
     });
   });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var URL="https://rmjlslgfrflbqkwxtidm.supabase.co";
+  var KEY="sb_publishable_3ooOi3enMiJZpEV6em-Hmw_GmjNmO0f";
+  var COACH="@vmleader.com";
+  if(!window.supabase){return;}
+  var sb=window.supabase.createClient(URL,KEY);
+  function el(id){return document.getElementById(id);}
+  function showAuth(mode,email){
+    document.body.classList.add('gated');
+    el('tieAuth').classList.remove('hide');
+    el('taLead').classList.toggle('hide',mode!=='loading');
+    el('taForm').classList.toggle('hide',mode!=='form');
+    el('taSent').classList.toggle('hide',mode!=='sent');
+    el('taGate').classList.toggle('hide',mode!=='gate');
+    if(mode==='loading')el('taLead').classList.remove('hide');
+    if(mode==='gate')el('taGateEmail').textContent=email||'';
+  }
+  function showApp(){document.body.classList.remove('gated');el('tieAuth').classList.add('hide');}
+  window.tieSendLink=function(){
+    var email=(el('taEmail').value||'').trim().toLowerCase();
+    var name=(el('taName').value||'').trim();
+    if(!email){el('taMsg').textContent='Please enter your email.';return;}
+    var opts={emailRedirectTo:location.href.split('#')[0]};
+    if(name)opts.data={full_name:name};
+    sb.auth.signInWithOtp({email:email,options:opts}).then(function(r){
+      if(r.error)el('taMsg').textContent=r.error.message;
+      else{el('taSentEmail').textContent=email;showAuth('sent');}
+    });
+  };
+  function hasAccess(email){
+    if(email.endsWith(COACH))return Promise.resolve(true);
+    return sb.from('allowed_members').select('active').eq('email',email).maybeSingle()
+      .then(function(r){return !!(r.data&&r.data.active);}).catch(function(){return false;});
+  }
+  function reflect(uid){
+    sb.from('progress').select('doc_key,fields').eq('user_id',uid).then(function(r){
+      if(!r.data)return;var done={};
+      r.data.forEach(function(x){if(x.doc_key&&x.doc_key.indexOf('lesson:')===0&&x.fields&&x.fields.done)done[x.doc_key.slice(7)]=1;});
+      document.querySelectorAll('a.row').forEach(function(a){
+        var href=(a.getAttribute('href')||'').replace(/\.html?$/,'');
+        if(done[href]){a.classList.add('donerow');var c=a.querySelector('.chip2');if(c){c.textContent='✓ Done';c.className='chip2 live';}}
+      });
+    }).catch(function(){});
+  }
+  function route(session){
+    if(!session){showAuth('form');return;}
+    var email=(session.user.email||'').toLowerCase();
+    hasAccess(email).then(function(ok){
+      if(!ok){showAuth('gate',session.user.email);return;}
+      sb.from('profiles').select('id').eq('id',session.user.id).maybeSingle().then(function(p){
+        if(!(p.data)){var fn=(session.user.user_metadata&&session.user.user_metadata.full_name)||null;sb.from('profiles').insert({id:session.user.id,email:session.user.email,full_name:fn}).then(function(){});}
+      }).catch(function(){});
+      showApp();reflect(session.user.id);
+    });
+  }
+  showAuth('loading');
+  sb.auth.onAuthStateChange(function(_e,session){route(session);});
+  sb.auth.getSession().then(function(r){route(r.data&&r.data.session);});
+})();
 </script>
 </body>
 </html>

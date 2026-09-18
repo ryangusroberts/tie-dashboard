@@ -1477,7 +1477,7 @@ async function loadCoach(){
   if(e1||e2){document.getElementById('cohortWrap').innerHTML='<div class="empty">Could not load cohort: '+esc((e1||e2).message)+'</div>';return;}
   const clients=(allProfiles||[]).filter(p=>!isCoachEmail(p.email||''));
   const byUser={};(rows||[]).forEach(r=>{(byUser[r.user_id]=byUser[r.user_id]||{})[r.doc_key]={fields:r.fields||{},file_name:r.file_name||null,updated_at:r.updated_at};});
-  COACH_CLIENTS=(clients||[]).map(p=>{const prog=byUser[p.id]||{};const {doneN,pct,stagePct,cur}=countsFor(prog);let last=null;Object.values(prog).forEach(d=>{if(d.updated_at&&(!last||d.updated_at>last))last=d.updated_at;});return {profile:p,prog,doneN,pct,stagePct,cur,last};});
+  COACH_CLIENTS=(clients||[]).map(p=>{const prog=byUser[p.id]||{};const {doneN,pct,stagePct,cur}=countsFor(prog);let last=null;Object.values(prog).forEach(d=>{if(d.updated_at&&(!last||d.updated_at>last))last=d.updated_at;});const lessonsDone=Object.keys(prog).filter(k=>k.indexOf('lesson:')===0&&prog[k].fields&&prog[k].fields.done).length;return {profile:p,prog,doneN,pct,stagePct,cur,last,lessonsDone};});
   renderCohort();
 }
 function weekAgo(){return Date.now()-7*24*3600*1000;}
@@ -1490,9 +1490,9 @@ function renderCohort(){
   const stageAvg=STAGES.map((s,i)=>n?Math.round(COACH_CLIENTS.reduce((a,c)=>a+c.stagePct[i],0)/n):0);
   document.getElementById('cnavstages').innerHTML=STAGES.map((s,i)=>`<div class="navrow"><span>${s.short}</span><span class="sc">${stageAvg[i]}%</span></div>`).join("");
   if(!n){document.getElementById('cohortWrap').innerHTML='<div class="empty">No clients have signed up yet. Share the dashboard link — new signups appear here automatically.</div>';return;}
-  let h='<table class="cohort"><thead><tr><th>Client</th><th>Progress</th><th>Stage</th><th>Stages</th><th>Last active</th></tr></thead><tbody>';
+  let h='<table class="cohort"><thead><tr><th>Client</th><th>Progress</th><th>Lessons</th><th>Stage</th><th>Stages</th><th>Last active</th></tr></thead><tbody>';
   COACH_CLIENTS.forEach((c,idx)=>{const nm=esc(c.profile.full_name||c.profile.business_name||c.profile.email||'Client');const pips=c.stagePct.map(p=>`<span class="pip ${p===100?'on':''}"></span>`).join('');const last=c.last?new Date(c.last).toLocaleDateString():'—';const lbl=c.cur===STAGES.length?'Complete':('Stage '+(c.cur+1));
-    h+=`<tr onclick="openClient(${idx})"><td><div class="cname">${nm}</div><div class="cmail">${esc(c.profile.email||'')}</div></td><td><span class="minibar"><i style="width:${c.pct}%"></i></span>${c.pct}% · ${c.doneN}/${TOTAL}</td><td>${lbl}</td><td><div class="stagepips">${pips}</div></td><td>${last}</td></tr>`;});
+    h+=`<tr onclick="openClient(${idx})"><td><div class="cname">${nm}</div><div class="cmail">${esc(c.profile.email||'')}</div></td><td><span class="minibar"><i style="width:${c.pct}%"></i></span>${c.pct}% · ${c.doneN}/${TOTAL}</td><td>${c.lessonsDone||0} watched</td><td>${lbl}</td><td><div class="stagepips">${pips}</div></td><td>${last}</td></tr>`;});
   h+='</tbody></table>';document.getElementById('cohortWrap').innerHTML=h;
 }
 function openClient(idx){const c=COACH_CLIENTS[idx];document.getElementById('cohortPanel').classList.add('hide');const dt=document.getElementById('clientDetail');dt.classList.remove('hide');document.getElementById('cdTitle').textContent=(c.profile.full_name||c.profile.email||'Client')+(c.profile.business_name?(' · '+c.profile.business_name):'');document.getElementById('cdFill').style.width=c.pct+"%";const wrap=document.getElementById('cdTasklist');wrap.dataset.idx=idx;wrap.innerHTML=checklistHTML(c.prog,'openClientDoc');window.scrollTo({top:0,behavior:'smooth'});}
