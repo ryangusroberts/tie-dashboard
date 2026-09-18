@@ -72,6 +72,9 @@ tbody tr:last-child td{border-bottom:0}
 .docdrop{background:#f7fafc;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:14px 0;font-size:13.5px}
 .docdrop .dh{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--blue-dk);margin-bottom:6px}
 .docdrop ul{margin:0;padding-left:18px}
+.script{background:#f7fafc;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:10px;padding:4px 18px;margin:12px 0;font-size:14px;color:#33475b}
+.script p{margin:10px 0}
+.content h4{font-size:16px;margin:18px 0 6px;color:var(--navy)}
 details{border:1px solid var(--line);border-radius:12px;padding:2px 16px;margin:14px 0;background:#fbfdff}
 details summary{cursor:pointer;font-weight:700;color:var(--navy);padding:12px 0;font-size:15px;list-style:none}
 details summary::-webkit-details-marker{display:none}
