@@ -89,6 +89,21 @@
   .tieauth-card button{width:100%;background:linear-gradient(135deg,#20a7e6,#0575ab);color:#fff;border:0;font-weight:700;font-size:15px;padding:13px;border-radius:100px;cursor:pointer}
   .tieauth-card .msg{font-size:13px;color:#b3261e;margin-top:10px;min-height:16px}
   .row.donerow{background:#f2fbf4}
+  .nextstep{background:linear-gradient(135deg,#fc6502,#d95702);color:#fff;border-radius:14px;padding:16px 20px;margin:22px 0 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 10px 26px rgba(252,101,2,.26)}
+  .nextstep .ns-m{flex:1;min-width:200px}
+  .nextstep .ns-k{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.92}
+  .nextstep b{font-size:16.5px;font-weight:800;display:block;margin-top:2px}
+  .nextstep a.ns-btn{background:#fff;color:#b34a02;text-decoration:none;font-weight:800;font-size:13.5px;padding:10px 18px;border-radius:100px;white-space:nowrap}
+  .laneprog{font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 11px;border-radius:100px}
+  .lane.C.focus{box-shadow:inset 0 0 0 3px #2f8f57,var(--shadow)}
+  .lane.B.focus{box-shadow:inset 0 0 0 3px #e08a2b,var(--shadow)}
+  .lane.U.focus{box-shadow:inset 0 0 0 3px #0575ab,var(--shadow)}
+  .lane.dimmed{opacity:.5;filter:saturate(.6)}
+  .lane .yt{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:#fff;color:var(--navy);padding:4px 11px;border-radius:100px}
+  .tp{position:relative}
+  .tp.sel{box-shadow:0 0 0 3px #fff,0 0 0 6px currentColor}
+  .tp.C.sel{color:#2f8f57}.tp.B.sel{color:#e08a2b}.tp.U.sel{color:#0575ab}
+  .fnlink{color:#0575ab;font-weight:700;text-decoration:none}
 </style>
 </head>
 <body class="gated">
@@ -120,6 +135,7 @@
 </div></header>
 
 <div class="dash">
+  <div id="nextStep" class="nextstep hide"></div>
   <div class="dialcard">
     <h2>Set your Income Dial</h2>
     <p class="sub">Everyone runs the same practice. What changes is how far you turn the dial toward independence, and you can move it any time.</p>
@@ -157,7 +173,7 @@
           <div><label>Monthly need $</label><input id="fnNeed" type="number" inputmode="numeric" placeholder="8000" oninput="calcFN()"></div>
           <div><label>Monthly income $</label><input id="fnHave" type="number" inputmode="numeric" placeholder="3000" oninput="calcFN()"></div>
         </div>
-        <div class="fnnote">Your Freedom Number gauge. Track it for real inside the Build workspace.</div>
+        <div class="fnnote">Enter your numbers: this shows how much of your monthly need your own income already covers. At 100% you've hit your Freedom Number. <a class="fnlink" href="lesson-foundations-4-freedom-number.html">Learn your Freedom Number &rarr;</a></div>
       </div>
     </div>
     <div class="dialtag">One practice. Same mechanism. Only the dial moves.</div>
@@ -314,9 +330,17 @@
     var n=document.getElementById('needle');
     if(n){n.setAttribute('x2',x2.toFixed(1));n.setAttribute('y2',y2.toFixed(1));}
     document.querySelectorAll('.modebtn').forEach(function(b){b.classList.toggle('on',b.dataset.mode===m);});
-    var notes={C:'Career: stay & grow. Your track is below.',B:'Bridge: cover the gap while you search. Your track is below.',U:'Build: go independent. Open your Build workspace below.'};
+    var notes={C:'You’re set to Career: stay & grow. Do Foundations first, then your framed Career track below.',B:'You’re set to Bridge: income while you search. Do Foundations first, then your framed Bridge track below.',U:'You’re set to Build: go independent. Do Foundations first, then open your framed Build track below.'};
     var dn=document.getElementById('dialNote'); if(dn)dn.textContent=notes[m]||'';
     try{localStorage.setItem('tie_mode',m);}catch(e){}
+    var laneMap={C:'career',B:'bridge',U:'build'};
+    ['career','bridge','build'].forEach(function(id){var l=document.getElementById(id);if(!l)return;l.classList.remove('focus','dimmed');var b=l.querySelector('.yt');if(b)b.remove();});
+    var lane=document.getElementById(laneMap[m]);
+    if(lane){lane.classList.add('focus');
+      ['career','bridge','build'].forEach(function(id){if(id!==laneMap[m]){var o=document.getElementById(id);if(o)o.classList.add('dimmed');}});
+      var lh=lane.querySelector('.lh');if(lh){var badge=document.createElement('span');badge.className='yt';badge.textContent='★ Your track';lh.appendChild(badge);}}
+    var tps=document.querySelectorAll('.tp');tps.forEach&&tps.forEach(function(tp){tp.classList.remove('sel');});
+    var idx={C:0,B:1,U:2}[m];if(tps[idx])tps[idx].classList.add('sel');
   }
   function calcFN(){
     var need=parseFloat((document.getElementById('fnNeed')||{}).value)||0;
@@ -390,6 +414,25 @@
         var href=(a.getAttribute('href')||'').replace(/\.html?$/,'');
         if(done[href]){a.classList.add('donerow');var c=a.querySelector('.chip2');if(c){c.textContent='✓ Done';c.className='chip2 live';}}
       });
+      // per-lane progress counts
+      function laneRows(id){var l=document.getElementById(id);return l?[].slice.call(l.querySelectorAll('a.row')):[];}
+      ['foundations','career','bridge','build'].forEach(function(id){
+        var rows=laneRows(id);if(!rows.length)return;
+        var d=rows.filter(function(a){return a.classList.contains('donerow');}).length;
+        var lh=document.querySelector('#'+id+' .lh');if(!lh)return;
+        var ex=lh.querySelector('.laneprog');var txt=d+'/'+rows.length+' done';
+        if(ex)ex.textContent=txt;else{var s=document.createElement('span');s.className='laneprog';s.textContent=txt;lh.appendChild(s);}
+      });
+      // next step: first incomplete Foundations, else first incomplete in the chosen track
+      var mode='';try{mode=localStorage.getItem('tie_mode')||'';}catch(e){}
+      var order=['foundations',(mode==='C'?'career':mode==='U'?'build':'bridge')];
+      var next=null;
+      for(var i=0;i<order.length&&!next;i++){var rows=laneRows(order[i]);for(var j=0;j<rows.length;j++){if(!rows[j].classList.contains('donerow')){next=rows[j];break;}}}
+      var ns=document.getElementById('nextStep');
+      if(ns){
+        if(next){var t=next.querySelector('.m b');ns.innerHTML='<div class="ns-m"><span class="ns-k">Your next step</span><b>'+(t?t.textContent:'Continue')+'</b></div><a class="ns-btn" href="'+next.getAttribute('href')+'">Open &rarr;</a>';ns.classList.remove('hide');}
+        else{ns.innerHTML='<div class="ns-m"><span class="ns-k">Nice work</span><b>You’ve completed everything on your path. Keep your other lane warm.</b></div>';ns.classList.remove('hide');}
+      }
     }).catch(function(){});
   }
   function route(session){
