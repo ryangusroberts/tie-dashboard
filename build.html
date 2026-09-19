@@ -275,7 +275,7 @@
 <div id="appView" class="app hide">
   <aside class="side">
     <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><br><span>Build track · Vertical Motion</span></div></div>
-    <div class="pill">The 8-Week Sprint · 43 Steps</div>
+    <div class="pill">The Build Track · 43 Steps</div>
     <div class="ring-wrap"><svg id="ring" width="132" height="132" viewBox="0 0 132 132"></svg><div class="ring-label">Complete</div></div>
     <h4>Stages</h4>
     <div id="navstages"></div>
@@ -473,7 +473,7 @@ const WS={
   {t:"Time availability",fields:[
     {id:"hours",label:"Hours per week available",type:"number",req:true},
     {id:"besttimes",label:"Best days / times for program work",type:"text"},
-    {id:"travel",label:"Upcoming travel or major commitments (next 8 weeks)",type:"textarea"},
+    {id:"travel",label:"Upcoming travel or major commitments (next couple of months)",type:"textarea"},
     {id:"protect",label:"How will you protect your program time?",type:"textarea"}]},
   {t:"Constraints & risks",fields:[
     {id:"fin_oblig",label:"Financial obligations that depend on your income",type:"textarea"},
@@ -487,7 +487,7 @@ const WS={
     {id:"prev_invest",label:"Programs / courses / coaches you've invested in",type:"textarea"},
     {id:"prev_learn",label:"What worked and what didn't?",type:"textarea"}]},
   {t:"Defining success",fields:[
-    {id:"succ_wk8",label:"This program is a success if, by Week 8, I have…",type:"textarea",req:true},
+    {id:"succ_wk8",label:"This program is a success if, by Module 8, I have…",type:"textarea",req:true},
     {id:"succ_12",label:"In 12 months, I want my life to look like…",type:"textarea",req:true},
     {id:"succ_made",label:"The #1 thing that would make me feel I “made it” is…",type:"text",req:true}]},
   {t:"Commitment",fields:[
@@ -568,8 +568,8 @@ const WS={
   {t:"Transformation statement",help:"“I help [WHO] go from [BEFORE] to [AFTER] through [MECHANISM].”",fields:[
     {id:"transform",label:"Your complete transformation statement",type:"textarea",req:true}]}
  ]},
-"06":{title:"Validation Conversation Guide",phase:"Kickoff → used Week 2",file:"06_Validation_Conversation_Guide.docx",
- purpose:"Run 5+ learning (not selling) conversations. Map who to talk to, capture each conversation, then find the patterns. Received at Kickoff, used after Week 1.",
+"06":{title:"Validation Conversation Guide",phase:"Kickoff → used Module 2",file:"06_Validation_Conversation_Guide.docx",
+ purpose:"Run 5+ learning (not selling) conversations. Map who to talk to, capture each conversation, then find the patterns. Received at Kickoff, used after Module 1.",
  sections:[
   {t:"Your ICP hypothesis",help:"From your Offer Hypothesis Canvas.",fields:[
     {id:"icp_role",label:"Role / title",type:"text",req:true},
@@ -595,7 +595,7 @@ const WS={
   {t:"Name the resistance",fields:[
     {id:"fears",label:"What fears are blocking you from reaching out? (rejection, judgment, failure, success)",type:"textarea",req:true},
     {id:"reframe",label:"Reframe each fear as an experiment / what you'd learn either way",type:"textarea",req:true}]},
-  {t:"The 24-hour rule",help:"Within 24 hours of the Week 1 call, reach out to at least one person. Momentum beats perfection.",fields:[
+  {t:"The 24-hour rule",help:"Within 24 hours of the Module 1 call, reach out to at least one person. Momentum beats perfection.",fields:[
     {id:"first_person",label:"The one person I'll reach out to within 24 hours",type:"text",req:true}]},
   {t:"Your commitment",fields:[
     {id:"commit",label:"I commit to:",type:"multiselect",req:true,options:["Reach out to 1+ person within 24 hours","Complete 5+ validation conversations this week","Document learnings after each conversation","Treat rejection as data, not failure","Report progress in the cohort community"]}]}
@@ -630,8 +630,8 @@ const WS={
     {id:"plan",label:"My specific plan to mitigate it",type:"textarea",req:true},
     {id:"decision",label:"Based on this analysis, I choose to",type:"select",req:true,options:["Proceed with full commitment","Proceed with specific safeguards","Pause and address risks first"]}]}
  ]},
-/* ===== Worksheets 09–16 (Week 1–3) ===== */
-"09":{title:"Decision Velocity Framework",phase:"Week 1",file:"09_Decision_Velocity_Framework.docx",
+/* ===== Worksheets 09–16 (Module 1–3) ===== */
+"09":{title:"Decision Velocity Framework",phase:"Module 1",file:"09_Decision_Velocity_Framework.docx",
  purpose:"Apply the 70% rule and reversible-decision thinking to stop analysis paralysis and commit to Offer v1 — with a review date and change triggers.",
  sections:[
   {t:"Define & classify the decision",fields:[
@@ -649,7 +649,7 @@ const WS={
     {id:"review_date",label:"I will review this decision on",type:"text",req:true},
     {id:"change_course",label:"What would make me change course",type:"textarea",req:true}]}
  ]},
-"10":{title:"Offer Architecture Template (Offer v1)",phase:"Week 1",file:"10_Offer_Architecture_Template (1).docx",
+"10":{title:"Offer Architecture Template (Offer v1)",phase:"Module 1",file:"10_Offer_Architecture_Template (1).docx",
  purpose:"Turn your hypothesis into a finalized Offer v1: full problem, outcome, mechanism, the Value Equation, and pricing. This is the exact offer you validate.",
  sections:[
   {t:"Problem architecture",fields:[
@@ -678,8 +678,8 @@ const WS={
     {id:"price",label:"Offer v1 price",type:"number",prefix:"$",req:true},
     {id:"price_logic",label:"Pricing logic (value delivered vs. price)",type:"textarea",req:true}]}
  ]},
-"11":{title:"Conversation Debrief Template",phase:"Week 2",file:"11_Conversation_Debrief_Template.docx",
- purpose:"Synthesize your 5+ validation conversations into patterns before the Week 2 call — capturing THEIR words, urgency, willingness to pay, and what to change in your offer.",
+"11":{title:"Conversation Debrief Template",phase:"Module 2",file:"11_Conversation_Debrief_Template.docx",
+ purpose:"Synthesize your 5+ validation conversations into patterns before the Module 2 call — capturing THEIR words, urgency, willingness to pay, and what to change in your offer.",
  sections:[
   {t:"Conversation summaries",help:"One row per conversation. Capture exact language, not interpretation.",fields:[
     {id:"convos",label:"Conversations",type:"table",req:true,min:3,cols:[{k:"who",label:"Name / role / company"},{k:"fit",label:"ICP fit",type:"scale5"},{k:"pain",label:"Primary pain (their words)"},{k:"outcome",label:"Desired outcome"},{k:"urg",label:"Urgency",type:"scale5"},{k:"wtp",label:"Willingness to pay"},{k:"quote",label:"Key quote"}]}]},
@@ -687,9 +687,9 @@ const WS={
     {id:"patterns",label:"What themes emerged across conversations?",type:"textarea",req:true},
     {id:"icp_refine",label:"ICP refinement",type:"textarea"},
     {id:"offer_iterate",label:"Offer iteration notes — what to change",type:"textarea",req:true},
-    {id:"top3",label:"Top 3 insights to share at the Week 2 call",type:"textarea",req:true}]}
+    {id:"top3",label:"Top 3 insights to share at the Module 2 call",type:"textarea",req:true}]}
  ]},
-"12":{title:"PMF Validation Checklist",phase:"Week 2",file:"12_PMF_Validation_Checklist.docx",
+"12":{title:"PMF Validation Checklist",phase:"Module 2",file:"12_PMF_Validation_Checklist.docx",
  purpose:"Score product-market-fit evidence from your conversations (0–5 per signal), interpret the total, and make a go / iterate / pivot decision.",
  sections:[
   {t:"PMF evidence scoring",help:"32–40 strong · 24–31 moderate · 16–23 weak · 0–15 no PMF.",fields:[
@@ -707,7 +707,7 @@ const WS={
     {id:"decision",label:"Go / No-Go decision",type:"select",req:true,options:["Proceed to sales","Proceed with caution","Iterate before selling","Major pivot required"]},
     {id:"confidence",label:"Confidence note — why",type:"textarea",req:true}]}
  ]},
-"13":{title:"Money Mindset Reframe",phase:"Week 3",file:"13_Money_Mindset_Reframe.docx",
+"13":{title:"Money Mindset Reframe",phase:"Module 3",file:"13_Money_Mindset_Reframe.docx",
  purpose:"Surface and dismantle limiting money beliefs, adopt value-based pricing (the 10x rule), and write new money mantras before sales conversations.",
  sections:[
   {t:"Money beliefs audit",help:"Rate how much you agree (1–10). Any 5+ is limiting your income.",fields:[
@@ -723,7 +723,7 @@ const WS={
   {t:"Your new money mantras",fields:[
     {id:"mantras",label:"Write your new money mantras",type:"textarea",req:true}]}
  ]},
-"14":{title:"Pre-Call Ritual Guide",phase:"Week 3",file:"14_Pre_Call_Ritual_Guide.docx",
+"14":{title:"Pre-Call Ritual Guide",phase:"Module 3",file:"14_Pre_Call_Ritual_Guide.docx",
  purpose:"A 10-minute pre-call ritual — physical reset, mindset priming, prospect review, intention — so you show up in the optimal state for every sales conversation.",
  sections:[
   {t:"Build your ritual",fields:[
@@ -735,7 +735,7 @@ const WS={
   {t:"Put it to use",fields:[
     {id:"used",label:"I used this ritual before a real sales call",type:"checkbox",req:true}]}
  ]},
-"15":{title:"Sales Conversation Framework",phase:"Week 3",file:"15_Sales_Conversation_Framework.docx",
+"15":{title:"Sales Conversation Framework",phase:"Module 3",file:"15_Sales_Conversation_Framework.docx",
  purpose:"Prepare and run the Rapport → Discovery → Diagnosis → Prescription → Close structure (talk 20%, they talk 80%), and use it in 2+ real conversations.",
  sections:[
   {t:"Prepare your conversation",fields:[
@@ -747,7 +747,7 @@ const WS={
     {id:"count",label:"How many sales conversations have you used this in?",type:"number",req:true},
     {id:"notes",label:"Notes / what you learned",type:"textarea"}]}
  ]},
-"16":{title:"Objection Handling Guide",phase:"Week 3",file:"16_Objection_Handling_Guide.docx",
+"16":{title:"Objection Handling Guide",phase:"Module 3",file:"16_Objection_Handling_Guide.docx",
  purpose:"Prepare A.C.E. (Acknowledge, Clarify, Explore) responses to the top objections, and track what you hear and overcome in real conversations.",
  sections:[
   {t:"Your prepared responses",fields:[
@@ -755,8 +755,8 @@ const WS={
   {t:"Objection practice tracker",fields:[
     {id:"tracker",label:"Objections heard in real calls",type:"table",cols:[{k:"obj",label:"Objection"},{k:"heard",label:"Times heard",type:"number"},{k:"overcome",label:"Times overcome",type:"number"},{k:"notes",label:"Notes"}]}]}
  ]},
-/* ===== Worksheets 17–24 (Week 4–5) ===== */
-"17":{title:"Identity Shift Framework",phase:"Week 4",file:"17_Identity_Shift_Framework.docx",
+/* ===== Worksheets 17–24 (Module 4–5) ===== */
+"17":{title:"Identity Shift Framework",phase:"Module 4",file:"17_Identity_Shift_Framework.docx",
  purpose:"Close the gap between your actions and your self-concept — move from employee to entrepreneur identity and write a new identity statement you read daily.",
  sections:[
   {t:"Current self-perception",fields:[
@@ -770,7 +770,7 @@ const WS={
   {t:"Your new identity statement",help:"“I am a business owner who helps [WHO] achieve [OUTCOME]…”",fields:[
     {id:"statement",label:"Your personalized identity statement",type:"textarea",req:true}]}
  ]},
-"18":{title:"Imposter Syndrome Toolkit",phase:"Week 4",file:"18_Imposter_Syndrome_Toolkit.docx",
+"18":{title:"Imposter Syndrome Toolkit",phase:"Module 4",file:"18_Imposter_Syndrome_Toolkit.docx",
  purpose:"Reality-check imposter thoughts, start an evidence journal you can reach for when doubt hits, and keep a 5-minute emergency protocol.",
  sections:[
   {t:"Reframe imposter thoughts",fields:[
@@ -780,7 +780,7 @@ const WS={
   {t:"Your emergency protocol",fields:[
     {id:"protocol",label:"My 5-minute protocol when imposter syndrome strikes (name it, breathe, recall a success, reframe, act)",type:"textarea"}]}
  ]},
-"19":{title:"Delivery MVP Template",phase:"Week 4",file:"19_Delivery_MVP_Template.docx",
+"19":{title:"Delivery MVP Template",phase:"Module 4",file:"19_Delivery_MVP_Template.docx",
  purpose:"Design the simplest delivery system that gets results — a clear transformation, 4–6 milestones, a call cadence, and a standard agenda.",
  sections:[
   {t:"Define the transformation",fields:[
@@ -798,7 +798,7 @@ const WS={
     {id:"agenda",label:"Your standard call agenda",type:"textarea"},
     {id:"ready",label:"MVP checklist",type:"multiselect",req:true,options:["Defined start & end points","Mapped 4-6 milestones","Decided call frequency & duration","Created standard agenda","Set client expectations","Scheduled first call"]}]}
  ]},
-"20":{title:"Client Onboarding Checklist",phase:"Week 4",file:"20_Client_Onboarding_Checklist.docx",
+"20":{title:"Client Onboarding Checklist",phase:"Module 4",file:"20_Client_Onboarding_Checklist.docx",
  purpose:"Nail the first 48 hours — welcome, intake, expectations, communication norms, and a first win — so the client feels it was the best decision they made.",
  sections:[
   {t:"Onboarding steps",fields:[
@@ -807,7 +807,7 @@ const WS={
     {id:"welcome",label:"Your welcome email (draft)",type:"textarea",req:true},
     {id:"firstwin",label:"The first win you'll create for them",type:"text",req:true}]}
  ]},
-"21":{title:"Momentum Framework",phase:"Week 5",file:"21_Momentum_Framework.docx",
+"21":{title:"Momentum Framework",phase:"Module 5",file:"21_Momentum_Framework.docx",
  purpose:"Avoid the one-client trap — protect time for growth alongside delivery with minimum viable growth activities and a non-negotiable growth block.",
  sections:[
   {t:"Minimum viable growth activities",help:"Protect these even while delivering. If any hits zero, you have a problem.",fields:[
@@ -819,7 +819,7 @@ const WS={
     {id:"gb_time",label:"Growth block time",type:"text",req:true},
     {id:"gb_dur",label:"Duration",type:"text"}]}
  ]},
-"22":{title:"Life Architecture Audit",phase:"Week 5",file:"22_Life_Architecture_Audit.docx",
+"22":{title:"Life Architecture Audit",phase:"Module 5",file:"22_Life_Architecture_Audit.docx",
  purpose:"Mid-program check-in: is this business serving your life or consuming it? Audit energy and life integration, then set course corrections.",
  sections:[
   {t:"Energy audit",fields:[
@@ -841,7 +841,7 @@ const WS={
     {id:"stop",label:"I will STOP doing",type:"text",req:true},
     {id:"continue",label:"I will CONTINUE doing",type:"text"}]}
  ]},
-"23":{title:"Testimonial Request Script",phase:"Week 5",file:"23_Testimonial_Request_Script.docx",
+"23":{title:"Testimonial Request Script",phase:"Module 5",file:"23_Testimonial_Request_Script.docx",
  purpose:"Get powerful social proof — ask right after a win, guide clients with the framework questions, and log who you've asked and received.",
  sections:[
   {t:"Your plan",fields:[
@@ -850,7 +850,7 @@ const WS={
   {t:"Testimonial capture log",fields:[
     {id:"log",label:"Testimonials",type:"table",req:true,min:1,cols:[{k:"client",label:"Client"},{k:"asked",label:"Asked?",type:"select",options:["Yes","No"]},{k:"format",label:"Format",type:"select",options:["Video","Written"]},{k:"received",label:"Received?",type:"select",options:["Yes","No"]}]}]}
  ]},
-"24":{title:"Messaging Refinement Worksheet",phase:"Week 5",file:"24_Messaging_Refinement_Worksheet.docx",
+"24":{title:"Messaging Refinement Worksheet",phase:"Module 5",file:"24_Messaging_Refinement_Worksheet.docx",
  purpose:"Upgrade your hooks using your clients' actual words — mine their language, write 10+ new hooks, and sharpen your one-liner.",
  sections:[
   {t:"Language mining",help:"Use THEIR language, not yours.",fields:[
@@ -864,8 +864,8 @@ const WS={
     {id:"original",label:"Original one-liner",type:"text"},
     {id:"upgraded",label:"Upgraded one-liner (using client language)",type:"textarea",req:true}]}
  ]},
-/* ===== Worksheets 25–34 (Week 6–7) ===== */
-"25":{title:"LinkedIn Authority Audit",phase:"Week 6",file:"CFA_Doc31_LinkedIn_Authority_Audit.docx",
+/* ===== Worksheets 25–34 (Module 6–7) ===== */
+"25":{title:"LinkedIn Authority Audit",phase:"Module 6",file:"CFA_Doc31_LinkedIn_Authority_Audit.docx",
  purpose:"Score your LinkedIn profile, find the gaps, and fix them this week. For each element, rate yourself 1–5 and fix anything below a 4 before next week.",
  sections:[
   {t:"Profile audit — score each element (1–5)",help:"Does each element do its job? Fix anything under 4.",fields:[
@@ -890,7 +890,7 @@ const WS={
   {t:"Priority fixes this week",fields:[
     {id:"priority_fixes",label:"Top fixes I'll make before next week",type:"textarea",req:true}]}
  ]},
-"26":{title:"ICP Connection Tracker",phase:"Week 6",file:"CFA_Doc32_ICP_Connection_Tracker.docx",
+"26":{title:"ICP Connection Tracker",phase:"Module 6",file:"CFA_Doc32_ICP_Connection_Tracker.docx",
  purpose:"Track weekly connection volume, acceptance rate, and conversations started. Target: 200 requests/week (40/day), 40%+ acceptance. Never pitch on the first message.",
  sections:[
   {t:"My ICP targeting criteria",fields:[
@@ -903,7 +903,7 @@ const WS={
   {t:"DM log — value-first messages",help:"Never pitch first. Lead with a framework, insight or genuine question.",fields:[
     {id:"dmlog",label:"Value-first DMs sent",type:"table",req:true,min:1,cols:[{k:"date",label:"Date"},{k:"who",label:"Name + title"},{k:"sent",label:"What I sent (value/insight/question)"},{k:"resp",label:"Response?"},{k:"next",label:"Next step"}]}]}
  ]},
-"27":{title:"Content Pillar Map",phase:"Week 6",file:"CFA_Doc33_Content_Pillar_Map.docx",
+"27":{title:"Content Pillar Map",phase:"Module 6",file:"CFA_Doc33_Content_Pillar_Map.docx",
  purpose:"Define 3–4 content pillars and 5 post ideas under each — that's 15–20 posts ready to draft, a month of content, so you never stare at a blank page.",
  sections:[
   {t:"My ICP + posting commitment",fields:[
@@ -923,16 +923,16 @@ const WS={
     {id:"p4_name",label:"Pillar 4 name / topic area",type:"text"},
     {id:"p4_ideas",label:"5 post ideas (hook or concept for each)",type:"textarea"}]}
  ]},
-"28":{title:"Marketing Scorecard",phase:"Week 6",file:"CFA_Doc34_Marketing_Scorecard.docx",
+"28":{title:"Marketing Scorecard",phase:"Module 6",file:"CFA_Doc34_Marketing_Scorecard.docx",
  purpose:"Run this every Monday in 5 minutes alongside your KPI Dashboard. Fill the Actual column, compare to last week — your weakest metric tells you where to focus.",
  sections:[
   {t:"Weekly tracking",help:"Targets: SSI 70+, 200 requests, 40%+ acceptance, 2–5 posts, 10+ value-first DMs. Log each week.",fields:[
     {id:"scorecard",label:"Weekly marketing metrics",type:"table",req:true,min:1,cols:[{k:"week",label:"Week of"},{k:"ssi",label:"SSI (70+)"},{k:"requests",label:"Requests (200)"},{k:"accept",label:"Acceptance % (40+)"},{k:"posts",label:"Posts (2–5)"},{k:"views",label:"Profile views"},{k:"engage",label:"Engagement % (2–4)"},{k:"inbound",label:"Inbound DMs"},{k:"valuedms",label:"Value DMs (10+)"},{k:"calls",label:"Calls booked"}]}]},
   {t:"Focus",fields:[
     {id:"weakest_metric",label:"My weakest metric this week — and what I'll do about it",type:"textarea",req:true},
-    {id:"trend",label:"8-week trend: where did I improve most, where am I still inconsistent?",type:"textarea"}]}
+    {id:"trend",label:"Trend so far: where did I improve most, where am I still inconsistent?",type:"textarea"}]}
  ]},
-"29":{title:"Client Acquisition SOP",phase:"Week 7",file:"29_Client_Acquisition_SOP.docx",
+"29":{title:"Client Acquisition SOP",phase:"Module 7",file:"29_Client_Acquisition_SOP.docx",
  purpose:"Document your proven path from stranger → client as a repeatable SOP, with daily activities and weekly targets so acquisition runs on consistency, not intensity.",
  sections:[
   {t:"Your client path map (stranger → client)",fields:[
@@ -942,7 +942,7 @@ const WS={
   {t:"Weekly acquisition targets",fields:[
     {id:"weekly",label:"Targets",type:"table",cols:[{k:"metric",label:"Metric"},{k:"target",label:"Target",type:"number"}]}]}
  ]},
-"30":{title:"KPI Dashboard Template",phase:"Week 7",file:"30_KPI_Dashboard_Template.docx",
+"30":{title:"KPI Dashboard Template",phase:"Module 7",file:"30_KPI_Dashboard_Template.docx",
  purpose:"Track the 5–7 numbers that run your business — leading and lagging indicators plus conversion rates — reviewed weekly, same day, same time.",
  sections:[
   {t:"Your core KPIs & targets",fields:[
@@ -956,7 +956,7 @@ const WS={
     {id:"notworking",label:"What's not working? (fix or stop)",type:"text",req:true},
     {id:"onething",label:"The ONE thing to focus on next week",type:"text",req:true}]}
  ]},
-"31":{title:"Weekly Rhythm Template",phase:"Week 7",file:"31_Weekly_Rhythm_Template.docx",
+"31":{title:"Weekly Rhythm Template",phase:"Module 7",file:"31_Weekly_Rhythm_Template.docx",
  purpose:"Design a predictable operating cadence — non-negotiable weekly activities, a planning ritual, and this week's top 3 — so success becomes inevitable. Your calendar is your strategy made visible.",
  sections:[
   {t:"Non-negotiable weekly activities",fields:[
@@ -968,7 +968,7 @@ const WS={
     {id:"p2",label:"Priority 2",type:"text",req:true},
     {id:"p3",label:"Priority 3",type:"text",req:true}]}
  ]},
-"32":{title:"CEO Operating Identity",phase:"Week 7",file:"32_CEO_Operating_Identity.docx",
+"32":{title:"CEO Operating Identity",phase:"Module 7",file:"32_CEO_Operating_Identity.docx",
  purpose:"Shift from practitioner to CEO — audit time spent ON vs IN the business, claim a protected CEO time block, and filter tasks through the highest-value question.",
  sections:[
   {t:"Your time audit",help:"Review last week. Target: at least 20% CEO time, growing to 50%+.",fields:[
@@ -981,7 +981,7 @@ const WS={
   {t:"The CEO question",fields:[
     {id:"answer",label:"What $500/hour work should you shift toward (and what $20/hour work to drop)?",type:"textarea",req:true}]}
  ]},
-"33":{title:"Client Retention Playbook",phase:"Week 7",file:"33_Client_Retention_Playbook.docx",
+"33":{title:"Client Retention Playbook",phase:"Module 7",file:"33_Client_Retention_Playbook.docx",
  purpose:"Keep clients longer and raise lifetime value — design retention touchpoints and a continuation offer, and run the retention conversation at the 75% point.",
  sections:[
   {t:"Retention strategies",fields:[
@@ -992,7 +992,7 @@ const WS={
   {t:"The retention conversation",fields:[
     {id:"convo",label:"Your 75%-point conversation notes / script",type:"textarea"}]}
  ]},
-"34":{title:"Referral System Template",phase:"Week 7",file:"34_Referral_System_Template.docx",
+"34":{title:"Referral System Template",phase:"Module 7",file:"34_Referral_System_Template.docx",
  purpose:"Turn happy clients into an acquisition engine — ask at the right moments, give them the words (an intro blurb), and track and thank every referrer.",
  sections:[
   {t:"Your referral ask",fields:[
@@ -1001,8 +1001,8 @@ const WS={
   {t:"Referral tracking",fields:[
     {id:"tracking",label:"Referrals",type:"table",req:true,min:1,cols:[{k:"referrer",label:"Referrer"},{k:"referred",label:"Referred"},{k:"status",label:"Status"},{k:"thanked",label:"Thanked?",type:"select",options:["Yes","No"]}]}]}
  ]},
-/* ===== Worksheets 35–39 (Week 8) + companion steps ===== */
-"35":{title:"90-Day Growth Plan",phase:"Week 8",file:"35_90_Day_Growth_Plan.docx",
+/* ===== Worksheets 35–39 (Module 8) + companion steps ===== */
+"35":{title:"90-Day Growth Plan",phase:"Module 8",file:"35_90_Day_Growth_Plan.docx",
  purpose:"Bridge where you are now to where you want to be next quarter — current state, 90-day targets, and a month-by-month plan you review weekly.",
  sections:[
   {t:"Current state",fields:[
@@ -1027,7 +1027,7 @@ const WS={
     {id:"m3_actions",label:"Key actions",type:"textarea",req:true},
     {id:"m3_metric",label:"Success metric",type:"text"}]}
  ]},
-"36":{title:"Scale Lever Analysis",phase:"Week 8",file:"36_Scale_Lever_Analysis.docx",
+"36":{title:"Scale Lever Analysis",phase:"Module 8",file:"36_Scale_Lever_Analysis.docx",
  purpose:"Identify which of the five growth levers moves the needle most right now — then focus on ONE until you've maximized it.",
  sections:[
   {t:"Your opportunity on each lever",fields:[
@@ -1041,7 +1041,7 @@ const WS={
     {id:"action",label:"Specific action I'll take",type:"textarea",req:true},
     {id:"impact",label:"Expected impact",type:"text"}]}
  ]},
-"37":{title:"Risk Assessment for Growth",phase:"Week 8",file:"37_Risk_Assessment_Growth.docx",
+"37":{title:"Risk Assessment for Growth",phase:"Module 8",file:"37_Risk_Assessment_Growth.docx",
  purpose:"Spot the new risks that emerge as you scale, rate their likelihood, and build prevention plans for your top 3 — the best risk management is prevention.",
  sections:[
   {t:"Growth risks — likelihood",fields:[
@@ -1054,7 +1054,7 @@ const WS={
   {t:"Your top 3 risks",fields:[
     {id:"top",label:"Top risks",type:"table",req:true,min:3,cols:[{k:"risk",label:"Risk"},{k:"warning",label:"Early warning sign"},{k:"prevention",label:"Prevention plan"}]}]}
  ]},
-"38":{title:"Long-Term Vision Worksheet",phase:"Week 8",file:"38_Long_Term_Vision_Worksheet.docx",
+"38":{title:"Long-Term Vision Worksheet",phase:"Module 8",file:"38_Long_Term_Vision_Worksheet.docx",
  purpose:"Capture who you've become and where this is going — 12-month, 3-year, and 10-year horizons, and the beliefs you must adopt to get there.",
  sections:[
   {t:"Identity consolidation",fields:[
@@ -1075,10 +1075,10 @@ const WS={
   {t:"Beliefs for the next level",fields:[
     {id:"beliefs",label:"Beliefs you must adopt to achieve your 3-year vision",type:"textarea",req:true}]}
  ]},
-"39":{title:"Program Completion Checklist",phase:"Week 8",file:"39_Program_Completion_Checklist.docx",
- purpose:"Final audit — verify your 8-week milestones, capture your results and the assets you now own, and choose your next 90-day focus. You did it.",
+"39":{title:"Program Completion Checklist",phase:"Module 8",file:"39_Program_Completion_Checklist.docx",
+ purpose:"Final audit — verify your milestones, capture your results and the assets you now own, and choose your next 90-day focus. You did it.",
  sections:[
-  {t:"Your 8-week achievements",fields:[
+  {t:"Your achievements",fields:[
     {id:"milestones",label:"Completed milestones (check all)",type:"multiselect",req:true,options:["Validated offer with real conversations","Built Offer v1 (and refined to v2)","Created client acquisition system","Had 10+ sales conversations","Signed first paying client(s)","Built delivery system","Captured client testimonial(s)","Established weekly operating rhythm","Built KPI dashboard","Created 90-day growth plan"]}]},
   {t:"Your results",fields:[
     {id:"clients",label:"Total paying clients signed",type:"number",req:true},
@@ -1208,7 +1208,7 @@ const NOTION_THEME={1:"Offer Architecture",2:"Validation Conversations",3:"First
 function groupNotion(group){
   if(!group) return null;
   const m=group.match(/week\s*(\d)/i);
-  if(m){const w=+m[1];return NOTION[w]?{url:NOTION[w],label:"Week "+w+" Lesson: "+NOTION_THEME[w]}:null;}
+  if(m){const w=+m[1];return NOTION[w]?{url:NOTION[w],label:"Module "+w+" Lesson: "+NOTION_THEME[w]}:null;}
   if(/ai operating system/i.test(group)) return {url:NOTION.aios,label:"Pre-Work Lesson: Your AI Operating System"};
   if(/pre-work/i.test(group)) return {url:NOTION.kickoff,label:"Kickoff Lesson"};
   return null;
