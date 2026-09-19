@@ -104,6 +104,27 @@
   .tp.sel{box-shadow:0 0 0 3px #fff,0 0 0 6px currentColor}
   .tp.C.sel{color:#2f8f57}.tp.B.sel{color:#e08a2b}.tp.U.sel{color:#0575ab}
   .fnlink{color:#0575ab;font-weight:700;text-decoration:none}
+  .commbtn{display:inline-flex;align-items:center;gap:8px}
+  .commicon{width:18px;height:18px;border-radius:5px;display:block}
+  .asopen{background:#fff;border:1px solid var(--line);color:var(--blue-dk);font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:100px;cursor:pointer}
+  .asopen:hover{background:#f6fafd}
+  .asmodal{position:fixed;inset:0;z-index:9998;background:rgba(8,30,43,.7);display:flex;align-items:flex-start;justify-content:center;padding:28px 20px;overflow:auto}
+  .asmodal-card{background:#fff;border-radius:18px;max-width:560px;width:100%;padding:30px;position:relative;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+  .asmodal-card h2{font-family:var(--font-display);font-weight:400;font-size:26px;color:var(--navy);margin:0 0 4px}
+  .assub{color:#42566a;font-size:14px;margin:0 0 8px}
+  .asclose{position:absolute;top:12px;right:16px;border:0;background:none;font-size:28px;color:#98a7b5;cursor:pointer;line-height:1}
+  .asq{border-top:1px solid var(--line);padding:14px 0}
+  .asq .qt{font-weight:700;color:var(--navy);font-size:14.5px;margin-bottom:8px}
+  .asopt{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer;font-size:13.5px;color:#33475b}
+  .asopt:hover{background:#f6fafd}
+  .asopt.sel{border-color:#0693d8;background:#eef7fc}
+  .asbtn{background:linear-gradient(135deg,#20a7e6,#0575ab);color:#fff;border:0;font-weight:800;font-size:15px;padding:13px 22px;border-radius:100px;cursor:pointer}
+  .asbtn:disabled{opacity:.5;cursor:default}
+  .asresult{text-align:center;padding:6px 0}
+  .asresult .rmode{font-family:var(--font-display);font-size:30px;margin:8px 0 4px}
+  .asresult.C .rmode{color:#2f6b43}.asresult.B .rmode{color:#a35a17}.asresult.U .rmode{color:#0575ab}
+  .asctas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .aslink{background:none;border:0;color:#0575ab;font-weight:700;cursor:pointer;font-size:13.5px}
 </style>
 </head>
 <body class="gated">
@@ -124,7 +145,7 @@
 </div>
 <div class="topbar">
   <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><span>Vertical Motion</span></div></div>
-  <a class="back" href="https://community.vmleader.com" target="_blank" rel="noopener">Open the community &#8599;</a>
+  <a class="back commbtn" href="https://community.vmleader.com" target="_blank" rel="noopener"><img class="commicon" src="https://community.vmleader.com/favicon.ico" alt="" onerror="this.style.display='none'">Open the community &#8599;</a>
 </div>
 <div class="subhead">Career Free Agency &nbsp;·&nbsp; a <b>full year</b> in the program, at <b>your pace</b> &nbsp;·&nbsp; 4 group calls a week + the <b>AI Lab</b> &nbsp;·&nbsp; 1:1 coaching optional</div>
 
@@ -177,10 +198,22 @@
       </div>
     </div>
     <div class="dialtag">One practice. Same mechanism. Only the dial moves.</div>
+    <div style="text-align:center;margin-top:14px"><button class="asopen" onclick="openAssess()">Not sure where to point it? Take the 2-minute assessment &rarr;</button></div>
     <div class="trackpick">
       <a class="tp C" href="#career"><div class="h"><b>Career</b><span>Stay &amp; grow, move up or move on</span></div><div class="b">Presence, brand, network, interviewing, negotiation, and the first 90 days in a bigger role.</div></a>
       <a class="tp B" href="#bridge"><div class="h"><b>Bridge</b><span>Between roles, income + dignity</span></div><div class="b">Cover the gap with a lean fractional practice while you run the search, on your terms.</div></a>
       <a class="tp U" href="#build"><div class="h"><b>Build</b><span>Go independent, full income</span></div><div class="b">Offer, validation, sales, delivery, marketing, and the systems to run your own practice.</div></a>
+    </div>
+  </div>
+
+  <div class="asmodal hide" id="asModal">
+    <div class="asmodal-card">
+      <button class="asclose" onclick="closeAssess()" aria-label="Close">&times;</button>
+      <h2>Find your dial in 2 minutes</h2>
+      <p class="assub">Answer honestly. There are no wrong answers, and you can move your dial any time.</p>
+      <div id="asQuestions"></div>
+      <div id="asResult" class="hide"></div>
+      <div class="asfoot" id="asFoot" style="margin-top:14px"><button class="asbtn" id="asSubmit" onclick="scoreAssess()" style="width:100%">See my result</button></div>
     </div>
   </div>
 
@@ -369,6 +402,67 @@
       if(el){el.querySelector('.lh').style.transition='box-shadow .3s';el.querySelector('.lh').style.boxShadow='inset 0 0 0 3px rgba(255,255,255,.5)';setTimeout(function(){el.querySelector('.lh').style.boxShadow='none';},900);}
     });
   });
+</script>
+<script>
+(function(){
+  var Q=[
+    {q:"Where are you right now?",o:[["Employed, and I want to grow or advance","C"],["Employed, but a change is coming (I'm leaving or being pushed out)","B"],["Between roles right now","B"],["Already consulting or running my own thing","U"]]},
+    {q:"What do you most want in the next year?",o:[["A bigger role, a promotion, or a better job","C"],["Income and stability while I figure out my next move","B"],["To replace my income with my own practice","U"]]},
+    {q:"How is your runway (savings vs. monthly need)?",o:[["Comfortable, I have time","C"],["Okay, but I need income coming in fairly soon","B"],["Tight, I need income now","B"]]},
+    {q:"How do you feel about having a boss?",o:[["Fine, I want to lead inside an organization","C"],["Open to either for now","B"],["I want to be my own boss","U"]]},
+    {q:"Do you already have expertise people would pay you for directly?",o:[["Not sure yet","C"],["Probably, I'd need to package it fast","B"],["Yes, I've done it or I'm doing it now","U"]]},
+    {q:"Your appetite for risk right now?",o:[["I prefer the stability of employment","C"],["I want a safety net while I explore independence","B"],["I'm ready to bet on myself","U"]]},
+    {q:"Your single biggest priority?",o:[["Advance where I am, or land a better role","C"],["Cover a gap and keep my options open","B"],["Build my own business","U"]]}
+  ];
+  var ANS={};
+  var RES={C:{name:"Career",blurb:"Stay and grow. Keep your seat, build your leverage, and be ready to move up or move on, with a starter asset in the other lane so you're never stuck."},
+           B:{name:"Bridge",blurb:"Income while you search. Stabilize, stand up one lean offer for income and dignity, and run your search from strength, both lanes at once."},
+           U:{name:"Build",blurb:"Go independent. Turn your expertise into your own income, while keeping your brand and network warm so you always have a fallback."}};
+  window.openAssess=function(){renderQ();document.getElementById('asResult').classList.add('hide');document.getElementById('asFoot').classList.remove('hide');document.getElementById('asModal').classList.remove('hide');};
+  window.closeAssess=function(){document.getElementById('asModal').classList.add('hide');};
+  function renderQ(){
+    ANS={};
+    var h='';
+    Q.forEach(function(item,qi){
+      h+='<div class="asq"><div class="qt">'+(qi+1)+'. '+item.q+'</div>';
+      item.o.forEach(function(op,oi){
+        h+='<label class="asopt" data-q="'+qi+'" data-m="'+op[1]+'" onclick="asPick(this)"><input type="radio" name="asq'+qi+'"><span>'+op[0]+'</span></label>';
+      });
+      h+='</div>';
+    });
+    document.getElementById('asQuestions').innerHTML=h;
+    document.getElementById('asQuestions').classList.remove('hide');
+    var s=document.getElementById('asSubmit');s.disabled=true;
+  }
+  window.asPick=function(lbl){
+    var qi=lbl.getAttribute('data-q');
+    document.querySelectorAll('.asopt[data-q="'+qi+'"]').forEach(function(o){o.classList.remove('sel');});
+    lbl.classList.add('sel');
+    ANS[qi]=lbl.getAttribute('data-m');
+    document.getElementById('asSubmit').disabled=(Object.keys(ANS).length<Q.length);
+  };
+  window.scoreAssess=function(){
+    var t={C:0,B:0,U:0};Object.keys(ANS).forEach(function(k){t[ANS[k]]++;});
+    var order=['B','C','U']; // tie preference: Bridge, then Career, then Build
+    var best=order[0];order.forEach(function(m){if(t[m]>t[best])best=m;});
+    var r=RES[best];
+    document.getElementById('asQuestions').classList.add('hide');
+    document.getElementById('asFoot').classList.add('hide');
+    var el=document.getElementById('asResult');
+    el.className='asresult '+best;
+    el.innerHTML='<div style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#64748b">Your recommended dial</div>'
+      +'<div class="rmode">'+r.name+'</div><p style="color:#42566a;font-size:14px;max-width:44ch;margin:0 auto">'+r.blurb+'</p>'
+      +'<div style="font-size:12.5px;color:#8593a0;margin-top:8px">Career '+t.C+' · Bridge '+t.B+' · Build '+t.U+'. You can move your dial any time.</div>'
+      +'<div class="asctas"><button class="asbtn" onclick="applyAssess(\''+best+'\')">Set my dial to '+r.name+'</button><button class="aslink" onclick="openAssess()">Retake</button></div>';
+    el.classList.remove('hide');
+  };
+  window.applyAssess=function(m){
+    if(window.setDial)window.setDial(m);
+    closeAssess();
+    var lane=document.getElementById(m==='C'?'career':m==='U'?'build':'bridge');
+    if(lane)lane.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+})();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
