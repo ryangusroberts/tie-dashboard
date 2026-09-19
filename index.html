@@ -130,6 +130,21 @@
   .asresult.C .rmode{color:#2f6b43}.asresult.B .rmode{color:#a35a17}.asresult.U .rmode{color:#0575ab}
   .asctas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
   .aslink{background:none;border:0;color:#0575ab;font-weight:700;cursor:pointer;font-size:13.5px}
+  header.hero h1.bi8title{font-size:clamp(42px,6.6vw,72px);line-height:1.0;letter-spacing:-.025em;margin:14px 0 14px;font-weight:400}
+  header.hero h1.bi8title .grad{background:linear-gradient(100deg,#7ec5ea 0%,#20a7e6 55%,#0693d8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  header.hero .sub{font-size:17.5px;max-width:60ch;color:#cbd8e2}
+  .commbtn{display:inline-flex;align-items:center;gap:9px;font-size:14px}
+  .commbtn .commicon{width:22px;height:22px;border-radius:6px}
+  .commband{margin:24px 0 8px;background:linear-gradient(135deg,#081e2b,#0d2d40 62%,#0b3350);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 30px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;position:relative;overflow:hidden}
+  .commband::after{content:"";position:absolute;right:-60px;top:-60px;width:230px;height:230px;background:radial-gradient(circle,rgba(6,147,216,.3),transparent 62%);pointer-events:none}
+  .commband .ct{display:flex;align-items:center;gap:16px;min-width:220px}
+  .commband .cimg{width:52px;height:52px;border-radius:13px;flex:none;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .commband h3{font-family:var(--font-display);font-weight:400;font-size:23px;color:#fff;margin:0}
+  .commband p{margin:3px 0 0;color:#a9c2d3;font-size:13.5px}
+  .commband .cbtn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#20a7e6,#0575ab);color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:14px 26px;border-radius:100px;box-shadow:0 10px 26px rgba(6,147,216,.4);white-space:nowrap}
+  .commband .cbtn:hover{transform:translateY(-2px)}
+  .commband .cbtn img{width:22px;height:22px;border-radius:6px}
+  @media(max-width:600px){.commband{justify-content:center;text-align:center}}
 </style>
 </head>
 <body class="gated">
@@ -152,11 +167,11 @@
   <div class="brand"><div class="logo"><img src="https://vmleader.com/vm-icon.png" alt="Vertical Motion"></div><div><b>The Independent Executive</b><span>Vertical Motion</span></div></div>
   <a class="back commbtn" href="https://community.vmleader.com" target="_blank" rel="noopener"><img class="commicon" src="https://community.vmleader.com/favicon.ico" alt="" onerror="this.style.display='none'">Open the community &#8599;</a>
 </div>
-<div class="subhead">Career Free Agency &nbsp;·&nbsp; 4 group calls a week + the <b>AI Lab</b> &nbsp;·&nbsp; 1:1 with a <b>Certified Executive Coach</b> optional</div>
+<div class="subhead">Career Free Agency &nbsp;·&nbsp; 4 group calls a week + the <b>AI Lab</b> &nbsp;·&nbsp; 1:1 with a <b>Certified Executive Coach</b> for Signature members</div>
 
 <header class="hero"><div class="wrap">
   <span class="eyebrow">Your program</span>
-  <h1>One program. Any direction.</h1>
+  <h1 class="bi8title">One program.<br><span class="grad">Any direction.</span></h1>
   <p class="sub">Turn the expertise you already have into leverage, then aim it where you want: grow where you are, bridge a gap, or build your own. Every direction leads to freedom, and leading inside a great organization counts. Start with Foundations, set your dial, and move at your own pace.</p>
 </div></header>
 
@@ -375,6 +390,14 @@
   <div class="guaranteecard">
     <h3>The guarantee</h3>
     <p>Go through the program and take part, and you will have <b>been promoted</b>, <b>moved into a new job</b>, or <b>earned $10,000 on your own</b>, or we keep you in the program until you do. Your weekly AI Lab and ongoing agentic-AI support are built to make that happen faster than you'd expect.</p>
+  </div>
+
+  <div class="commband">
+    <div class="ct">
+      <img class="cimg" src="https://community.vmleader.com/favicon.ico" alt="" onerror="this.style.display='none'">
+      <div><h3>Your community lives in Circle</h3><p>Group calls, the AI Lab, your cohort, and your coaches, all in one place.</p></div>
+    </div>
+    <a class="cbtn" href="https://community.vmleader.com" target="_blank" rel="noopener"><img src="https://community.vmleader.com/favicon.ico" alt="" onerror="this.style.display='none'">Open the community &#8599;</a>
   </div>
 </div>
 
