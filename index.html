@@ -55,6 +55,10 @@
   .live{background:#e8f5ea;color:#2f6b43}
   .prog{background:#fff2e2;color:#a35a17}
   .todo{background:#eef1f5;color:#5f7183}
+  .row.critical{border:2px solid var(--blue);background:linear-gradient(135deg,#f2f9fd,#e9f4fb);border-radius:12px;margin:8px 2px;box-shadow:0 8px 22px rgba(6,147,216,.16)}
+  .row.critical:hover{background:linear-gradient(135deg,#eaf4fb,#e0eff9)}
+  .row.critical .idx{background:var(--blue);color:#fff}
+  .cflag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--orange);padding:2px 8px;border-radius:100px;margin-left:8px;vertical-align:middle}
   .row .go{flex:none;color:var(--blue-dk);font-weight:800;font-size:18px;opacity:.5}
   .row:hover .go{opacity:1}
   .infogrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
@@ -263,7 +267,7 @@
     <div class="lh"><div><h3>Foundations</h3><div class="lt">Start here · everyone, whatever your dial</div></div><span class="badge">Shared</span></div>
     <div class="rows">
       <a class="row" href="lesson-foundations-1-income-dial.html"><div class="idx">F1</div><div class="m"><b>Set Your Income Dial</b><small>The leverage model, the four lanes, and the assessment that points you to your mode.</small></div><span class="chip2 todo">Incomplete</span><span class="go">&rsaquo;</span></a>
-      <a class="row" href="lesson-foundations-report.html"><div class="idx">F2</div><div class="m"><b>The Leadership Foundations Report</b><small>Five psychometric assessments plus a live Foundations Call: your mirror and compass. Our signature differentiator.</small></div><span class="chip2 todo">Incomplete</span><span class="go">&rsaquo;</span></a>
+      <a class="row critical" href="lesson-foundations-report.html"><div class="idx">F2</div><div class="m"><b>The Leadership Foundations Report <span class="cflag">Critical step</span></b><small>Five psychometric assessments plus a live Foundations Call: your mirror and compass. Do this early, it shapes everything that follows.</small></div><span class="chip2 todo">Incomplete</span><span class="go">&rsaquo;</span></a>
       <a class="row" href="lesson-foundations-2-zone-of-value.html"><div class="idx">F3</div><div class="m"><b>Your Zone of Value</b><small>The expertise you can charge for or rise on. The Whole Executive Framework meets your Expertise Inventory.</small></div><span class="chip2 todo">Incomplete</span><span class="go">&rsaquo;</span></a>
       <a class="row" href="lesson-foundations-3-purpose-identity.html"><div class="idx">F4</div><div class="m"><b>Purpose &amp; Identity</b><small>Ikigai and the mindsets of an independent operator, so the direction you pick actually fits your life.</small></div><span class="chip2 todo">Incomplete</span><span class="go">&rsaquo;</span></a>
       <a class="row" href="lesson-foundations-self-discovery.html"><div class="idx">F5</div><div class="m"><b>Self-Discovery Workshop <span style="font-weight:600;color:var(--muted);font-size:11px">· optional</span></b><small>Slow down to speed up: who you are now, and who you need to become.</small></div><span class="chip2 todo">Incomplete</span><span class="go">&rsaquo;</span></a>
