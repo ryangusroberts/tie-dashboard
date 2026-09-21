@@ -97,3 +97,11 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:0 0 48px}
 footer .fl{width:30px;height:30px;margin:0 auto 8px;opacity:.7}
 footer .fl img{width:30px;height:30px;object-fit:contain}
 @media(max-width:640px){.hero h1{font-size:32px}.content{padding:28px 20px}.hero{padding:32px 0 108px}.content h2{font-size:22px}}
+
+/* Related videos gallery */
+.relvids{margin-top:36px;border-top:1px solid #e6edf2;padding-top:24px}
+.relvids .rvintro{color:#33475a;font-size:14.5px;margin:2px 0 16px}
+.rvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.rvitem{background:#081e2b;border-radius:14px;overflow:hidden;box-shadow:0 8px 22px rgba(8,30,43,.14)}
+.rvitem .ratio{border-radius:0}
+.rvitem .rvcap{display:block;padding:10px 13px 13px;color:#cfe0ea;font-size:12.5px;line-height:1.35;font-weight:600}
