@@ -13,6 +13,9 @@
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function fmt(s){
     var h=esc(s).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+    var A='<a target="_blank" rel="noopener" style="color:#0575ab;font-weight:600;text-decoration:underline" href=';
+    h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, A+'"$2">$1</a>');
+    h=h.replace(/(^|[^"=\/>])((https?:\/\/)[^\s<)]+)/g, '$1'+A+'"$2">$2</a>');
     var lines=h.split(/\n+/).map(function(l){l=l.trim();if(!l)return '';
       if(/^[-*•]\s+/.test(l))return '<div style="margin:2px 0 2px 4px">• '+l.replace(/^[-*•]\s+/,'')+'</div>';
       return '<p style="margin:0 0 10px">'+l+'</p>';});
