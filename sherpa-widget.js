@@ -103,6 +103,17 @@
     ta.addEventListener('input',function(){ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,96)+'px';});
     send.onclick=ask;
 
+    function decorate(b,meta){
+      if(!b||!meta)return;
+      if(meta.profileSaved){var ps=el('div','margin-top:6px;font-size:11px;color:#2f8f57;font-weight:600','✓ Saved to your profile');b.appendChild(ps);}
+      if(meta.sources&&meta.sources.length){
+        var seen={},labels=[];
+        meta.sources.forEach(function(s){var k=(s.source||'')+':'+(s.title||'');if(!seen[k]){seen[k]=1;labels.push(s.title||s.source);}});
+        if(labels.length){var sc=el('div','margin-top:8px;padding-top:8px;border-top:1px solid #eef2f6;font-size:11px;color:#8496a5','Drawn from: '+labels.slice(0,4).map(esc).join(' · '));b.appendChild(sc);}
+      }
+      body.scrollTop=body.scrollHeight;
+    }
+
     function ask(){
       var q=ta.value.trim(); var f=pendingFile;
       if((!q && !f)||busy)return; busy=true;
@@ -111,22 +122,40 @@
       else { bubble('user',esc(q)); }
       var thinking=bubble('bot','<span>Sherpa is '+(f?'reading your file…':'thinking…')+'</span>',true);
       var payload={question:q,lesson:lessonId()}; if(f)payload.file=f;
+      var acc='', botB=null, doneMeta=null;
+      function ensureBubble(){ if(!botB){ if(thinking&&thinking.parentNode)thinking.parentNode.remove(); botB=bubble('bot',''); } return botB; }
+      function finish(){
+        var b=ensureBubble();
+        b.innerHTML=fmt(acc||'I hit a snag with that. Try again in a moment, or reach out to your VM coach.');
+        decorate(b,doneMeta);
+        busy=false;
+      }
       fetch(FN_URL,{method:'POST',headers:{'Authorization':'Bearer '+token,'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},body:JSON.stringify(payload)})
-        .then(function(r){return r.json();})
-        .then(function(d){
-          thinking.parentNode.remove();
-          if(d && d.answer){
-            var b=bubble('bot',fmt(d.answer));
-            if(d.profileSaved){var ps=el('div','margin-top:6px;font-size:11px;color:#2f8f57;font-weight:600','✓ Saved to your profile');b.appendChild(ps);}
-            if(d.sources&&d.sources.length){
-              var seen={},labels=[];
-              d.sources.forEach(function(s){var k=(s.source||'')+':'+(s.title||'');if(!seen[k]){seen[k]=1;labels.push(s.title||s.source);}});
-              if(labels.length){var sc=el('div','margin-top:8px;padding-top:8px;border-top:1px solid #eef2f6;font-size:11px;color:#8496a5','Drawn from: '+labels.slice(0,4).map(esc).join(' · '));b.appendChild(sc);}
-            }
-          } else { bubble('bot','I hit a snag with that. Try again in a moment, or reach out to your VM coach.',true); }
-          busy=false;
+        .then(function(r){
+          var ct=(r.headers.get('content-type')||'');
+          if(ct.indexOf('text/event-stream')<0 || !r.body || !r.body.getReader){
+            return r.json().then(function(d){ acc=(d&&d.answer)||''; doneMeta=d||{}; finish(); });
+          }
+          var reader=r.body.getReader(), dec=new TextDecoder(), buf='';
+          function pump(){
+            return reader.read().then(function(res){
+              if(res.done){ finish(); return; }
+              buf+=dec.decode(res.value,{stream:true});
+              var nl;
+              while((nl=buf.indexOf('\n'))>=0){
+                var line=buf.slice(0,nl).trim(); buf=buf.slice(nl+1);
+                if(line.indexOf('data:')!==0) continue;
+                var p=line.slice(5).trim(); if(!p) continue;
+                var ev; try{ev=JSON.parse(p);}catch(e){continue;}
+                if(ev.t!=null){ acc+=ev.t; var b=ensureBubble(); b.innerHTML=fmt(acc); body.scrollTop=body.scrollHeight; }
+                else if(ev.done){ doneMeta=ev; }
+              }
+              return pump();
+            });
+          }
+          return pump();
         })
-        .catch(function(){thinking.parentNode.remove();bubble('bot','I could not reach the guide just now. Please try again shortly.',true);busy=false;});
+        .catch(function(){ if(botB){ finish(); } else { if(thinking&&thinking.parentNode)thinking.parentNode.remove(); bubble('bot','I could not reach the guide just now. Please try again shortly.',true); busy=false; } });
     }
   }
 
