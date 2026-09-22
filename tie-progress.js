@@ -83,4 +83,7 @@
       });
     });
   });
+
+  // Load the Sherpa AI guide widget on every lesson page
+  (function(){var s=document.createElement('script');s.src='sherpa-widget.js';(document.body||document.head).appendChild(s);})();
 })();
