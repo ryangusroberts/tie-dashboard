@@ -1,4 +1,4 @@
-/* Sherpa — the Vertical Motion AI guide. Floating chat widget for every page.
+/* Sherpa — the Vertical Motion virtual coach. Floating chat widget for every page.
    Talks to the sherpa-chat edge function (RAG over VM's corpus + the client's
    LDNA/Foundations profile + conversation memory + coaching guardrails).
    Supports uploading a psychometrics / LinkedIn / Foundations file, which Sherpa
@@ -19,13 +19,12 @@
     return lines.join('');
   }
 
-  var LOGO='<svg viewBox="0 0 40 40" width="26" height="26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-    +'<defs><linearGradient id="shg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#20a7e6"/><stop offset="1" stop-color="#0575ab"/></linearGradient></defs>'
-    +'<path d="M8 5h20a6 6 0 0 1 6 6v13a6 6 0 0 1-6 6H17l-7 6v-6H8a6 6 0 0 1-6-6V11a6 6 0 0 1 6-6z" fill="url(#shg)"/>'
-    +'<path d="M10 25l6.5-11 4 6 3-5 6.5 10z" fill="#fff"/>'
-    +'<path d="M20.5 20l3-5 2.2 3.5-2.2.2z" fill="#fc6502"/>'
-    +'<path d="M30.5 8.5l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9z" fill="#ffd25a"/>'
-    +'</svg>';
+  // Clean VM-style mark: a chat bubble (suggests conversation) with an upward peak (Vertical Motion).
+  function mark(size){return '<svg viewBox="0 0 40 40" width="'+size+'" height="'+size+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+    +'<defs><linearGradient id="shg'+size+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#20a7e6"/><stop offset="1" stop-color="#0575ab"/></linearGradient></defs>'
+    +'<path d="M7 6h26a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H17l-6 5v-5H7a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4z" fill="url(#shg'+size+')"/>'
+    +'<path d="M11 24 L20 12 L29 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>'
+    +'</svg>';}
   var CLIP='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5a6b7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a5 5 0 0 1-7.07-7.07l9.19-9.19a3.5 3.5 0 0 1 4.95 4.95l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>';
 
   function el(tag,css,html){var e=document.createElement(tag);if(css)e.style.cssText=css;if(html!=null)e.innerHTML=html;return e;}
@@ -41,16 +40,19 @@
   }
 
   function build(){
-    var btn=el('button','position:fixed;right:22px;bottom:22px;z-index:2147483000;width:60px;height:60px;border:0;border-radius:50%;cursor:pointer;background:linear-gradient(135deg,#0693d8,#0575ab);box-shadow:0 10px 28px rgba(6,147,216,.45);display:flex;align-items:center;justify-content:center;transition:transform .15s',LOGO+'<span style="position:absolute;top:-4px;right:-4px;background:#fc6502;color:#fff;font:700 9px Inter,sans-serif;padding:2px 6px;border-radius:100px;font-family:Inter,system-ui,sans-serif">AI</span>');
-    btn.setAttribute('aria-label','Ask Sherpa');
-    btn.onmouseenter=function(){btn.style.transform='scale(1.06)';};
-    btn.onmouseleave=function(){btn.style.transform='scale(1)';};
+    // Launcher: a pill that names Sherpa as a Virtual Coach.
+    var btn=el('button','position:fixed;right:22px;bottom:22px;z-index:2147483000;border:0;cursor:pointer;background:linear-gradient(135deg,#0693d8,#0575ab);border-radius:100px;padding:9px 18px 9px 10px;display:flex;align-items:center;gap:11px;box-shadow:0 12px 30px rgba(6,147,216,.42);transition:transform .15s;font-family:Inter,system-ui,-apple-system,sans-serif',
+      '<span style="width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex:none">'+mark(24)+'</span>'
+      +'<span style="text-align:left;line-height:1.15"><span style="display:block;color:#fff;font-weight:800;font-size:15px">Ask Sherpa</span><span style="display:block;color:rgba(255,255,255,.85);font-size:11px;font-weight:600;letter-spacing:.2px">Virtual Coach</span></span>');
+    btn.setAttribute('aria-label','Ask Sherpa, your virtual coach');
+    btn.onmouseenter=function(){btn.style.transform='translateY(-2px)';};
+    btn.onmouseleave=function(){btn.style.transform='translateY(0)';};
 
-    var panel=el('div','position:fixed;right:22px;bottom:94px;z-index:2147483000;width:378px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 130px);background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(8,30,43,.34);display:none;flex-direction:column;overflow:hidden;font-family:Inter,system-ui,-apple-system,sans-serif');
+    var panel=el('div','position:fixed;right:22px;bottom:90px;z-index:2147483000;width:382px;max-width:calc(100vw - 32px);height:568px;max-height:calc(100vh - 130px);background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(8,30,43,.34);display:none;flex-direction:column;overflow:hidden;font-family:Inter,system-ui,-apple-system,sans-serif');
 
     var head=el('div','background:linear-gradient(135deg,#081e2b,#0d3448);color:#fff;padding:15px 16px;display:flex;align-items:center;gap:11px');
-    head.innerHTML='<span style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center">'+LOGO+'</span>'
-      +'<div style="flex:1"><div style="font-weight:800;font-size:16px;letter-spacing:.2px">Sherpa</div><div style="font-size:11.5px;color:#a9c6d8">Your Vertical Motion guide</div></div>'
+    head.innerHTML='<span style="width:42px;height:42px;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center">'+mark(26)+'</span>'
+      +'<div style="flex:1"><div style="font-weight:800;font-size:16px;letter-spacing:.2px">Sherpa</div><div style="font-size:11.5px;color:#a9c6d8">Your Vertical Motion virtual coach</div></div>'
       +'<button id="shX" aria-label="Close" style="background:transparent;border:0;color:#cfe0ea;font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>';
 
     var body=el('div','flex:1;overflow-y:auto;padding:16px;background:#f5f8fb');
@@ -88,7 +90,7 @@
       row.appendChild(b);body.appendChild(row);body.scrollTop=body.scrollHeight;return b;
     }
     function greet(){ if(greeted)return; greeted=true;
-      bubble('bot',fmt("Hey — I'm **Sherpa**, your Vertical Motion guide. I'm trained on the whole program, Tom's book, two years of Leadership Edge calls, and your own assessments.\n\nAsk me anything — or tap the clip to share your Foundations Report, LDNA, or LinkedIn so I can coach you personally.")); }
+      bubble('bot',fmt("Hi, I'm **Sherpa**, your Vertical Motion virtual coach.\n\nI'm trained on every detail of the course materials, the VM ethos, Tom's books, and thousands of other data points, including you personally. I have access to your client file and assessments, and you can upload them here anytime too.\n\nAsk me anything about your career, a lesson, or your next move.")); }
 
     function open(){panel.style.display='flex';btn.style.display='none';greet();setTimeout(function(){ta.focus();},50);}
     function close(){panel.style.display='none';btn.style.display='flex';}
@@ -112,6 +114,7 @@
           thinking.parentNode.remove();
           if(d && d.answer){
             var b=bubble('bot',fmt(d.answer));
+            if(d.profileSaved){var ps=el('div','margin-top:6px;font-size:11px;color:#2f8f57;font-weight:600','✓ Saved to your profile');b.appendChild(ps);}
             if(d.sources&&d.sources.length){
               var seen={},labels=[];
               d.sources.forEach(function(s){var k=(s.source||'')+':'+(s.title||'');if(!seen[k]){seen[k]=1;labels.push(s.title||s.source);}});
